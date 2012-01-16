@@ -1,0 +1,10 @@
+#!/bin/bash
+set -e
+cwd="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+#sudo apt-get install pep8
+curl -Lo- http://bit.ly/janus-bootstrap | bash
+
+echo "sym linking vimrc.before and vimrc.after to $HOME"
+ln -s $cwd/vimrc.before ~/.vimrc.before
+ln -s $cwd/vimrc.after ~/.vimrc.after
