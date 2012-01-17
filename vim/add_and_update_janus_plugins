@@ -1,0 +1,23 @@
+set -e
+cwd="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+(
+echo "updating janus"
+cd ~/.vim
+rake
+)
+
+(
+echo "updating vim plugins in ~/.janus"
+cp -rf ~/.janus ~/.janus.old
+cd ~/.janus
+git submodule init
+git submodule update
+git submodule foreach git pull origin master
+)
+
+(
+echo "adding to janus new vim plugins defined in $cwd/vim_plugin_submodule"
+cd ~/.janus
+cat $cwd/vim_plugins | sh
+)
