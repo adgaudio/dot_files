@@ -1,1 +1,2 @@
 git submodule add https://github.com/chrismetcalf/vim-yankring.git
+git submodule add https://github.com/ivanov/vim-ipython.git
