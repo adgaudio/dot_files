@@ -2,3 +2,4 @@ call janus#disable_plugin('nodejs', "i get this error message: Function DetectNo
 let mapleader = ","
 noremap ; :
 
+set mouse=a
