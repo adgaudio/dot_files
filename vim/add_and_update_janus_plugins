@@ -18,6 +18,7 @@ git submodule foreach git pull origin master
 
 (
 echo "adding to janus new vim plugins defined in $cwd/vim_plugin_submodule"
+#rm -rf ~/.janus ; mkdir ~/.janus
 cd ~/.janus
 cat $cwd/vim_plugins | sh
 )

@@ -2,4 +2,10 @@ call janus#disable_plugin('nodejs', "i get this error message: Function DetectNo
 let mapleader = ","
 noremap ; :
 
-set mouse=a
+
+set mouse=a " Use mouse in all modes
+
+" When opening a file in the command bar, tab completion behaves like bash
+" autocomplete
+set wildmode=longest,list,full
+set wildmenu
