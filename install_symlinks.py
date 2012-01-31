@@ -20,8 +20,12 @@ def maybe(f):
 
 @maybe
 def symlink(x, y, s=s, d=d):
-    print join(s, x) + '......' + join(d, y)
-    os.symlink(join(s, x), join(d, y))
+    src = join(s,x)
+    if os.path.exists(src):
+        print join(s, x) + '......' + join(d, y)
+        os.symlink(join(s, x), join(d, y))
+    else:
+        print "DOESN'T EXIST: %s" % src
 
 #########################################
 #########################################
