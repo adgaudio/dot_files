@@ -10,7 +10,8 @@ alias killjob='kill $(jobs -p)'
 alias ll="ls -ltr"
 alias la="ls -a"
 alias lla="ls -latr"
-
+which xdg-open && alias open="xdg-open" # use open like in mac osx
+alias v=vim
 alias screen="screen -xRR -e^Pp"
 alias screenn="/usr/bin/screen -e^Pp"
 
@@ -26,7 +27,6 @@ alias l="git log $@"
 alias re="git rebase $@"
 alias r="git remote -v $@"
 alias s="git status $@"
-#alias s="echo $1 ; cd $1 ; git status $@ ; cd -"
 function s {
     if [ "$1" != "" ] ; then
         cd $1
@@ -40,6 +40,5 @@ function s {
        echo -n "pwd:"
        cd -
     fi
-
 }
 
