@@ -1,0 +1,43 @@
+export EDITOR=vim
+export PYTHONPATH=.:$HOME/bin
+
+#
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
+#export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+source virtualenvwrapper.sh
+
+#####
+# SHELL PROMPT
+#####
+
+# PS1 looks like this:
+#   Mon Jan 30 11:19:49 | ~
+#   alex-adaptly$
+ME="alex"
+PR_IMPOSTER="" 
+# Simple version, not colorized
+PS1="$PR_IMPOSTER\n\d \A | \w\n\h\$ " 
+
+# COLORS!!!
+purple="\[\033[0;35m\]"
+cyan="\[\033[1;36m\]"
+green="\[\033[0;32m\]"
+green_escape="\[\033[0\;32m\]"
+tan="\[\033[1;31m\]"
+white="\[\033[0m\]"
+yellow="\[\033[1;33m\]"
+red="\[\033[0;31m\]"
+red_escape="\[\033[0\;31m\]"
+
+date_="\d \A"
+pwd="\w"
+host="\h"
+stoplight="\`if [[ \$? = "0" ]]; then echo ${green_escape}; else echo ${red_escape}; fi\`" # red on failure, green on success of last cmd
+
+PS1="$PR_IMPOSTER \n${purple}${date_} | ${tan}${pwd} \n${stoplight} ${host} \$ ${white}"
+
+######
+######
+
+# Shell acts like vim
+set -o vi
