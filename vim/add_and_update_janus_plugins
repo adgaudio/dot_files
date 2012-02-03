@@ -2,13 +2,17 @@ set -e
 cwd="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 (
+echo -e "\n##############"
 echo "updating janus"
+echo "##############"
 cd ~/.vim
 rake
 )
 
 (
+echo -e "\n##############"
 echo "updating vim plugins in ~/.janus"
+echo "##############"
 cp -rf ~/.janus ~/.janus.old
 cd ~/.janus
 git submodule init
@@ -17,8 +21,11 @@ git submodule foreach git pull origin master
 )
 
 (
-echo "adding to janus new vim plugins defined in $cwd/vim_plugin_submodule"
+vim_plugins="vim_plugins"
+echo -e "\n##############"
+echo "adding to janus new vim plugins defined in $cwd/$vim_plugins"
+echo "##############"
 #rm -rf ~/.janus ; mkdir ~/.janus
 cd ~/.janus
-cat $cwd/vim_plugins | sh
+cat $cwd/$vim_plugins | sh
 )
