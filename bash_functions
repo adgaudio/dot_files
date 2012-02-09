@@ -29,4 +29,19 @@ function safewrap
   $1
   set +e
   )
+
+function s
+{
+    if [ "$1" != "" ] ; then
+        cd $1
+    fi
+    echo "pwd:" `pwd`
+    echo "git status"
+    echo
+    git status
+    if [[ "$1" != "" ]] ; then
+       echo
+       echo -n "pwd:"
+       cd -
+    fi
 }

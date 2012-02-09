@@ -2,9 +2,9 @@ export EDITOR=vim
 export PYTHONPATH=.:$HOME/bin
 
 #
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/env python
 #export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
-source virtualenvwrapper.sh
+#. virtualenvwrapper.sh
 
 #####
 # SHELL PROMPT
