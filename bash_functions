@@ -29,6 +29,7 @@ function safewrap
   $1
   set +e
   )
+}
 
 function s
 {
