@@ -22,6 +22,14 @@ function except
     fi
 }
 
+function safewrap
+{
+  (
+  set -e
+  $1
+  set +e
+  )
+
 function s
 {
     if [ "$1" != "" ] ; then
