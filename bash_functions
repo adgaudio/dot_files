@@ -21,3 +21,12 @@ function except
         $1
     fi
 }
+
+function safewrap
+{
+  (
+  set -e
+  $1
+  set +e
+  )
+}

@@ -24,8 +24,10 @@ alias c="git commit $@"
 alias ch="git checkout $@"
 alias d="git diff $@"
 alias l="git log $@"
+alias pop="git stash pop"
 alias re="git rebase $@"
 alias r="git remote -v $@"
+alias stash="git stash"
 alias s="git status $@"
 function s 
 {
