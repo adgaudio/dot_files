@@ -15,6 +15,11 @@ alias v=vim
 alias screen="screen -xRR -e^Pp"
 alias screenn="/usr/bin/screen -e^Pp"
 
+####
+#Ruby specific
+####
+alias rake="bundle exec rake"
+
 #####
 #Git aliases
 #####
