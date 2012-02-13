@@ -31,6 +31,8 @@ def symlink(x, y, s=s, d=d):
 #########################################
 
 if __name__ == '__main__':
+    symlink("ackrc", ".ackrc")
+
     symlink("bash_aliases", ".bash_aliases")
     symlink("bash_functions", ".bash_functions")
     symlink("bash_aliases", ".bash_aliases")
