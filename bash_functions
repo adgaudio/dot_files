@@ -1,3 +1,4 @@
+
 function ifexists
 {
     if [ -e $1 ]
