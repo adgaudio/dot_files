@@ -10,26 +10,29 @@ export VIRTUALENVWRAPPER_VIRTUALENV=virtualenv
 
 # COLORS!!!
 purple="\[\033[0;35m\]"
-cyan="\[\033[1;36m\]"
+cyan="\[\033[2;36m\]"
 green="\[\033[0;32m\]"
 green_escape="\[\033[0\;32m\]"
-tan="\[\033[1;31m\]"
 white="\[\033[0m\]"
 yellow="\[\033[0;33m\]"
 red="\[\033[0;31m\]"
 red_escape="\[\033[0\;31m\]"
 
-ME="alex"
+ME="alexwork"
 date_="\d \A"
 pwd="\w"
 host="\h"
-stoplight="\`if [[ \$? = "0" ]]; then echo ${green_escape}; else echo ${red_escape}; fi\`" # red on failure, green on success of last cmd
-imposter="\`if [[ \"$(whoami)\" != \"$ME\" ]]; then echo \"\n${yellow} ($(whoami)) \"; fi\`"
+git_branch='$(__git_ps1 "(%s)")'
+stoplight="\`if [[ \$? = "0" ]]; then echo \"${green}\"; else echo \"${red}\"; fi\`"
+# red on failure, green on success of last cmd
+
+imposter="\`if [[ \"$(whoami)\" != \"$ME\" ]]; then echo \"\n${purple} ($(whoami)) \"; fi \`"
+
 # PS1 looks like this:
 #   Mon Jan 30 11:19:49 | ~
 #   alex-adaptly$
 #PS1="$imposter \n\d \A | \w\n\h\$ " # Simple version, not colorized
-PS1="$imposter \n${purple}${date_} | ${tan}${pwd} \n${stoplight} ${host} \$ ${white}"
+PS1="\n${cyan}${date_} | ${yellow}${pwd} \n${stoplight}${git_branch} \$ ${white}"
 
 ######
 ######
