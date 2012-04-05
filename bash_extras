@@ -39,3 +39,20 @@ PS1="\n${cyan}${date_} | ${yellow}${pwd} \n${stoplight}${git_branch} \$ ${white}
 
 # Shell acts like vim
 #set -o vi
+
+#cd command will guess misspelled directories
+shopt -s cdspell
+
+#cd awesomeness from hayne.net/MacDev/Bash/aliases.bash
+#EX:
+#  $ save hi # saves hi=$PWD to a file ~/.dirs
+#  $ sdirs # sources ~/.dirs
+#  $ cd hi # note: 'shopt -s cdable_vars' is set above
+shopt -s cdable_vars # set the bash option so that no '$' is required when using the above facility
+alias sdirs='source ~/.dirs'
+alias show='cat ~/.dirs'
+function save ()
+{
+ sed --regexp-extended "/^$@$/d" ~/.dirs > ~/.dirs1; \mv ~/.dirs1 ~/.dirs; echo "$@"=\"`pwd`\" >> ~/.dirs; source ~/.dirs ; 
+}
+

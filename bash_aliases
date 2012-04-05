@@ -9,7 +9,7 @@ alias db="mysql -uroot -proot"
 alias e="emacs"
 alias f="find . -iname"
 alias grep="grep --color=auto"
-alias killjob='kill $(jobs -p)'
+alias killjobs='kill $(jobs -p)' # to kill individual job, do: $ kill %1
 alias ll="ls -ltr"
 alias la="ls -a"
 alias lla="ls -latr"
