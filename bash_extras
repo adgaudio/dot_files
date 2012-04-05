@@ -1,3 +1,4 @@
+export CDPATH=~:$CDPATH
 export EDITOR=vim
 export PYTHONPATH=.:$HOME/bin:$HOME:$PYTHONPATH
 
