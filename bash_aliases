@@ -1,5 +1,5 @@
 alias _count="sort | uniq -c | sort -n "
-alias favorite_cmds="history|tr -s ' '|cut -d' ' -f3 |tr '|' '\n' |count"
+alias favorite_cmds="history|tr -s ' '|cut -d' ' -f3- |tr '|' '\n' |_count"
 ####
 #General aliases
 ####
