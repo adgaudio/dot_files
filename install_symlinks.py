@@ -38,6 +38,10 @@ if __name__ == '__main__':
     symlink("bash_aliases", ".bash_aliases")
     symlink("bash_extras", ".bash_extras")
 
+    symlink("inputrc", ".inputrc")
+
+    symlink("python/pythonrc.py", ".pythonrc.py")
+
     symlink("tmux/tmux.conf", ".tmux.conf")
     symlink("tmux/bash_completion_tmux.sh", ".bash_completion_tmux.sh")
 
