@@ -1,5 +1,6 @@
 export CDPATH=~:$CDPATH
 export EDITOR=vim
+export PYTHONSTARTUP=~/.pythonrc.py
 export PYTHONPATH=.:$HOME/bin:$HOME:$PYTHONPATH
 
 export VIRTUALENVWRAPPER_PYTHON=python
@@ -39,17 +40,20 @@ PS1="\n${cyan}${date_} | ${yellow}${pwd} \n${stoplight}${git_branch} \$ ${white}
 ######
 
 # Shell acts like vim
-#set -o vi
+set -o vi # check out inputrc for extra bindings and if necessary: #export INPUTRC=~/.inputrc
 
-#cd command will guess misspelled directories
-shopt -s cdspell
+shopt -s autocd  #don't type cd to navigate directories
+shopt -s cdable_vars # set the bash option so that no '$' is required when using the above facility
+shopt -s cdspell #cd command will guess misspelled directories
+shopt -s globstar # ** globs all files, sub-files and subdirectories
+shopt -s lithist #multi-line commands are saved to history with newlines rather than semi-colons
+shopt -s checkwinsize #update the values of LINES and COLUMNS after each cmd
 
 #cd awesomeness from hayne.net/MacDev/Bash/aliases.bash
 #EX:
 #  $ save hi # saves hi=$PWD to a file ~/.dirs
 #  $ sdirs # sources ~/.dirs
 #  $ cd hi # note: 'shopt -s cdable_vars' is set above
-shopt -s cdable_vars # set the bash option so that no '$' is required when using the above facility
 alias sdirs='source ~/.dirs'
 alias show='cat ~/.dirs'
 function save ()
