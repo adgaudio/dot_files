@@ -3,16 +3,15 @@ set editing-mode vi
 set keymap vi-command
 "gg": beginning-of-history
 "G": end-of-history
-
 "\C-l": clear-screen
 
 set keymap vi-insert
 "\C-a": beginning-of-line
 "\C-e": end-of-line
 "\C-k": kill-line
-
 "\C-l": clear-screen
+
 
 # IPython needs this to appear at the bottom of the
 # file for clear-screen to work
-set keymap vi
+#set keymap vi
