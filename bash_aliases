@@ -1,5 +1,6 @@
 alias _count="sort | uniq -c | sort -n "
 alias favorite_cmds="history|tr -s ' '|cut -d' ' -f3- |tr '|' '\n' |_count"
+
 ####
 #General aliases
 ####
@@ -7,7 +8,7 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias db="mysql -uroot -proot"
 alias e="emacs"
-alias f="find . -iname"
+alias fin="find . -iname"
 alias grep="grep --color=auto"
 alias killjobs='kill $(jobs -p)' # to kill individual job, do: $ kill %1
 alias ll="ls -ltr"
@@ -33,9 +34,11 @@ alias b="git branch"
 alias c="git commit"
 alias ch="git checkout"
 alias d="git diff"
+alias dc="git diff --cached"
 alias l="git log --color=auto --decorate"
+alias p="git push"
 alias pop="git stash pop"
-alias fetch="git fetch"
+alias f="git fetch"
 alias re="git rebase"
 alias r="git remote -v"
 alias stash="git stash"
