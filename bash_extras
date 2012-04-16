@@ -1,4 +1,4 @@
-export CDPATH=~:$CDPATH
+export CDPATH="~:$CDPATH"
 export EDITOR=vim
 export PATH=~/bin:$PATH
 export PYTHONSTARTUP=~/.pythonrc.py
