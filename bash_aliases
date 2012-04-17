@@ -22,7 +22,9 @@ alias screenn="/usr/bin/screen -e^Pp"
 ####
 #Language specific
 ####
+alias pry="bundle exec pry"
 alias rake="bundle exec rake"
+
 #alias ipython="ipython --autoedit-syntax --deep-reload --no-confirm-exit"
 alias i=ipython
 
