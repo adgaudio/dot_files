@@ -8,10 +8,12 @@ vmap < <gv
 vmap > >gv
 
 " Emacs-like beginning and end of line
-noremap <C-a> ^
-noremap <C-e> $
+inoremap <C-a> <Esc>^i
+nnoremap <C-a> ^
+inoremap <C-e> <Esc>$i
+nnoremap <C-e> $
 
-set clipboard=unnamedplus " Integration with system clipboard
+set clipboard=unnamedplus " Integration with system clipboard ... + is copy and * is select
 set mouse=a " Use mouse in all modes
 
 " When opening a file in the command bar, tab completion behaves like bash
