@@ -4,13 +4,20 @@ alias favorite_cmds="history|tr -s ' '|cut -d' ' -f3- |tr '|' '\n' |_count"
 ####
 #General aliases
 ####
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
 alias ..="cd .."
 alias ...="cd ../.."
 alias db="mysql -uroot -proot"
 alias e="emacs"
 alias fin="find . -iname"
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
 alias grep="grep --color=auto"
 alias killjobs='kill $(jobs -p)' # to kill individual job, do: $ kill %1
+alias ls='ls --color=auto'
 alias ll="ls -ltr"
 alias la="ls -a"
 alias lla="ls -latr"
@@ -26,7 +33,8 @@ alias pry="bundle exec pry"
 alias rake="bundle exec rake"
 
 #alias ipython="ipython --autoedit-syntax --deep-reload --no-confirm-exit"
-alias i=ipython
+alias i="ipython console"
+alias ie="ipython console --existing"
 
 #####
 #Git aliases
