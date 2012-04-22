@@ -13,7 +13,15 @@ nnoremap <C-a> ^
 inoremap <C-e> <Esc>$i
 nnoremap <C-e> $
 
+
 set clipboard=unnamedplus " Integration with system clipboard ... + is copy and * is select
+
+"folding settings " toggle folds with za  ... also use zR and zM and zr and zm
+set foldmethod=manual   "fold based on indent
+set foldnestmax=3       "deepest fold is 10 levels
+set nofoldenable        "dont fold by default
+set foldlevel=1         "this is just what i use
+
 set mouse=a " Use mouse in all modes
 
 " When opening a file in the command bar, tab completion behaves like bash

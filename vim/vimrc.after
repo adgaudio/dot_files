@@ -1,3 +1,4 @@
 " Yank from cursor to end of line
 nnoremap Y y$
 
+source $HOME/.janus/vim-ipython/ftplugin/python/ipy.vim
