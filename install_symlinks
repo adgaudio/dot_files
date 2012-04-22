@@ -3,9 +3,9 @@
 import os
 join = os.path.join
 
-# source
+# source dir
 s = os.path.realpath(os.path.dirname(__file__))
-# dest
+# dest dir
 d = os.environ['HOME']
 
 
@@ -14,18 +14,19 @@ def maybe(f):
         try:
             f(*args, **kwargs)
         except Exception, e:
-            print e
+            print '    %s' % e
     return tryer
 
 
 @maybe
 def symlink(x, y, s=s, d=d):
     src = join(s,x)
+    dest = join(d,y)
+    print src + '......' + dest
     if os.path.exists(src):
-        print join(s, x) + '......' + join(d, y)
-        os.symlink(join(s, x), join(d, y))
+        os.symlink(src, dest)
     else:
-        print "DOESN'T EXIST: %s" % src
+        print "    DOESN'T EXIST: %s" % src
 
 #########################################
 #########################################
