@@ -1,3 +1,6 @@
+#####
+# ENV VARS
+#####
 export CDPATH="~:$CDPATH"
 export EDITOR=vim
 export PATH=~/bin:$PATH
@@ -38,6 +41,7 @@ imposter="\`if [[ \"$(whoami)\" != \"$ME\" ]]; then echo \"\n${purple} ($(whoami
 PS1="\n${cyan}${date_} | ${yellow}${pwd} \n${stoplight}${git_branch} \$ ${white}"
 
 ######
+# Bash awesomeness
 ######
 
 # Shell acts like vim
@@ -50,8 +54,9 @@ shopt -s extglob #ability to use pattern matching like *(pattern1|pattern2) and 
 shopt -s globstar # ** globs all files, sub-files and subdirectories
 shopt -s lithist #multi-line commands are saved to history with newlines rather than semi-colons
 shopt -s checkwinsize #update the values of LINES and COLUMNS after each cmd
-#
-#cd awesomeness from hayne.net/MacDev/Bash/aliases.bash
+
+
+# cd tricks from hayne.net/MacDev/Bash/aliases.bash
 #EX:
 #  $ save hi # saves hi=$PWD to a file ~/.dirs
 #  $ sdirs # sources ~/.dirs
@@ -62,4 +67,21 @@ function save ()
 {
  sed --regexp-extended "/^$@$/d" ~/.dirs > ~/.dirs1; \mv ~/.dirs1 ~/.dirs; echo "$@"=\"`pwd`\" >> ~/.dirs; source ~/.dirs ; 
 }
+
+# stop XOFF and XON being sent from the keyboard via <C-s> and <C-q>
+# but still allowing other software to send the commands.
+# useful for vim-ipython plugin and anything that binds to <C-s>
+stty ixoff -ixon
+
+#####
+# Daemon Processes to run at startup
+#####
+if ! ps ax|grep -i redshift | grep -v grep > /dev/null
+then
+    redshift > /dev/null &
+fi
+if ! ps ax|grep ipython\ kernel | grep -v grep > /dev/null
+then
+  (ipython kernel &) 2>/dev/null
+fi
 
