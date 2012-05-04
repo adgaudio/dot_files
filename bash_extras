@@ -38,7 +38,7 @@ imposter="\`if [[ \"$(whoami)\" != \"$ME\" ]]; then echo \"\n${purple} ($(whoami
 #   Mon Jan 30 11:19:49 | ~
 #   alex-adaptly$
 #PS1="$imposter \n\d \A | \w\n\h\$ " # Simple version, not colorized
-PS1="\n${cyan}${date_} | ${yellow}${pwd} \n${stoplight}${git_branch} \$ ${white}"
+PS1="${imposter}\n${cyan}${date_} | ${yellow}${pwd} \n${stoplight}${git_branch} \$ ${white}"
 
 ######
 # Bash awesomeness
