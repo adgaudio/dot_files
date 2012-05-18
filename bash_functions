@@ -18,6 +18,15 @@ function s
 }
 
 ####
+# Aliases that need params
+####
+
+function ackl
+{
+    ack --color $@ | less -R
+}
+
+####
 # Utility Functions
 #####
 
