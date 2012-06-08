@@ -72,16 +72,3 @@ function save ()
 # but still allowing other software to send the commands.
 # useful for vim-ipython plugin and anything that binds to <C-s>
 stty ixoff -ixon
-
-#####
-# Daemon Processes to run at startup
-#####
-if ! ps ax|grep -i redshift | grep -v grep > /dev/null
-then
-    redshift > /dev/null &
-fi
-if ! ps ax|grep ipython\ kernel | grep -v grep > /dev/null
-then
-  (ipython kernel &) 2>/dev/null
-fi
-
