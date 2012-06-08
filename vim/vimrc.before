@@ -1,5 +1,6 @@
 call janus#disable_plugin('nodejs', "i get this error message: Function DetectNode already exists, add ! to replace it")
-call janus#disable_plugin('pep8', "i get this error message: Function DetectNode already exists, add ! to replace it")
+call janus#disable_plugin('pep8', "geezus this plugin sucks. its too strict")
+
 let mapleader = ","
 noremap ; :
 
@@ -13,6 +14,9 @@ nnoremap <C-a> ^
 inoremap <C-e> <Esc>$i
 nnoremap <C-e> $
 
+" Tab Next/Prev
+nnoremap H :tabp<CR>
+nnoremap L :tabn<CR>
 
 set clipboard=unnamedplus " Integration with system clipboard ... + is copy and * is select
 
