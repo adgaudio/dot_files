@@ -59,5 +59,5 @@ alias s="git status -sb"
 alias red="re origin/development"
 alias rem="re origin/master"
 
-alias fred="f ; red"
+alias fred='st |grep -E "^No local changes to save$" && a=0 || a=1 ; f ; red ; [ "$a" -eq "1" ] && pop'
 
