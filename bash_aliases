@@ -25,6 +25,7 @@ which xdg-open 1>/dev/null && alias open="xdg-open" # use open like in mac osx
 alias v=vim
 alias screen="screen -xRR -e^Pp"
 alias screenn="/usr/bin/screen -e^Pp"
+alias tn="tail -n"
 
 ####
 #Language specific
@@ -51,9 +52,12 @@ alias pop="git stash pop"
 alias f="git fetch"
 alias pull="git pull"
 alias re="git rebase"
-alias rem="re origin/master"
 alias r="git remote -v"
-alias stash="git stash"
+alias st="git stash"
 alias s="git status -sb"
 
+alias red="re origin/development"
+alias rem="re origin/master"
+
+alias fred="f ; red"
 
