@@ -7,8 +7,9 @@ export PATH=~/bin:~/bbin:$PATH
 export PYTHONSTARTUP=~/.pythonrc.py
 export PYTHONPATH=.:$HOME/bin:$HOME:$PYTHONPATH
 
-export VIRTUALENVWRAPPER_PYTHON=python
-export VIRTUALENVWRAPPER_VIRTUALENV=virtualenv
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
+export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+unset VIRTUAL_ENV
 
 #####
 # SHELL PROMPT

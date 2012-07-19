@@ -15,6 +15,7 @@ alias e="emacs"
 alias fin="find . -iname"
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
+alias g="fg"
 alias grep="grep --color=auto"
 alias killjobs='kill $(jobs -p)' # to kill individual job, do: $ kill %1
 alias ls='ls --color=auto'
@@ -52,6 +53,7 @@ alias pop="git stash pop"
 alias f="git fetch"
 alias pull="git pull"
 alias re="git rebase"
+alias re2="git rebase -i HEAD~2"
 alias r="git remote -v"
 alias st="git stash"
 alias s="git status -sb"
@@ -60,4 +62,5 @@ alias red="re origin/development"
 alias rem="re origin/master"
 
 alias fred='st |grep -E "^No local changes to save$" && a=0 || a=1 ; f ; red ; [ "$a" -eq "1" ] && pop'
+alias frem='st |grep -E "^No local changes to save$" && a=0 || a=1 ; f ; rem ; [ "$a" -eq "1" ] && pop'
 
