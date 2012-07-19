@@ -18,7 +18,7 @@ nnoremap <C-e> $
 nnoremap H :tabp<CR>
 nnoremap L :tabn<CR>
 
-set clipboard=unnamedplus " Integration with system clipboard ... + is copy and * is select
+set clipboard=unnamedplus "Integration with system clipboard. + is copy and * is select
 
 "folding settings " toggle folds with za  ... also use zR and zM and zr and zm
 set foldmethod=manual   "fold based on indent
@@ -32,3 +32,8 @@ set mouse=a " Use mouse in all modes
 " autocomplete
 set wildmode=longest,list,full
 set wildmenu
+
+" Freak out when lines are more than 80 chars long
+autocmd FileType python highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+autocmd FileType python match OverLength /\%81v.\+/
+" set colorcolumn=80
