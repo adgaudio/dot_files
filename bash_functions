@@ -1,4 +1,15 @@
 ####
+# alexgaudio.com
+####
+
+function ag
+{
+    workon alexgaudio
+    ( cd ~/.priv/projects/django/alexgaudio && ./dmanage.py runserver )
+    cd ~/.priv/projects/django/alexgaudio
+}
+
+####
 # GIT
 ####
 function s
