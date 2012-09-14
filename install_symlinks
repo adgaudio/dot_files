@@ -39,8 +39,8 @@ if __name__ == '__main__':
     symlink("bash_aliases", ".bash_aliases")
     symlink("bash_extras", ".bash_extras")
 
+    symlink("gitconfig", ".gitconfig")
     symlink("inputrc", ".inputrc")
-
     symlink("python/pythonrc.py", ".pythonrc.py")
 
     symlink("tmux/tmux.conf", ".tmux.conf")
