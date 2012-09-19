@@ -18,6 +18,9 @@ nnoremap <C-e> $
 nnoremap H :tabp<CR>
 nnoremap L :tabn<CR>
 
+" Don't backup files edited in /tmp, so I can edit crontab
+set backupskip=/tmp/*,/private/tmp/*"
+
 " System Clipboard
 let s:uname = system("echo -n \"$(uname)\"")
 if !v:shell_error && s:uname == "Darwin"
