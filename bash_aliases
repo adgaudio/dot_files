@@ -53,7 +53,7 @@ alias pop="git stash pop"
 alias f="git fetch"
 alias pull="git pull"
 alias re="git rebase"
-alias re2="git rebase -i HEAD~2"
+alias re2='st |grep -E "^No local changes to save$" && a=0 || a=1 ; git rebase -i HEAD~2 ;  [ "$a" -eq "1" ] && pop'
 alias r="git remote -v"
 alias st="git stash"
 alias s="git status -sb"
