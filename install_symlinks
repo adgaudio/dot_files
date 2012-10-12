@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 
 import os
+import sys
 join = os.path.join
 
 # source dir
@@ -45,7 +46,8 @@ if __name__ == '__main__':
 
     symlink("tmux/tmux.conf", ".tmux.conf")
     symlink("tmux/bash_completion_tmux.sh", ".bash_completion_tmux.sh")
+    if 'linux' in sys.platform.lower():
+        symlink("Xmodmap", ".Xmodmap")
 
     # Install janus
     #os.system(join(s, "vim/bootstrap_janus"))
-
