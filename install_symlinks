@@ -45,6 +45,7 @@ if __name__ == '__main__':
     symlink("python/pythonrc.py", ".pythonrc.py")
 
     symlink("tmux/tmux.conf", ".tmux.conf")
+    symlink("tmux/tmux_osx.conf", ".tmux_osx.conf")
     symlink("tmux/bash_completion_tmux.sh", ".bash_completion_tmux.sh")
     if 'linux' in sys.platform.lower():
         symlink("Xmodmap", ".Xmodmap")
