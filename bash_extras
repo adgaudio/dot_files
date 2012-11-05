@@ -21,28 +21,32 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/li
 # COLORS!!!
 purple="\[\033[0;35m\]"
 cyan="\[\033[2;36m\]"
-green="\[\033[0;32m\]"
+green="\033[0;32m"
 green_escape="\[\033[0\;32m\]"
 white="\[\033[0m\]"
 yellow="\[\033[0;33m\]"
-red="\[\033[0;31m\]"
+red="\033[0;31m"
 red_escape="\[\033[0\;31m\]"
 
-ME="alexwork"
+ME=(alexwork alexgaudio)
+isme="$(echo ${ME[@]:0} | grep "$(whoami)" >/dev/null ; echo $?)"
+
 date_="\d \A"
 pwd="\w"
 host="\h"
 git_branch='$(__git_ps1 "(%s)")'
-stoplight="\`if [[ \$? = "0" ]]; then echo \"${green}\"; else echo \"${red}\"; fi\`"
-# red on failure, green on success of last cmd
-
-imposter="\`if [[ \"$(whoami)\" != \"$ME\" ]]; then echo \"\n${purple} ($(whoami)) \"; fi \`"
+imposter="\`if [[ isme -ne "0" ]]; then echo \"${purple}($(whoami)) | \"; fi \`"
+stoplight='\[$(echo -ne $stoplight_color)\]' # depends on PROMPT_COMMAND
 
 # PS1 looks like this:
 #   Mon Jan 30 11:19:49 | ~
 #   alex-adaptly$
 #PS1="$imposter \n\d \A | \w\n\h\$ " # Simple version, not colorized
-PS1="${imposter}\n${cyan}${date_} | ${yellow}${pwd} \n${stoplight}${git_branch} \$ ${white}"
+PROMPT_COMMAND='if [ $? = 0 ]; then stoplight_color="${green}"; else stoplight_color="${red}"; fi'
+PS1="\n${imposter}${cyan}${date_} | ${yellow}${pwd} \n${stoplight}${git_branch} \$ ${white}"
+
+
+
 
 ######
 # Bash awesomeness
