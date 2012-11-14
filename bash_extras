@@ -19,32 +19,62 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/li
 #####
 
 # COLORS!!!
-purple="\[\033[0;35m\]"
+blue="\033[1;34m"
 cyan="\[\033[2;36m\]"
+gray="\033[0;37m"
 green="\033[0;32m"
-green_escape="\[\033[0\;32m\]"
+green_bold="\033[1;32m"
+orange="\033[0;93m"  # not on all terminals
+purple="\033[0;35m"
+red="\033[0;31m"
 white="\[\033[0m\]"
 yellow="\[\033[0;33m\]"
-red="\033[0;31m"
-red_escape="\[\033[0\;31m\]"
 
-ME=(alexwork alexgaudio)
-isme="$(echo ${ME[@]:0} | grep "$(whoami)" >/dev/null ; echo $?)"
+function _my_ps1() {
+  local last_rv=$?
 
-date_="\d \A"
-pwd="\w"
-host="\h"
-git_branch='$(__git_ps1 "(%s)")'
-imposter="\`if [[ isme -ne "0" ]]; then echo \"${purple}($(whoami)) | \"; fi \`"
-stoplight='\[$(echo -ne $stoplight_color)\]' # depends on PROMPT_COMMAND
+  date_="\d \A"
+  host="\h"
+  pwd="\w"
+  ME=(alexwork alexgaudio)
+  isme="$(echo ${ME[@]:0} | grep "$(whoami)" >/dev/null ; echo $?)"
+  imposter="\`if [[ isme -ne "0" ]]; then echo \"${purple}($(whoami)) | \"; fi \`"
+  stoplight='\[$(echo -ne $stoplight_color)\]' # depends on PROMPT_COMMAND
 
-# PS1 looks like this:
-#   Mon Jan 30 11:19:49 | ~
-#   alex-adaptly$
-#PS1="$imposter \n\d \A | \w\n\h\$ " # Simple version, not colorized
-PROMPT_COMMAND='if [ $? = 0 ]; then stoplight_color="${green}"; else stoplight_color="${red}"; fi'
-PS1="\n${imposter}${cyan}${date_} | ${yellow}${pwd} \n${stoplight}${git_branch} \$ ${white}"
+  if [ $last_rv = 0 ] ; then
+    stoplight_color="${green}"
+  else
+    stoplight_color="${red}"
+  fi
 
+  local git_status="`git status -sb 2>&1`"
+  if [[ "$git_status" =~ .*[^\ ]MM\  ]] ; then
+    #MM
+    git_status_color=${red}
+  elif [[ "$git_status" =~ .*[^\ ]M\ \  ]] ; then
+    git_status_color=${orange}
+    #M 
+  elif [[ "$git_status" =~ .*[^\ ]\ M\  ]] ; then
+    git_status_color=${yellow}
+     #M
+  elif [[ "$git_status" =~ .*[^\ ]\?\?\  ]] ; then
+    #??
+    git_status_color=${green_bold}
+  else
+    #clean
+    git_status_color=${green}
+  fi
+  # Set git branch
+  [[ "$git_status" =~ \##\ ([A-Za-z0-9]+) ]] && git_branch=${BASH_REMATCH[1]} || git_branch="no git"
+
+  echo -n "\n${imposter}${cyan}${date_} | ${gray}${pwd} | ${git_status_color}${git_branch}"
+  echo -n "\n${stoplight_color} \$ ${white}"
+}
+
+function _prompt_command() {
+    PS1="`_my_ps1`"
+}
+PROMPT_COMMAND=_prompt_command
 
 
 
