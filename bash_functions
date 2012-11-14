@@ -36,6 +36,16 @@ function ackl
 {
     ack --color $@ | less -R
 }
+function col()
+{
+  # echo a,b,c,d e f g,h | column "1"
+  # echo a,b,c,d e f g,h | column "2" ,
+  # echo a,b,c,d e f g,h | column "NF-1"
+  delimiter=
+  test $2 && delimiter="-F $2"
+  awk $delimiter "{print \$($1)}"
+}
+
 
 ####
 # Utility Functions
