@@ -54,7 +54,18 @@ function session-fwk
 function session-daemons
 {
     tmux new-session -d -s daemons
-    tmux neww -k -n managepy -t daemons:1 
+    tmux neww -k -n managepy -t daemons:0 
+    tmux neww -k -t daemons:1
+    tmux split-window -t daemons:1.0
+    tmux split-window -t daemons:1.0
+    tmux split-window -t daemons:1.0
+    tmux split-window -t daemons:1.1
+    tmux split-window -t daemons:1.1
+    for x in $(seq 0 5) ; do
+      tmux send-keys -t daemons:1.$x "ds"$((${x} + 1))
+    done
+    tmux select-layout -t daemons:1 tiled
+    tmux setw -t daemons:1 synchronize-panes on
 }
 
 function session-hi
