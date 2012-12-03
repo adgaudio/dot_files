@@ -3,6 +3,7 @@
 #####
 export CDPATH="~:$CDPATH"
 export EDITOR=vim
+export HISTFILESIZE=10000
 export PATH=~/bin:~/bbin:$PATH
 export PYTHONSTARTUP=~/.pythonrc.py
 export PYTHONPATH=.:$HOME/bin:$HOME:$PYTHONPATH
