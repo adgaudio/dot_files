@@ -52,3 +52,6 @@ if __name__ == '__main__':
 
     # Install janus
     #os.system(join(s, "vim/bootstrap_janus"))
+    #
+    # Install realiaser (for cmd prompt)
+    #os.system('gem install realiaser')  # gem update realiaser
