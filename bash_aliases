@@ -13,6 +13,7 @@ alias ...="cd ../.."
 alias db="mysql -uroot -proot"
 alias e="emacs"
 alias fin="find . -iname"
+alias fn="find . -name"
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias g="fg"
