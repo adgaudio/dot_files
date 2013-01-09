@@ -29,10 +29,21 @@ def symlink(x, y, s=s, d=d):
     else:
         print "    DOESN'T EXIST: %s" % src
 
+
+def install_vim(s=s):
+    # Install janus
+    os.system(join(s, "vim/bootstrap_janus"))
+    # Install vim plugin dependencies
+    os.system('deactivate ; pip install jedi')
+
+    os.system(join(s, 'vim/bootstrap_janus'))
+
 #########################################
 #########################################
 
 if __name__ == '__main__':
+    vim = False
+
     symlink("ackrc", ".ackrc")
 
     symlink("bash_aliases", ".bash_aliases")
@@ -49,9 +60,7 @@ if __name__ == '__main__':
     symlink("tmux/bash_completion_tmux.sh", ".bash_completion_tmux.sh")
     if 'linux' in sys.platform.lower():
         symlink("Xmodmap", ".Xmodmap")
-
-    # Install janus
-    #os.system(join(s, "vim/bootstrap_janus"))
-    #
+    if vim:
+        install_vim()
     # Install realiaser (for cmd prompt)
     #os.system('gem install realiaser')  # gem update realiaser

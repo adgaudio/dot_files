@@ -2,3 +2,4 @@ git submodule add https://github.com/chrismetcalf/vim-yankring.git
 git submodule add https://github.com/ivanov/vim-ipython.git
 git submodule add https://github.com/greyblake/vim-preview.git
 git submodule add git://github.com/klen/python-mode.git
+git submodule add git@github.com:davidhalter/jedi-vim.git  # pip install jedi
