@@ -61,7 +61,7 @@ function session-daemons
     tmux split-window -t daemons:1.0
     tmux split-window -t daemons:1.1
     tmux split-window -t daemons:1.1
-    for x in $(seq 0 5) ; do
+    for x in $(seq 0 7) ; do
       tmux send-keys -t daemons:1.$x "ds"$((${x} + 1))
     done
     tmux select-layout -t daemons:1 tiled
