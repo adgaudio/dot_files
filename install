@@ -55,6 +55,11 @@ if __name__ == '__main__':
     symlink("inputrc", ".inputrc")
     symlink("python/pythonrc.py", ".pythonrc.py")
 
+    _ipy_dir = join(d, ".ipython/profile_default/startup")
+    if not os.path.exists(_ipy_dir):
+        os.makedirs(_ipy_dir)
+    symlink("ipython_startup.ipy", _ipy_dir)
+
     symlink("tmux/tmux.conf", ".tmux.conf")
     symlink("tmux/tmux_osx.conf", ".tmux_osx.conf")
     symlink("tmux/bash_completion_tmux.sh", ".bash_completion_tmux.sh")

@@ -1,0 +1,24 @@
+"""
+This file initializes ipython.
+It would go in ~/.ipython/profile_default/startup/
+"""
+
+%pylab
+%autocall 1
+
+import datetime
+import pandas
+import pymongo
+import numpy
+import tables
+
+from pandas import DataFrame as DF
+
+from ds_commons import db_tools, data_tools, config_base, argparse_tools
+import etl
+import profile_predictor
+
+
+now = datetime.datetime.utcnow()
+df = DF(randn(10, 10), index=(chr(x) for x in range(97, 107)), columns=(chr(x) for x in range(97-26, 97-26+10)))
+
