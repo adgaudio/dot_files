@@ -36,8 +36,9 @@ alias pry="bundle exec pry"
 alias rake="bundle exec rake"
 
 #alias ipython="ipython --autoedit-syntax --deep-reload --no-confirm-exit"
-alias i="ipython console"
-alias ie="ipython console --existing"
+alias i="ipythongui console"
+alias ie="ipythongui console --existing"
+alias nb="ipythongui notebook"
 
 #####
 #Git aliases
