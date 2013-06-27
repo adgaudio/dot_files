@@ -3,3 +3,5 @@
 	email = adgaudio@gmail.com
 [push]
   default = upstream
+[core]
+	editor = /usr/local/bin/vim
