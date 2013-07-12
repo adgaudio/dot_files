@@ -69,7 +69,7 @@ function _my_ps1() {
   # Set git branch
   [[ "$git_status" =~ \##\ ([A-Za-z0-9]+) ]] && git_branch=${BASH_REMATCH[1]} || git_branch="no git"
 
-  echo -n "\n${imposter}${cyan}${date_} | ${gray}${pwd} | ${git_status_color}${git_branch}"
+  echo -n "\n${imposter}${cyan}${date_} | ${gray}${pwd} | ${git_status_color}${git_branch} | ${gray}`hostname`"
   #echo -n "${white} | $(history |tail -n 1 | cut -d ' ' -f 3-20 | realiaser)"
   echo -n "\n${stoplight_color} \$ ${white}"
 }
