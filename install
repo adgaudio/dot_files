@@ -48,7 +48,6 @@ if __name__ == '__main__':
 
     symlink("bash_aliases", ".bash_aliases")
     symlink("bash_functions", ".bash_functions")
-    symlink("bash_aliases", ".bash_aliases")
     symlink("bash_extras", ".bash_extras")
 
     symlink("gitconfig", ".gitconfig")
@@ -62,7 +61,6 @@ if __name__ == '__main__':
 
     symlink("tmux/tmux.conf", ".tmux.conf")
     symlink("tmux/tmux_osx.conf", ".tmux_osx.conf")
-    symlink("tmux/bash_completion_tmux.sh", ".bash_completion_tmux.sh")
     if 'linux' in sys.platform.lower():
         symlink("Xmodmap", ".Xmodmap")
     if vim:
