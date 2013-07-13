@@ -9,10 +9,6 @@ export PATH=~/bbin:~/bin:$PATH
 export PYTHONSTARTUP=~/.pythonrc.py
 export PYTHONPATH=.:$HOME/bin:$HOME:$PYTHONPATH
 
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
-export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
-unset VIRTUAL_ENV
-
 # Cuda ENV
 export PATH=$PATH:/usr/local/cuda/bin
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/lib
@@ -32,17 +28,35 @@ red="\[\033[0;31m\]"
 white="\[\033[0m\]"
 yellow="\[\033[0;33m\]"
 
+date_="\d \A"
+host="\h"
+pwd="\w"
+
+# am I currently logged in as my default user?
+ME=(me alex alexgaudio)
+isme="$(grep " $(whoami) " <(echo ${ME[@]:0}) >/dev/null ; echo $?)"
+imposter="\$(if [[ "$isme" -ne "0" ]]; then echo \"${purple}($(whoami)) | \"; fi )"
+
+workon_virtualenv() {
+  # Automatically call "workon current_repo" if current directory is a git repo
+  # and deactivate virtualenv if current directory is $HOME
+  if [ -e .git ]; then
+    current_dir="${PWD##*/}"
+    if [[ "${VIRTUAL_ENV##*/}" != "$current_dir" ]] ; then
+      deactivate >/dev/null 2>&1
+      workon $current_dir >/dev/null 2>&1 && echo "--> workon $current_dir"
+    fi
+  elif [[ "${VIRTUAL_ENV}" && "$PWD" = "$HOME" ]] ; then
+      echo '--> deactivate'
+      deactivate
+  fi
+  echo
+}
+
 function _my_ps1() {
+
+  # change colors based on success of last command
   local last_rv=$?
-
-  date_="\d \A"
-  host="\h"
-  pwd="\w"
-  ME=(alexwork alexgaudio)
-  isme="$(echo ${ME[@]:0} | grep "$(whoami)" >/dev/null ; echo $?)"
-  imposter="\$(if [[ isme -ne "0" ]]; then echo \"${purple}($(whoami)) | \"; fi )"
-  stoplight='$(echo -ne $stoplight_color)' # depends on PROMPT_COMMAND
-
   if [ $last_rv = 0 ] ; then
     stoplight_color="${green}"
   else
@@ -76,6 +90,8 @@ function _my_ps1() {
 
 function _prompt_command() {
     PS1="`_my_ps1`"
+    # execute hooks
+    workon_virtualenv
 }
 PROMPT_COMMAND=_prompt_command
 
