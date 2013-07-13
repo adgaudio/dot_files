@@ -31,11 +31,9 @@ def symlink(x, y, s=s, d=d):
 
 
 def install_vim(s=s):
-    # Install janus
-    os.system(join(s, "vim/bootstrap_janus"))
     # Install vim plugin dependencies
     os.system('deactivate ; pip install jedi')
-
+    # Install janus
     os.system(join(s, 'vim/bootstrap_janus'))
 
 #########################################
