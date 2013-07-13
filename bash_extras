@@ -19,6 +19,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/li
 # COLORS!!!
 blue="\[\033[1;34m\]"
 cyan="\[\033[2;36m\]"
+cyan_bold="\[\033[1;36m\]"
 gray="\[\033[0;37m\]"
 green="\[\033[0;32m\]"
 green_bold="\[\033[1;32m\]"
@@ -37,20 +38,38 @@ ME=(me alex alexgaudio)
 isme="$(grep " $(whoami) " <(echo ${ME[@]:0}) >/dev/null ; echo $?)"
 imposter="\$(if [[ "$isme" -ne "0" ]]; then echo \"${purple}($(whoami)) | \"; fi )"
 
+available_virtualenvs="$(workon|paste -sd '|')"
+
 workon_virtualenv() {
   # Automatically call "workon current_repo" if current directory is a git repo
   # and deactivate virtualenv if current directory is $HOME
+  # If user explicitly calls workon, then don't auto-execute "workon current_repo" until they explicitly "deactivate"
+  #
+  # TODO: bug: currently need to call workon twice because can't get current_command...only last_command
+  #
+  last_command="$(fc -ln -1)"
+  if [[ "$last_command" =~ \ workon\ (${available_virtualenvs})([ \|\;]|$) ]] ; then
+     echo "--> You have manually run the workon."
+     echo "--> auto-execution of 'workon {env}' disabled until you explicitly execute 'deactivate'"
+     user_workon=true
+     return
+  elif [[ "$last_command" =~ \ deactivate([ \|\;]|$) ]] ; then
+    echo "--> auto-execution of cmd, 'workon {env}' re-enabled"
+    user_workon=false
+  fi
+  if [ $user_workon ] ; then return ; fi
+
   if [ -e .git ]; then
     current_dir="${PWD##*/}"
-    if [[ "${VIRTUAL_ENV##*/}" != "$current_dir" ]] ; then
-      deactivate >/dev/null 2>&1
-      workon $current_dir >/dev/null 2>&1 && echo "--> workon $current_dir"
+    venv="${VIRTUAL_ENV##*/}"
+    if [[ "$venv" != "$current_dir" ]] ; then
+       deactivate >/dev/null 2>&1 && echo "--> deactivate ${venv}"
+       workon $current_dir >/dev/null 2>&1 && echo "--> workon $current_dir"
     fi
   elif [[ "${VIRTUAL_ENV}" && "$PWD" = "$HOME" ]] ; then
       echo '--> deactivate'
       deactivate
   fi
-  echo
 }
 
 function _my_ps1() {
@@ -81,17 +100,21 @@ function _my_ps1() {
     git_status_color=${green}
   fi
   # Set git branch
-  [[ "$git_status" =~ \##\ ([A-Za-z0-9]+) ]] && git_branch=${BASH_REMATCH[1]} || git_branch="no git"
+  [[ "$git_status" =~ \##\ ([A-Za-z0-9_]+) ]] && git_branch=${BASH_REMATCH[1]} || git_branch="no git"
 
+  if [[ "$VIRTUAL_ENV" ]] ; then
+    echo -n "\n${cyan_bold}(${VIRTUAL_ENV##*/})"
+  fi
   echo -n "\n${imposter}${cyan}${date_} | ${gray}${pwd} | ${git_status_color}${git_branch} | ${gray}`hostname`"
   #echo -n "${white} | $(history |tail -n 1 | cut -d ' ' -f 3-20 | realiaser)"
   echo -n "\n${stoplight_color} \$ ${white}"
 }
 
 function _prompt_command() {
-    PS1="`_my_ps1`"
     # execute hooks
     workon_virtualenv
+
+    PS1="`_my_ps1`"
 }
 PROMPT_COMMAND=_prompt_command
 
