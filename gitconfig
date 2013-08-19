@@ -5,3 +5,5 @@
   default = upstream
 [core]
 	editor = /usr/local/bin/vim
+[color]
+	ui = true
