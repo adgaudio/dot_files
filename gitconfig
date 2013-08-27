@@ -4,6 +4,6 @@
 [push]
   default = upstream
 [core]
-	editor = /usr/local/bin/vim
+	editor = vim
 [color]
 	ui = true
