@@ -19,7 +19,7 @@ alias fgrep='fgrep --color=auto'
 alias g="fg"
 alias grep="grep --color=auto"
 alias killjobs='kill $(jobs -p)' # to kill individual job, do: $ kill %1
-[[ "`uname`" = "Darwin" ]] && alias ls='ls -G' || alias ls='ls --color=auto'
+[ "`uname`" = "Darwin" ] && alias ls='ls -G' || alias ls='ls --color=auto'
 alias ll="ls -ltr"
 alias la="ls -a"
 alias lla="ls -latr"

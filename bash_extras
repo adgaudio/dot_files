@@ -12,31 +12,6 @@ export PYTHONPATH=.:$HOME/bin:$HOME:$PYTHONPATH
 # Cuda ENV
 export PATH=$PATH:/usr/local/cuda/bin
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/lib
-#####
-# SHELL PROMPT
-#####
-
-# COLORS!!!
-blue="\[\033[1;34m\]"
-cyan="\[\033[2;36m\]"
-cyan_bold="\[\033[1;36m\]"
-gray="\[\033[0;37m\]"
-green="\[\033[0;32m\]"
-green_bold="\[\033[1;32m\]"
-orange="\[\033[0;93m\]"  # not on all terminals
-purple="\[\033[0;35m\]"
-red="\[\033[0;31m\]"
-white="\[\033[0m\]"
-yellow="\[\033[0;33m\]"
-
-date_="\d \A"
-host="\h"
-pwd="\w"
-
-# am I currently logged in as my default user?
-ME=(me alex alexgaudio)
-isme="$(grep " $(whoami) " <(echo ${ME[@]:0}) >/dev/null ; echo $?)"
-imposter="\$(if [[ "$isme" -ne "0" ]]; then echo \"${purple}($(whoami)) | \"; fi )"
 
 
 available_virtualenvs="$(workon|paste -sd '|')"
@@ -82,54 +57,96 @@ workon_virtualenv() {
   current_dir="${PWD##*/}"
   venv="${VIRTUAL_ENV##*/}"
   if [[ "$current_dir" =~ (${available_virtualenvs}) && "$venv" != "$current_dir" ]] ; then
-    if [[ "$venv" ]] ; then
+    if [[ "$venv" != "" ]] ; then
        deactivate && echo "--> deactivate ${venv}"
     fi
      workon $current_dir 2>&1 && echo "--> workon $current_dir"
      basedir_for_virtualenv="$PWD"
-  elif [[ "$venv" && "$PWD" != "$basedir_for_virtualenv"* ]] ; then
+  elif [[ "$venv" != "" && "$PWD" != "$basedir_for_virtualenv"* ]] ; then
     # if the directory you've declared workon in is not a parent of the current directory, deactivate
     echo '--> deactivate'
     deactivate
   fi
 }
 
-function _my_ps1() {
-
-  # change colors based on success of last command
-  local last_rv=$?
-  if [ $last_rv = 0 ] ; then
-    stoplight_color="${green}"
-  else
-    stoplight_color="${red}"
-  fi
-
-  local git_status="`git status -sb 2>&1`"
-  if [[ "$git_status" =~ .*[^\ ]MM\  ]] ; then
-    #MM
-    git_status_color=${red}
-  elif [[ "$git_status" =~ .*[^\ ]M\ \  ]] ; then
-    git_status_color=${orange}
-    #M 
-  elif [[ "$git_status" =~ .*[^\ ]\ M\  ]] ; then
-    git_status_color=${yellow}
-     #M
-  elif [[ "$git_status" =~ .*[^\ ]\?\?\  ]] ; then
-    #??
-    git_status_color=${green_bold}
-  else
-    #clean
-    git_status_color=${green}
-  fi
-  # Set git branch
-  [[ "$git_status" =~ \##\ ([A-Za-z0-9_]+) ]] && git_branch=${BASH_REMATCH[1]} || git_branch="no git"
-
-  if [[ "$VIRTUAL_ENV" ]] ; then
+__my_ps1() {
+  # The actual PS1 definition
+  if [[ "$VIRTUAL_ENV" != "" ]] ; then
     echo -n "\n${cyan_bold}(${VIRTUAL_ENV##*/})"
   fi
   echo -n "\n${imposter}${cyan}${date_} | ${gray}${pwd} | ${git_status_color}${git_branch} | ${gray}`hostname`"
   #echo -n "${white} | $(history |tail -n 1 | cut -d ' ' -f 3-20 | realiaser)"
   echo -n "\n${stoplight_color} \$ ${white}"
+}
+
+_my_ps1() {
+  if test "$BASH" ; then
+    # COLORS!!!
+    local blue="\[\033[1;34m\]"
+    local cyan="\[\033[2;36m\]"
+    local cyan_bold="\[\033[1;36m\]"
+    local gray="\[\033[0;37m\]"
+    local green="\[\033[0;32m\]"
+    local green_bold="\[\033[1;32m\]"
+    local orange="\[\033[0;93m\]"  # not on all terminals
+    local purple="\[\033[0;35m\]"
+    local red="\[\033[0;31m\]"
+    local white="\[\033[0m\]"
+    local yellow="\[\033[0;33m\]"
+    local date_="\d \A"
+    local host="\h"
+    local pwd="\w"
+  else  # zsh
+    local blue="%{$fg[blue]%}"
+    local cyan="%{$fg[cyan]%}"
+    local cyan_bold="%{$fg_bold[cyan]%}"
+    local gray="%{$fg_no_bold[white]%}"
+    local green="%{$fg[green]%}"
+    local green_bold="%{$fg_bold[green]%}"
+    local orange="%{$fg_no_bold[yellow]%}"
+    local purple="%{$fg_no_bold[yellow]%}"
+    local red="%{$fg[red]%}"
+    local white="%{$fg[white]%}"
+    local yellow="%{$fg[yellow]%}"
+    local date_="%D{%m-%d %H:%m:%S}"
+    local host="%M"
+    local pwd="%~"
+  fi
+
+  # am I currently logged in as my default user?
+  me=(me alex alexgaudio)
+  local isme="$(grep " "$(whoami)" " <(echo ${me[@]:0}) >/dev/null ; echo $?)"
+  local imposter="\$(if [[ ""$isme"" -ne "0" ]]; then echo \"${purple}($(whoami)) | \"; fi )"
+
+  # change colors based on success of last command
+  local last_rv=$?
+  if [ $last_rv = 0 ] ; then
+    local stoplight_color="${green}"
+  else
+    local stoplight_color="${red}"
+  fi
+
+  local git_status="`git status -sb 2>&1`"
+  if [[ "$git_status" =~ .*[^\ ]MM\  ]] ; then
+    #MM
+    local git_status_color=${red}
+  elif [[ "$git_status" =~ .*[^\ ]M\ \  ]] ; then
+    local git_status_color=${orange}
+    #M 
+  elif [[ "$git_status" =~ .*[^\ ]\ M\  ]] ; then
+    local git_status_color=${yellow}
+     #M
+  elif [[ "$git_status" =~ .*[^\ ]\?\?\  ]] ; then
+    #??
+    local git_status_color=${green_bold}
+  else
+    #clean
+    local git_status_color=${green}
+  fi
+  # Set git branch
+  git_branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "no git")
+
+  __my_ps1
 }
 
 function _prompt_command() {
@@ -138,17 +155,21 @@ function _prompt_command() {
     PS1="`_my_ps1`"
 }
 
-preexec () { # executes before (and twice after?!) the command-line is run
-  :; echo 'running preexec this_command' $this_command ; }
 preexec_invoke_exec () {
   # thank you to:
   # http://superuser.com/questions/175799/does-bash-have-a-hook-that-is-run-before-executing-a-command
     [ -n "$COMP_LINE" ] && return  # do nothing if completing
     [ "$BASH_COMMAND" = "$PROMPT_COMMAND" ] && return # don't cause a preexec for $PROMPT_COMMAND
-    current_command=`history 1 | sed -e "s/^[ ]*[0-9]*[ ]*//g"`;
+    #current_command=`history 1 | sed -e "s/^[ ]*[0-9]*[ ]*//g"`;
     #preexec "$current_command"
 }
 PROMPT_COMMAND="trap 'preexec_invoke_exec' DEBUG ; _prompt_command"
+if [[ "$ZSH_NAME" = "zsh" ]] ; then
+  add-zsh-hook precmd preexec_invoke_exec
+  add-zsh-hook precmd _prompt_command
+fi
+
+
 
 
 ######
@@ -158,13 +179,15 @@ PROMPT_COMMAND="trap 'preexec_invoke_exec' DEBUG ; _prompt_command"
 # Shell acts like vim
 #set -o vi # check out inputrc for extra bindings and if necessary: #export INPUTRC=~/.inputrc
 #
-shopt -s autocd  #don't type cd to navigate directories
-shopt -s cdable_vars # set the bash option so that no '$' is required when using the above facility
-shopt -s cdspell #cd command will guess misspelled directories
-shopt -s extglob #ability to use pattern matching like *(pattern1|pattern2) and ?(...) !(...) @(...)
-shopt -s globstar # ** globs all files, sub-files and subdirectories
-shopt -s lithist #multi-line commands are saved to history with newlines rather than semi-colons
-shopt -s checkwinsize #update the values of LINES and COLUMNS after each cmd
+if test "$BASH" ; then
+  shopt -s autocd  #don't type cd to navigate directories
+  shopt -s cdable_vars # set the bash option so that no '$' is required when using the above facility
+  shopt -s cdspell #cd command will guess misspelled directories
+  shopt -s extglob #ability to use pattern matching like *(pattern1|pattern2) and ?(...) !(...) @(...)
+  shopt -s globstar # ** globs all files, sub-files and subdirectories
+  shopt -s lithist #multi-line commands are saved to history with newlines rather than semi-colons
+  shopt -s checkwinsize #update the values of LINES and COLUMNS after each cmd
+fi
 
 
 # cd tricks from hayne.net/MacDev/Bash/aliases.bash

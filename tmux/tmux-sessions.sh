@@ -5,7 +5,7 @@ SESSIONS="hi daemons"
 #
 #Define logic
 #
-function has-session {
+hassession() {
     tmux has-session -t $1
     rc="$?"
     if [ "$rc" -eq "0" ] ; then
@@ -14,13 +14,13 @@ function has-session {
     return 1
 }
 
-function list-sessions {
+listsessions() {
     echo $( tmux list-sessions | cut -d: -f1 | sort -r )
 }
 
-function try-attach 
+tryattach()
 {
-    has-session $1
+    hassession $1
     rc="$?"
     attached="$( tmux list-clients -t $1 )"
     
@@ -31,7 +31,7 @@ function try-attach
     fi
 }
 
-function except 
+except()
 {
     if [ "$?" -eq 1 ] ; then
         $@
@@ -41,9 +41,9 @@ function except
 #
 # Session Configuration
 #
-function session-fwk 
+sessionfwk()
 {
-    tmux new-session -d -s fwk
+    tmux newsession -d -s fwk
     tmux neww -k -n sreports -t fwk:1
     tmux neww -k -n prod -t fwk:2 
     
@@ -51,7 +51,7 @@ function session-fwk
     tmux send-keys -t fwk:2 ''
 }
 
-function session-daemons
+sessiondaemons()
 {
     tmux new-session -d -s daemons
     tmux neww -k -n managepy -t daemons:0 
@@ -68,7 +68,7 @@ function session-daemons
     tmux setw -t daemons:1 synchronize-panes on
 }
 
-function session-hi
+sessionhi()
 {
     tmux new-session -d -s hi
     tmux neww -k -t hi:1
@@ -80,15 +80,15 @@ function session-hi
 # Create sessions if they don't exist
 for x in $SESSIONS
 do
-    has-session $x
-    except session-$x
+    hassession $x
+    except session$x
 done
 
 tmux link-window -dk -s daemons:manage -t hi:0
 
 # Attach to any existing session with no attached clients
-for x in $(list-sessions) ; do
-    try-attach $x && exit 0
+for x in $(listsessions) ; do
+    tryattach $x && exit 0
     echo "Couldn't attach to session $x"
 done
 
@@ -96,19 +96,7 @@ done
 # create a new one and attach
 tmux new
 
-
-
-
-
-
-
-
-
-
-
-
-
-function has-sessions {
+hassessions() {
     for x in $@ ; do
         tmux has-session -t $x
 	rc=$rc+$?
