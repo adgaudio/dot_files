@@ -38,37 +38,59 @@ ME=(me alex alexgaudio)
 isme="$(grep " $(whoami) " <(echo ${ME[@]:0}) >/dev/null ; echo $?)"
 imposter="\$(if [[ "$isme" -ne "0" ]]; then echo \"${purple}($(whoami)) | \"; fi )"
 
+
 available_virtualenvs="$(workon|paste -sd '|')"
+user_workon=false
+
+function reactivate() {
+  echo "--> auto-execution of cmd, 'workon {env}' re-enabled"
+  user_workon=false
+}
 
 workon_virtualenv() {
-  # Automatically call "workon current_repo" if current directory is a git repo
+  # Automatically call "workon some_virtualenv" if current directory shares the same name as one of your virtualenvs
   # and deactivate virtualenv if current directory is $HOME
-  # If user explicitly calls workon, then don't auto-execute "workon current_repo" until they explicitly "deactivate"
   #
-  # TODO: bug: currently need to call workon twice because can't get current_command...only last_command
+  # If user explicitly calls workon or deactivate, stop auto-selecting virtual environments.
+  # The "reactivate" will let this function start auto-selecting virtual environments again.
   #
-  last_command="$(fc -ln -1)"
-  if [[ "$last_command" =~ \ workon\ (${available_virtualenvs})([ \|\;]|$) ]] ; then
-     echo "--> You have manually run the workon."
-     echo "--> auto-execution of 'workon {env}' disabled until you explicitly execute 'deactivate'"
-     user_workon=true
-     return
-  elif [[ "$last_command" =~ \ deactivate([ \|\;]|$) ]] ; then
-    echo "--> auto-execution of cmd, 'workon {env}' re-enabled"
-    user_workon=false
-  fi
-  if [ $user_workon ] ; then return ; fi
+  # Assumes that two global variables are defined:
+  #  - user_workon=true|false
+  #  - current_command is the most recent line entered into the shell
 
-  if [ -e .git ]; then
-    current_dir="${PWD##*/}"
-    venv="${VIRTUAL_ENV##*/}"
-    if [[ "$venv" != "$current_dir" ]] ; then
-       deactivate >/dev/null 2>&1 && echo "--> deactivate ${venv}"
-       workon $current_dir >/dev/null 2>&1 && echo "--> workon $current_dir"
+  # Figure out what to do if this function is currently disabled, and if it is being turned off
+  local last_command="$(fc -ln -1)"
+  if [[ "$last_command" =~ mkvirtualenv\ \s+ ]] ; then
+    available_virtualenvs="$(workon|paste -sd '|')"
+  fi
+  if [[ "$user_workon" = "false" && ! "$current_command"  =~ \ reactivate([ \|\;]|$) ]] ; then
+    # does last command include "workon XXX" or "deactivate"?
+    [[ "$current_command" =~ workon\ (${available_virtualenvs})([ \|\;]|$) ]] && matches_workon=true || matches_workon=false
+    [[ "$current_command" =~ deactivate([ \|\;]|$) ]] && matches_deactivate=true || matches_deactivate=false
+    if [[ "$matches_workon" = "true"  || "$matches_deactivate" = "true" ]] ; then
+      echo "--> automatic virtualenv selection disabled. Typing 'reactivate' will re-enable this feature"
+      user_workon=true
+      return
     fi
-  elif [[ "${VIRTUAL_ENV}" && "$PWD" = "$HOME" ]] ; then
-      echo '--> deactivate'
-      deactivate
+  elif [ "$user_workon" = "true" ] ; then
+    return
+  else
+    echo "unrecognized value for \$user_workon: \"$user_workon\"!"
+  fi
+
+  # Determine whether to change virtualenv
+  current_dir="${PWD##*/}"
+  venv="${VIRTUAL_ENV##*/}"
+  if [[ "$current_dir" =~ (${available_virtualenvs}) && "$venv" != "$current_dir" ]] ; then
+    if [[ "$venv" ]] ; then
+       deactivate && echo "--> deactivate ${venv}"
+    fi
+     workon $current_dir 2>&1 && echo "--> workon $current_dir"
+     basedir_for_virtualenv="$PWD"
+  elif [[ "$venv" && "$PWD" != "$basedir_for_virtualenv"* ]] ; then
+    # if the directory you've declared workon in is not a parent of the current directory, deactivate
+    echo '--> deactivate'
+    deactivate
   fi
 }
 
@@ -113,11 +135,20 @@ function _my_ps1() {
 function _prompt_command() {
     # execute hooks
     workon_virtualenv
-
     PS1="`_my_ps1`"
 }
-PROMPT_COMMAND=_prompt_command
 
+preexec () { # executes before (and twice after?!) the command-line is run
+  :; echo 'running preexec this_command' $this_command ; }
+preexec_invoke_exec () {
+  # thank you to:
+  # http://superuser.com/questions/175799/does-bash-have-a-hook-that-is-run-before-executing-a-command
+    [ -n "$COMP_LINE" ] && return  # do nothing if completing
+    [ "$BASH_COMMAND" = "$PROMPT_COMMAND" ] && return # don't cause a preexec for $PROMPT_COMMAND
+    current_command=`history 1 | sed -e "s/^[ ]*[0-9]*[ ]*//g"`;
+    #preexec "$current_command"
+}
+PROMPT_COMMAND="trap 'preexec_invoke_exec' DEBUG ; _prompt_command"
 
 
 ######
