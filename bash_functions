@@ -38,12 +38,21 @@ function ackl
 }
 function col()
 {
-  # echo a,b,c,d e f g,h | column "1"
-  # echo a,b,c,d e f g,h | column "2" ,
-  # echo a,b,c,d e f g,h | column "NF-1"
+  # leverage awk to slice and dice columnar data
+  # echo a,b,c,d e f g,h | col 1                --->>>    a,b,c,d
+  # echo a,b,c,d e f g,h | col 1 ,              --->>>    a
+  # echo a,b,c,d e f g,h | col 1,3 ,            --->>>    a,c
+  # echo a,b,c,d e f g,h | col 1,3 , --DELIM--  --->>>    a--DELIM--c
+  # echo a,b,c,d e f g,h | col '$(NF-1)' ,      --->>>    d e f g
   delimiter=
   test $2 && delimiter="-F $2"
-  awk $delimiter "{print \$($1)}"
+  test $3 && output_field_separator="-v OFS=$3" || output_field_separator="-v OFS=,"
+
+  cols=" $1"
+  cols=${cols//,/, \$}
+  cols=${cols/, /}
+  echo "--> awk $delimiter $output_field_separator \"{print $cols}\""
+  awk $delimiter $output_field_separator "{print $cols}"
 }
 
 
