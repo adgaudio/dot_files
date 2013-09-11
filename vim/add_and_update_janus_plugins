@@ -6,11 +6,12 @@ vim_plugins="vim_plugins"
 echo -e "\n##############"
 echo "adding to janus new vim plugins defined in $cwd/$vim_plugins"
 echo "##############"
-rm -rf ~/.janus ; mkdir ~/.janus ; cd ~/.janus ; git init
+#rm -rf ~/.janus ; mkdir ~/.janus ; cd ~/.janus ; git init
 cd ~/.janus
 cat $cwd/$vim_plugins | sh
 git submodule foreach git submodule init
 git submodule foreach git submodule update
+ln -s "$cwd/mysnippets" ~/.janus/
 )
 
 (
