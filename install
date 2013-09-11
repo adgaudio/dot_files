@@ -47,6 +47,7 @@ if __name__ == '__main__':
     symlink("bash_aliases", ".bash_aliases")
     symlink("bash_functions", ".bash_functions")
     symlink("bash_extras", ".bash_extras")
+    symlink("profile", ".profile")
     symlink("zshrc", ".zshrc")
     symlink("zshrc.zni", ".zshrc.zni")
 
