@@ -15,7 +15,7 @@ export PATH=$PATH:/usr/local/cuda/bin
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/lib
 
 
-available_virtualenvs="$(workon|tr -s '\n' '|')"
+available_virtualenvs="${$(workon|tr -s '\n' '|')%?}"
 user_workon=false
 
 function reactivate() {
@@ -161,7 +161,11 @@ preexec_invoke_exec () {
   # http://superuser.com/questions/175799/does-bash-have-a-hook-that-is-run-before-executing-a-command
     [ -n "$COMP_LINE" ] && return  # do nothing if completing
     [ "$BASH_COMMAND" = "$PROMPT_COMMAND" ] && return # don't cause a preexec for $PROMPT_COMMAND
-    #current_command=`history 1 | sed -e "s/^[ ]*[0-9]*[ ]*//g"`;
+    if [[ -n "$ZSH_NAME" ]] ; then
+      current_command=`history -1 | sed -e "s/^[ ]*[0-9]*[ ]*//g"`;
+    else
+      current_command=`history 1 | sed -e "s/^[ ]*[0-9]*[ ]*//g"`;
+    fi
     #preexec "$current_command"
 }
 PROMPT_COMMAND="trap 'preexec_invoke_exec' DEBUG ; _prompt_command"

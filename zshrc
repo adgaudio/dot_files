@@ -16,7 +16,12 @@ unsetopt beep notify
 bindkey -v
 # End of lines configured by zsh-newuser-install
 
-source ~/.local/bin/virtualenvwrapper.sh
+if [ -f ~/.local/bin/virtualenvwrapper.sh ] ; then
+  source ~/.local/bin/virtualenvwrapper.sh
+else
+  echo "zshrc warning: virtualenvwrapper.sh not found"
+fi
+
 
 autoload -U colors && colors
 autoload -U promptinit && promptinit
