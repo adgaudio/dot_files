@@ -7,6 +7,7 @@ export HISTFILESIZE=10000
 export HISTSIZE=5000
 export PATH=~/bbin:~/bin:$PATH
 export PYTHONSTARTUP=~/.pythonrc.py
+
 export PYTHONPATH=.:$HOME/bin:$HOME:$PYTHONPATH
 
 # Cuda ENV
@@ -14,7 +15,7 @@ export PATH=$PATH:/usr/local/cuda/bin
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/lib
 
 
-available_virtualenvs="$(workon|paste -sd '|')"
+available_virtualenvs="$(workon|tr -s '\n' '|')"
 user_workon=false
 
 function reactivate() {
@@ -136,7 +137,7 @@ _my_ps1() {
   elif [[ "$git_status" =~ .*[^\ ]\ M\  ]] ; then
     local git_status_color=${yellow}
      #M
-  elif [[ "$git_status" =~ .*[^\ ]\?\?\  ]] ; then
+  elif [[ "$git_status" =~ .*[^\ ]\\?\\?\  ]] ; then
     #??
     local git_status_color=${green_bold}
   else
