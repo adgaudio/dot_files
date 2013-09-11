@@ -40,4 +40,6 @@ bindkey -M vicmd '^e' end-of-line
 bindkey -M viins '^R' history-incremental-pattern-search-backward
 bindkey -M viins '^F' history-incremental-pattern-search-forward
 
+setopt auto_cd  # automatically change directory without cd cd
+
 . ~/.profile
