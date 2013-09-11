@@ -44,15 +44,16 @@ function col()
   # echo a,b,c,d e f g,h | col 1,3 ,            --->>>    a,c
   # echo a,b,c,d e f g,h | col 1,3 , --DELIM--  --->>>    a--DELIM--c
   # echo a,b,c,d e f g,h | col '$(NF-1)' ,      --->>>    d e f g
+  # Doesn't currently select a range of columns
   delimiter=
   test $2 && delimiter="-F $2"
-  test $3 && output_field_separator="-v OFS=$3" || output_field_separator="-v OFS=,"
+  test $3 && output_field_separator="-v OFS=$3" || output_field_separator=""
 
-  cols=" $1"
+  cols=",$1"
   cols=${cols//,/, \$}
   cols=${cols/, /}
-  echo "--> awk $delimiter $output_field_separator \"{print $cols}\""
   awk $delimiter $output_field_separator "{print $cols}"
+  echo "--> awk $delimiter $output_field_separator \"{print $cols\"}"
 }
 
 
