@@ -25,4 +25,14 @@ setopt promptsubst
 # zsh tab completion menu
 zstyle ':completion:*' menu select
 
+# move cursor on cmd line in any mode
+bindkey '^a' beginning-of-line
+bindkey '^e' end-of-line
+bindkey -M vicmd '^a' beginning-of-line
+bindkey -M vicmd '^e' end-of-line
+
+# history searching
+bindkey -M viins '^R' history-incremental-pattern-search-backward
+bindkey -M viins '^F' history-incremental-pattern-search-forward
+
 . ~/.profile
