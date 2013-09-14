@@ -57,12 +57,16 @@ workon_virtualenv() {
   # Determine whether to change virtualenv
   current_dir="${PWD##*/}"
   venv="${VIRTUAL_ENV##*/}"
-  if [[ "$current_dir" =~ (${available_virtualenvs}) && "$venv" != "$current_dir" ]] ; then
+  # if pwd_is_not_subdir_of_current_venv, then...
+  if [[ ! "$PWD" =~ \/$venv(\/|$) ]]; then
     if [[ "$venv" != "" ]] ; then
        deactivate && echo "--> deactivate ${venv}"
     fi
-     workon $current_dir 2>&1 && echo "--> workon $current_dir"
-     basedir_for_virtualenv="$PWD"
+    if [[ "$current_dir" =~ ($available_virtualenvs) ]] ; then
+      workon $current_dir 2>&1 && echo "--> workon $current_dir"
+      basedir_for_virtualenv="$PWD"
+    fi
+  # elif currently working on a virtual env and pwd isn't a subdir of the workon home dir, then...
   elif [[ "$venv" != "" && "$PWD" != "$basedir_for_virtualenv"* ]] ; then
     # if the directory you've declared workon in is not a parent of the current directory, deactivate
     echo '--> deactivate'
