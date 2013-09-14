@@ -36,9 +36,29 @@ bindkey '^e' end-of-line
 bindkey -M vicmd '^a' beginning-of-line
 bindkey -M vicmd '^e' end-of-line
 
+# more cursor stupidity
+bindkey "^?" backward-delete-char
+bindkey -M vicmd "^?" backward-delete-char
+bindkey "^W" backward-kill-word
+bindkey -M vicmd "^W" backward-kill-word
+bindkey "^H" backward-delete-char
+bindkey -M vicmd "^H" backward-delete-char
+bindkey "^U" kill-line
+bindkey -M vicmd "^U" kill-line
+
 # history searching
-bindkey -M viins '^R' history-incremental-pattern-search-backward
-bindkey -M viins '^F' history-incremental-pattern-search-forward
+bindkey '^R' history-incremental-pattern-search-backward
+bindkey -M vicmd '^R' history-incremental-pattern-search-backward
+bindkey '^F' history-incremental-pattern-search-forward
+bindkey -M vicmd '^F' history-incremental-pattern-search-forward
+# in vi search, hitting / or ? followed by esc, there's an annoying delay. remove that delay
+vi-search-fix() {
+zle vi-cmd-mode
+zle .vi-history-search-backward
+}
+autoload vi-search-fix
+zle -N vi-search-fix
+bindkey -M viins '\e/' vi-search-fix
 
 setopt auto_cd  # automatically change directory without cd cd
 
