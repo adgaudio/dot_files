@@ -60,6 +60,4 @@ autoload vi-search-fix
 zle -N vi-search-fix
 bindkey -M viins '\e/' vi-search-fix
 
-setopt auto_cd  # automatically change directory without cd cd
-
 . ~/.profile
