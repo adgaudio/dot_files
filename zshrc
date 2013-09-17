@@ -25,7 +25,7 @@ fi
 
 autoload -U colors && colors
 autoload -U promptinit && promptinit
-setopt promptsubst
+setopt correct promptsubst
 
 # zsh tab completion menu
 zstyle ':completion:*' menu select
