@@ -4,3 +4,30 @@ snippet ipyx
 	import IPython ; IPython.embed() ; import sys ; sys.exit()
 snippet exit
 	import sys ; sys.exit()
+snippet name
+	${1}
+	if __name__ == '__main__':
+	    NS = build_arg_parser().parse_args()
+	    main(NS)
+snippet dsinit
+	from ds_commons import argparse_tools as at${1}
+
+
+	def main(ns):
+	    ${3}
+
+
+	build_arg_parser = at.build_arg_parser([
+	    ${2}
+	])
+
+
+	if __name__ == '__main__':
+	    NS = build_arg_parser().parse_args()
+	    main(NS)
+snippet dt
+	from ds_commons import data_tools
+	${1}
+snippet dbt
+	from ds_commons import db_tools
+	${1}
