@@ -25,9 +25,18 @@ snippet dsinit
 	if __name__ == '__main__':
 	    NS = build_arg_parser().parse_args()
 	    main(NS)
-snippet dt
+snippet igm
+	import gevent.monkey ; gevent.monkey.patch_all()
+	${1}
+snippet idt
 	from ds_commons import data_tools
 	${1}
-snippet dbt
+snippet idbt
 	from ds_commons import db_tools
+	${1}
+snippet icb
+	from ds_commons import config_base
+	${1}
+snippet ilog
+	from ds_commons.log import log
 	${1}
