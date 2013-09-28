@@ -45,6 +45,8 @@ bindkey "^H" backward-delete-char
 bindkey -M vicmd "^H" backward-delete-char
 bindkey "^U" kill-line
 bindkey -M vicmd "^U" kill-line
+bindkey "^K" kill-line
+bindkey -M vicmd "^K" kill-line
 bindkey "^[[3~" delete-char
 bindkey -M vicmd  "^[[3~" delete-char
 
