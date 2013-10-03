@@ -62,7 +62,7 @@ workon_virtualenv() {
     if [[ "$venv" != "" ]] ; then
        deactivate && echo "--> deactivate ${venv}"
     fi
-    if [[ "$current_dir" =~ ($available_virtualenvs) ]] ; then
+    if [[ "$current_dir" =~ ^($available_virtualenvs)$ ]] ; then
       workon $current_dir 2>&1 && echo "--> workon $current_dir"
       basedir_for_virtualenv="$PWD"
     fi
