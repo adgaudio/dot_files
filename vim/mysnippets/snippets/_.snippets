@@ -40,3 +40,21 @@ snippet icb
 snippet ilog
 	from ds_commons.log import log
 	${1}
+snippet info
+	log.info(${1})
+	${2}
+snippet debug
+	log.debug(${1})
+	${2}
+snippet warn
+	log.warn(${1})
+	${2}
+snippet critical
+	log.critical(${1})
+	${2}
+snippet err
+	log.error(${1})
+	${2}
+snippet exc
+	log.exception(${1})
+	${2}

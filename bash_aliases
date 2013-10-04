@@ -38,9 +38,9 @@ alias rake="bundle exec rake"
 
 #alias ipython="ipython --autoedit-syntax --deep-reload --no-confirm-exit"
 alias i="ipython"
-alias ic="ipythongui console"
-alias ie="ipythongui console --existing"
-alias nb="ipythongui notebook --pylab inline"
+alias ic="ipythongui console --profile=empty"
+alias ie="ipythongui console --existing --profile=empty"
+alias nb="ipythongui notebook --pylab inline --profile=empty"
 
 #####
 #Git aliases
