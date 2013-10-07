@@ -45,6 +45,7 @@ bindkey -M viins '^w'    backward-kill-word
 bindkey -M viins '^u'    backward-kill-line
 bindkey -M viins '^h'    backward-delete-char
 bindkey -M viins '^?'    backward-delete-char
+bindkey -M viins '^[[3~' delete-char
 bindkey -M viins '^_'    undo
 bindkey -M viins '^x^r'  redisplay
 bindkey -M viins '\eOH'  beginning-of-line # Home
@@ -67,6 +68,7 @@ bindkey -M vicmd '^w'    backward-kill-word
 bindkey -M vicmd '^u'    backward-kill-line
 bindkey -M vicmd '^h'    backward-delete-char
 bindkey -M vicmd '^?'    backward-delete-char
+bindkey -M vicmd '^[[3~' delete-char
 bindkey -M vicmd '^_'    undo
 bindkey -M vicmd '/'     vi-history-search-forward
 bindkey -M vicmd '?'     vi-history-search-backward
