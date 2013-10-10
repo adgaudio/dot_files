@@ -1,5 +1,5 @@
-call janus#disable_plugin('nodejs', "i get this error message: Function DetectNode already exists, add ! to replace it")
-call janus#disable_plugin('pep8', "geezus this plugin sucks. its too strict")
+"call janus#disable_plugin('nodejs', "i get this error message: Function DetectNode already exists, add ! to replace it")
+"call janus#disable_plugin('pep8', "geezus this plugin sucks. its too strict")
 
 let mapleader = ","
 noremap ; :

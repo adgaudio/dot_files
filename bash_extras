@@ -25,14 +25,17 @@ function reactivate() {
 
 workon_virtualenv() {
   # Automatically call "workon some_virtualenv" if current directory shares the same name as one of your virtualenvs
-  # and deactivate virtualenv if current directory is $HOME
+  # and deactivate virtualenv if current directory path does not have ".../some_virtualenv/..." in its path
   #
   # If user explicitly calls workon or deactivate, stop auto-selecting virtual environments.
   # The "reactivate" will let this function start auto-selecting virtual environments again.
   #
-  # Assumes that two global variables are defined:
+  # If configured properly, this function is called every time you hit enter on the command line.
+  # It assumes that two global variables are defined:
   #  - user_workon=true|false
-  #  - current_command is the most recent line entered into the shell
+  #  - current_command - the most recent line entered into the shell.  You need this global variable to be updated
+  #  by your shell.  In bash, that's via the PROMPT_COMMAND.  In zsh, you register a precmd hook.
+  #    - If you don't know how to do this, you can look lower in this file for how I've implemented it.
 
   # Figure out what to do if this function is currently disabled, and if it is being turned off
   local last_command="$(fc -ln -1)"
