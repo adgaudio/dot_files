@@ -44,9 +44,9 @@ set wildmenu
 
 " Freak out when lines are more than 80 chars long
 autocmd FileType python highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-autocmd FileType python match OverLength /\%81v.\+/
-" set colorcolumn=80
+autocmd FileType python match OverLength /\%80v.\+/
+set colorcolumn=80
 
 " Turn off annoying PyLint Quickfix window
 "let pymode_lint_hold=0
-let pymode_lint_cwindow=0
+"let pymode_lint_cwindow=0
