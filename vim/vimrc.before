@@ -50,3 +50,6 @@ set colorcolumn=80
 " Turn off annoying PyLint Quickfix window
 "let pymode_lint_hold=0
 "let pymode_lint_cwindow=0
+" Skip errors and warnings
+"let g:pymode_lint_ignore = "E501,W002" "...  or "E2,W"
+let g:pymode_lint_ignore = "C0110"
