@@ -18,7 +18,11 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias g="fg"
 alias grep="grep --color=auto"
-alias killjobs='kill `jobs -p`' # to kill individual job, do: $ kill %1
+if [ "$ZSH_NAME" = "zsh" ] ; then
+  alias killjobs='kill ${${(v)jobstates#*:*:}%=*}'
+else
+  alias killjobs='kill `jobs -p`' # to kill individual job, do: $ kill %1
+fi
 [ "`uname`" = "Darwin" ] && alias ls='ls -G' || alias ls='ls --color=auto'
 alias ll="ls -ltr"
 alias la="ls -a"
@@ -38,8 +42,8 @@ alias rake="bundle exec rake"
 
 #alias ipython="ipython --autoedit-syntax --deep-reload --no-confirm-exit"
 alias i="ipython"
-alias ic="ipythongui console --profile=empty --pylab=inline"
-alias ie="ipythongui console --existing --profile=empty --pylab=inline"
+alias ic="ipythongui console --profile=empty --pylab"
+alias ie="ipythongui console --existing --profile=empty --pylab"
 alias nb="ipythongui notebook --pylab=inline --profile=empty"
 
 #####
