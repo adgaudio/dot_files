@@ -2,6 +2,11 @@ snippet ipy
 	import IPython; IPython.embed()
 snippet ipyx
 	import IPython ; IPython.embed() ; import sys ; sys.exit()
+snippet ipyc
+	import IPython.parallel
+	client = IPython.parallel.Client()
+	client.${1}
+
 snippet exit
 	import sys ; sys.exit()
 snippet name
