@@ -5,6 +5,7 @@ git submodule add git://github.com/klen/python-mode.git
 #git submodule add git@github.com:davidhalter/jedi-vim.git  # pip install jedi
 git submodule add https://github.com/vim-scripts/DrawIt.git
 git submodule add https://github.com/terryma/vim-multiple-cursors.git
+git submodule add https://github.com/moll/vim-node.git
 
 git submodule add https://github.com/sudar/vim-arduino-syntax.git
 git submodule add https://github.com/vim-scripts/openscad.vim.git
