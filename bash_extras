@@ -15,7 +15,7 @@ export PATH=$PATH:/usr/local/cuda/bin
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/lib
 
 
-available_virtualenvs="$(workon | paste -sd '|')"
+available_virtualenvs="$(workon | paste -sd '|' - )"
 user_workon=false
 
 function reactivate() {
@@ -40,7 +40,7 @@ workon_virtualenv() {
   # Figure out what to do if this function is currently disabled, and if it is being turned off
   local last_command="$(fc -ln -1)"
   if [[ "$last_command" =~ mkvirtualenv\ \s+ ]] ; then
-    available_virtualenvs="$(workon|paste -sd '|')"
+    available_virtualenvs="$(workon|paste -sd '|' - )"
   fi
   if [[ "$user_workon" = "false" && ! "$current_command"  =~ \ reactivate([ \|\;]|$) ]] ; then
     # does last command include "workon XXX" or "deactivate"?
