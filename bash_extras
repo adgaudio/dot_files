@@ -15,7 +15,7 @@ export PATH=$PATH:/usr/local/cuda/bin
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/lib
 
 
-available_virtualenvs="${$(workon|tr -s '\n' '|')%?}"
+available_virtualenvs="$(workon | paste -sd '|')"
 user_workon=false
 
 function reactivate() {
