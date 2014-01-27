@@ -1,5 +1,6 @@
 "call janus#disable_plugin('nodejs', "i get this error message: Function DetectNode already exists, add ! to replace it")
 "call janus#disable_plugin('pep8', "geezus this plugin sucks. its too strict")
+call janus#disable_plugin('syntastic', "vim is slow to save files at the moment")
 
 let mapleader = ","
 noremap ; :
