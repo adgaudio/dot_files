@@ -68,9 +68,11 @@ alias r="git remote -v"
 alias st="git stash"
 alias s="git status -sb"
 
+alias reu="re upstream/master"
 alias red="re origin/development"
 alias rem="re origin/master"
 
+alias freu='st |grep -E "^No local changes to save$" && a=0 || a=1 ; fu ; reu ; [ "$a" -eq "1" ] && pop'
 alias fred='st |grep -E "^No local changes to save$" && a=0 || a=1 ; f ; red ; [ "$a" -eq "1" ] && pop'
 alias frem='st |grep -E "^No local changes to save$" && a=0 || a=1 ; f ; rem ; [ "$a" -eq "1" ] && pop'
 alias submodule_update='git stash |grep -E "No local changes to save$" && a=0 || a=1 ; git submodule foreach "(git fetch ; git checkout master ; git pull origin master)"  2>/dev/null ; git commit -am "update submodules" 1>/dev/null ; [ "$a" -eq "1" ] && git stash pop 1>/dev/null'
