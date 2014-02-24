@@ -64,6 +64,7 @@ alias fu="git fetch upstream"
 alias pull="git pull"
 alias pullf="pull --ff-only"
 alias re="git rebase"
+alias rea="re -i --autosquash"
 alias re2='st |grep -E "^No local changes to save$" && a=0 || a=1 ; git rebase -i HEAD~2 ;  [ "$a" -eq "1" ] && pop'
 alias r="git remote -v"
 alias st="git stash"
