@@ -56,3 +56,6 @@ set colorcolumn=80
 let g:pymode_lint_ignore = "C0110,W0511,W1201,W0703"
 let g:pymode_rope_auto_project = 1
 let g:snipMateAllowMatchingDot = 0
+
+" Scala settings
+let g:scala_sort_across_groups=1
