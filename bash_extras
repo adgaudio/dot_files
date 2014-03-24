@@ -127,7 +127,6 @@ _my_ps1() {
   local imposter="\$(if [[ ""$isme"" -ne "0" ]]; then echo \"${purple}($(whoami)) | \"; fi )"
 
   # change colors based on success of last command
-  local last_rv=$?
   if [ $last_rv = 0 ] ; then
     local stoplight_color="${green}"
   else
@@ -164,6 +163,7 @@ function _prompt_command() {
 }
 
 preexec_invoke_exec () {
+    last_rv=$?
   # thank you to:
   # http://superuser.com/questions/175799/does-bash-have-a-hook-that-is-run-before-executing-a-command
     [ -n "$COMP_LINE" ] && return  # do nothing if completing
