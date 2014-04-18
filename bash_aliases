@@ -56,7 +56,7 @@ alias ch="git checkout"
 alias d="git diff --color=auto"
 alias dc="git diff --cached --color=auto"
 alias dum="d upstream/master"
-alias newu="d upstream/master $(git merge-base upstream/master HEAD) --stat"
+alias newu='d upstream/master $(git merge-base upstream/master HEAD) --stat'
 alias gg="git grep --color=auto"
 alias l="git log --color=auto --decorate --stat --graph --all"
 alias p="git push"
