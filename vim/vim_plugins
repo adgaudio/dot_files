@@ -10,3 +10,4 @@ git submodule add https://github.com/moll/vim-node.git
 git submodule add https://github.com/sudar/vim-arduino-syntax.git
 git submodule add https://github.com/vim-scripts/openscad.vim.git
 git submodule add https://github.com/derekwyatt/vim-scala.git
+git submodule add https://github.com/benmills/vimux.git
