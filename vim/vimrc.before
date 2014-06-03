@@ -53,7 +53,7 @@ set colorcolumn=80
 "let pymode_lint_cwindow=0
 " Skip errors and warnings
 "let g:pymode_lint_ignore = "E501,W002" "...  or "E2,W"
-let g:pymode_lint_ignore = "C0110,W0511,W1201,W0703"
+let g:pymode_lint_ignore = "C0110,W0511,W1201,W0703,E712"
 let g:pymode_rope_auto_project = 1
 let g:snipMateAllowMatchingDot = 0
 
