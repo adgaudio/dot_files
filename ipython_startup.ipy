@@ -10,6 +10,7 @@ import datetime
 from pandas import DataFrame as DF
 import pandas as pd
 import numpy as np
+from pylab import *
 
 now = datetime.datetime.utcnow()
 df = DF(
