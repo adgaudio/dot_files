@@ -6,6 +6,8 @@ export EDITOR=vim
 export HISTFILESIZE=10000
 export HISTSIZE=5000
 export PATH=~/bbin:~/bin:$PATH
+export R_LIBS=~/.r_libs
+[ -d "$HOME/.r_libs" ] || mkdir ~/.r_libs
 export PYTHONSTARTUP=~/.pythonrc.py
 
 export PYTHONPATH=.:$HOME/bin:$HOME:$PYTHONPATH
