@@ -54,6 +54,7 @@ alias b="git branch"
 alias c="git commit"
 alias ch="git checkout"
 alias d="git diff --color=auto"
+alias dw="git diff --color=auto --word-diff"
 alias dc="git diff --cached --color=auto"
 alias dum="d upstream/master"
 alias newu='d upstream/master $(git merge-base upstream/master HEAD) --stat'
@@ -74,6 +75,7 @@ alias re3='st |grep -E "^No local changes to save$" && a=0 || a=1 ; git rebase -
 alias r="git remote -v"
 alias st="git stash"
 alias s="git status -sb"
+alias ss='git status|grep -E "untracked\ content|modified:"'
 
 alias reu="re upstream/master"
 alias red="re origin/development"
