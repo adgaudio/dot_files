@@ -59,6 +59,7 @@ alias dum="d upstream/master"
 alias newu='d upstream/master $(git merge-base upstream/master HEAD) --stat'
 alias gg="git grep --color=auto"
 alias l="git log --color=auto --decorate --stat --graph --all"
+alias lg="git log --color=auto --decorate --stat --graph"
 alias p="git push"
 alias pop="git stash pop"
 alias f="git fetch"
