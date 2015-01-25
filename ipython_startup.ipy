@@ -10,7 +10,14 @@ import datetime
 from pandas import DataFrame as DF
 import pandas as pd
 import numpy as np
-from pylab import *
+import seaborn as sns
+
+# pandas should automatically figure out how large dataframes should be
+# when printed on screen
+# for some reason its defaults are too small
+pd.set_option("display.max_columns", None)
+pd.set_option("display.width", None)
+
 
 now = datetime.datetime.utcnow()
 df = DF(
