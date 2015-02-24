@@ -28,3 +28,11 @@ options("repos" = c(CRAN = "http://cran.rstudio.com/"))
 
 ## Attach all the variables above
 attach(.env)
+
+## For Vim-R-plugin
+if(interactive()){
+  library(colorout)
+  library(setwidth)
+  options(vimcom.verbose = 1) # optional
+  library(vimcom)
+}

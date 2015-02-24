@@ -90,3 +90,6 @@ nmap <Leader>vs V,vs
 " Select current block (paragraph) and send it to tmux
 nmap <Leader>vb vip,vs<CR>
 let g:VimuxUseNearestPane = 1
+
+" R-vim-plugin
+let vimrplugin_assign_map = "__"  "don't not take my stinkin underscores away!
