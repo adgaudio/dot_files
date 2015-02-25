@@ -6,8 +6,11 @@ call janus#disable_plugin('syntastic', "vim is slow to save files at the moment"
 let g:NERDSpaceDelims = 1
 
 let mapleader = ","
-let maplocalleader = "_"
+let maplocalleader = ";;"
 noremap ; :
+
+" Key code delays should be shorter
+set timeout timeoutlen=200 ttimeoutlen=-1
 
 " Enable repeated indenting in visual mode
 vmap < <gv
