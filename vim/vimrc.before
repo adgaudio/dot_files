@@ -6,6 +6,7 @@ call janus#disable_plugin('syntastic', "vim is slow to save files at the moment"
 let g:NERDSpaceDelims = 1
 
 let mapleader = ","
+let maplocalleader = "_"
 noremap ; :
 
 " Enable repeated indenting in visual mode
