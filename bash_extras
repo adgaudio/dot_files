@@ -219,4 +219,4 @@ function save ()
 # stop XOFF and XON being sent from the keyboard via <C-s> and <C-q>
 # but still allowing other software to send the commands.
 # useful for vim-ipython plugin and anything that binds to <C-s>
-stty ixoff -ixon
+[[ $- == *i* ]] && stty -ixon
