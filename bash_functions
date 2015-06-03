@@ -53,7 +53,7 @@ function col()
   cols=${cols//,/, \$}
   cols=${cols/, /}
   awk $delimiter $output_field_separator "{print $cols}"
-  echo "--> awk $delimiter $output_field_separator \"{print $cols\"}"
+  echo "--> awk $delimiter $output_field_separator \"{print $cols\"}" &>2
 }
 
 
