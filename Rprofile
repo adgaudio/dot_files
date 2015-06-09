@@ -33,6 +33,6 @@ attach(.env)
 if(interactive()){
   library(colorout)
   library(setwidth)
-  options(vimcom.verbose = 1) # optional
-  library(vimcom)
+  library(magrittr)
+  library(dplyr)
 }

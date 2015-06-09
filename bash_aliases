@@ -72,6 +72,7 @@ alias rea="re -i --autosquash"
 alias rea2="git commit -a --fixup HEAD ; rea HEAD~2"
 alias re2='st |grep -E "^No local changes to save$" && a=0 || a=1 ; git rebase -i HEAD~2 ;  [ "$a" -eq "1" ] && pop'
 alias re3='st |grep -E "^No local changes to save$" && a=0 || a=1 ; git rebase -i HEAD~10 ;  [ "$a" -eq "1" ] && pop'
+alias rec="re --continue"
 alias r="git remote -v"
 alias st="git stash"
 alias s="git status -sb"

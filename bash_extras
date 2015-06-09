@@ -65,7 +65,7 @@ workon_virtualenv() {
   # if pwd_is_not_subdir_of_current_venv, then...
   if [[ ! "$PWD" =~ \/$venv(\/|$) ]]; then
     if [[ "$venv" != "" ]] ; then
-       deactivate && echo "--> deactivate ${venv}"
+       deactivate 2>/dev/null && echo "--> deactivate ${venv}" 1>&2
     fi
     if [[ "$current_dir" =~ ^($available_virtualenvs)$ ]] ; then
       workon $current_dir 2>&1 && echo "--> workon $current_dir"
@@ -75,7 +75,7 @@ workon_virtualenv() {
   elif [[ "$venv" != "" && "$PWD" != "$basedir_for_virtualenv"* ]] ; then
     # if the directory you've declared workon in is not a parent of the current directory, deactivate
     echo '--> deactivate'
-    deactivate
+    deactivate 2>/dev/null
   fi
 }
 
