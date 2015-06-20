@@ -10,80 +10,80 @@ export R_LIBS=~/.r_libs
 [ -d "$HOME/.r_libs" ] || mkdir ~/.r_libs
 export PYTHONSTARTUP=~/.pythonrc.py
 
-export PYTHONPATH=.:$HOME/bin:$HOME:$PYTHONPATH
+# export PYTHONPATH=.:$HOME/bin:$HOME:$PYTHONPATH
 
 # Cuda ENV
-export PATH=$PATH:/usr/local/cuda/bin
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/lib
+# export PATH=$PATH:/usr/local/cuda/bin
+# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/lib
 
 
-available_virtualenvs="$(workon | paste -sd '|' - )"
-user_workon=false
+# available_virtualenvs="$(workon | paste -sd '|' - )"
+# user_workon=false
 
-function reactivate() {
-  echo "--> auto-execution of cmd, 'workon {env}' re-enabled"
-  user_workon=false
-}
+# function reactivate() {
+#   echo "--> auto-execution of cmd, 'workon {env}' re-enabled"
+#   user_workon=false
+# }
 
-workon_virtualenv() {
-  # Automatically call "workon some_virtualenv" if current directory shares the same name as one of your virtualenvs
-  # and deactivate virtualenv if current directory path does not have ".../some_virtualenv/..." in its path
-  #
-  # If user explicitly calls workon or deactivate, stop auto-selecting virtual environments.
-  # The "reactivate" will let this function start auto-selecting virtual environments again.
-  #
-  # If configured properly, this function is called every time you hit enter on the command line.
-  # It assumes that two global variables are defined:
-  #  - user_workon=true|false
-  #  - current_command - the most recent line entered into the shell.  You need this global variable to be updated
-  #  by your shell.  In bash, that's via the PROMPT_COMMAND.  In zsh, you register a precmd hook.
-  #    - If you don't know how to do this, you can look lower in this file for how I've implemented it.
+# workon_virtualenv() {
+#   # Automatically call "workon some_virtualenv" if current directory shares the same name as one of your virtualenvs
+#   # and deactivate virtualenv if current directory path does not have ".../some_virtualenv/..." in its path
+#   #
+#   # If user explicitly calls workon or deactivate, stop auto-selecting virtual environments.
+#   # The "reactivate" will let this function start auto-selecting virtual environments again.
+#   #
+#   # If configured properly, this function is called every time you hit enter on the command line.
+#   # It assumes that two global variables are defined:
+#   #  - user_workon=true|false
+#   #  - current_command - the most recent line entered into the shell.  You need this global variable to be updated
+#   #  by your shell.  In bash, that's via the PROMPT_COMMAND.  In zsh, you register a precmd hook.
+#   #    - If you don't know how to do this, you can look lower in this file for how I've implemented it.
 
-  # Figure out what to do if this function is currently disabled, and if it is being turned off
-  local last_command="$(fc -ln -1)"
-  if [[ "$last_command" =~ mkvirtualenv\ \s+ ]] ; then
-    available_virtualenvs="$(workon|paste -sd '|' - )"
-  fi
-  if [[ "$user_workon" = "false" && ! "$current_command"  =~ \ reactivate([ \|\;]|$) ]] ; then
-    # does last command include "workon XXX" or "deactivate"?
-    [[ "$current_command" =~ workon\ (${available_virtualenvs})([ \|\;]|$) ]] && matches_workon=true || matches_workon=false
-    [[ "$current_command" =~ deactivate([ \|\;]|$) ]] && matches_deactivate=true || matches_deactivate=false
-    if [[ "$matches_workon" = "true"  || "$matches_deactivate" = "true" ]] ; then
-      echo "--> automatic virtualenv selection disabled. Typing 'reactivate' will re-enable this feature"
-      user_workon=true
-      return
-    fi
-  elif [ "$user_workon" = "true" ] ; then
-    return
-  else
-    echo "unrecognized value for \$user_workon: \"$user_workon\"!"
-  fi
+#   # Figure out what to do if this function is currently disabled, and if it is being turned off
+#   local last_command="$(fc -ln -1)"
+#   if [[ "$last_command" =~ mkvirtualenv\ \s+ ]] ; then
+#     available_virtualenvs="$(workon|paste -sd '|' - )"
+#   fi
+#   if [[ "$user_workon" = "false" && ! "$current_command"  =~ \ reactivate([ \|\;]|$) ]] ; then
+#     # does last command include "workon XXX" or "deactivate"?
+#     [[ "$current_command" =~ workon\ (${available_virtualenvs})([ \|\;]|$) ]] && matches_workon=true || matches_workon=false
+#     [[ "$current_command" =~ deactivate([ \|\;]|$) ]] && matches_deactivate=true || matches_deactivate=false
+#     if [[ "$matches_workon" = "true"  || "$matches_deactivate" = "true" ]] ; then
+#       echo "--> automatic virtualenv selection disabled. Typing 'reactivate' will re-enable this feature"
+#       user_workon=true
+#       return
+#     fi
+#   elif [ "$user_workon" = "true" ] ; then
+#     return
+#   else
+#     echo "unrecognized value for \$user_workon: \"$user_workon\"!"
+#   fi
 
-  # Determine whether to change virtualenv
-  current_dir="${PWD##*/}"
-  venv="${VIRTUAL_ENV##*/}"
-  # if pwd_is_not_subdir_of_current_venv, then...
-  if [[ ! "$PWD" =~ \/$venv(\/|$) ]]; then
-    if [[ "$venv" != "" ]] ; then
-       deactivate 2>/dev/null && echo "--> deactivate ${venv}" 1>&2
-    fi
-    if [[ "$current_dir" =~ ^($available_virtualenvs)$ ]] ; then
-      workon $current_dir 2>&1 && echo "--> workon $current_dir"
-      basedir_for_virtualenv="$PWD"
-    fi
-  # elif currently working on a virtual env and pwd isn't a subdir of the workon home dir, then...
-  elif [[ "$venv" != "" && "$PWD" != "$basedir_for_virtualenv"* ]] ; then
-    # if the directory you've declared workon in is not a parent of the current directory, deactivate
-    echo '--> deactivate'
-    deactivate 2>/dev/null
-  fi
-}
+#   # Determine whether to change virtualenv
+#   current_dir="${PWD##*/}"
+#   venv="${VIRTUAL_ENV##*/}"
+#   # if pwd_is_not_subdir_of_current_venv, then...
+#   if [[ ! "$PWD" =~ \/$venv(\/|$) ]]; then
+#     if [[ "$venv" != "" ]] ; then
+#        deactivate 2>/dev/null && echo "--> deactivate ${venv}" 1>&2
+#     fi
+#     if [[ "$current_dir" =~ ^($available_virtualenvs)$ ]] ; then
+#       workon $current_dir 2>&1 && echo "--> workon $current_dir"
+#       basedir_for_virtualenv="$PWD"
+#     fi
+#   # elif currently working on a virtual env and pwd isn't a subdir of the workon home dir, then...
+#   elif [[ "$venv" != "" && "$PWD" != "$basedir_for_virtualenv"* ]] ; then
+#     # if the directory you've declared workon in is not a parent of the current directory, deactivate
+#     echo '--> deactivate'
+#     deactivate 2>/dev/null
+#   fi
+# }
 
 __my_ps1() {
   # The actual PS1 definition
-  if [[ "$VIRTUAL_ENV" != "" ]] ; then
-    echo -n "\n${cyan_bold}(${VIRTUAL_ENV##*/})"
-  fi
+  # if [[ "$VIRTUAL_ENV" != "" ]] ; then
+    # echo -n "\n${cyan_bold}(${VIRTUAL_ENV##*/})"
+  # fi
   echo -n "\n${imposter}${cyan}${date_} | ${gray}${pwd} | ${git_status_color}${git_branch} | ${gray}`hostname`"
   #echo -n "${white} | $(history |tail -n 1 | cut -d ' ' -f 3-20 | realiaser)"
   echo -n "\n${stoplight_color} \$ ${white}"
@@ -160,7 +160,7 @@ _my_ps1() {
 
 function _prompt_command() {
     # execute hooks
-    workon_virtualenv
+    # workon_virtualenv
     PS1="`_my_ps1`"
 }
 
