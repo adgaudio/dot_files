@@ -14,11 +14,3 @@ git submodule add https://github.com/derekwyatt/vim-scala.git
 git submodule add https://github.com/benmills/vimux.git
 git submodule add https://github.com/JuliaLang/julia-vim.git
 git submodule add https://github.com/fatih/vim-go
-
-# Vim + R integration
-# There is some stuff in aliases and .Rprofile for this.
-# You may also need to install these dependencies:
-# devtools::install_github("jalvesaq/VimCom")
-# devtools::install_github("jalvesaq/colorout")
-# install.packages("setwidth")
-git submodule add git@github.com:vim-scripts/Vim-R-plugin.git
