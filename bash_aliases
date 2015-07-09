@@ -87,6 +87,7 @@ alias fred='st |grep -E "^No local changes to save$" && a=0 || a=1 ; f ; red ; [
 alias frem='st |grep -E "^No local changes to save$" && a=0 || a=1 ; f ; rem ; [ "$a" -eq "1" ] && pop'
 alias fremp='frem ; git push'
 alias submodule_update='git stash |grep -E "No local changes to save$" && a=0 || a=1 ; git submodule foreach "(git pull --ff-only)"  2>/dev/null ; git commit -am "update submodules" 1>/dev/null ; echo "updated submodules" ; [ "$a" -eq "1" ] && git stash pop 1>/dev/null'
+alias hc='git rev-parse HEAD | pbcopy ; pbpaste'
 
 
 # OS Specific
