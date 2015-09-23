@@ -1,5 +1,5 @@
 alias _count="sort | uniq -c | sort -n "
-alias favorite_cmds="history|tr -s ' '|cut -d' ' -f3- |tr '|' '\n' |_count"
+alias favorite_cmds="history 0 |tr -s ' '|cut -d' ' -f3- |tr '|' '\n' |_count"
 
 ####
 #General aliases
@@ -88,6 +88,14 @@ alias frem='st |grep -E "^No local changes to save$" && a=0 || a=1 ; f ; rem ; [
 alias fremp='frem ; git push'
 alias submodule_update='git stash |grep -E "No local changes to save$" && a=0 || a=1 ; git submodule foreach "(git pull --ff-only)"  2>/dev/null ; git commit -am "update submodules" 1>/dev/null ; echo "updated submodules" ; [ "$a" -eq "1" ] && git stash pop 1>/dev/null'
 alias hc='git rev-parse HEAD | pbcopy ; pbpaste'
+
+#####
+#Docker aliases
+#####
+alias drit='docker run -it --rm '
+alias dcl='docker-compose logs '
+alias dcyml="cat docker-compose.yml|python -c 'import sys, yaml, json; print json.dumps(yaml.load(sys.stdin.read()))'|jq "
+alias dcymlk='dcls keys'
 
 
 # OS Specific

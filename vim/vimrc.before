@@ -1,7 +1,3 @@
-"call janus#disable_plugin('nodejs', "i get this error message: Function DetectNode already exists, add ! to replace it")
-"call janus#disable_plugin('pep8', "too strict")
-"call janus#disable_plugin('syntastic', "vim is slow to save files at the moment")
-
 " Spaces around comments
 let g:NERDSpaceDelims = 1
 
