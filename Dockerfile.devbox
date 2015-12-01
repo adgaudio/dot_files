@@ -14,6 +14,7 @@ RUN apt-get install -y pkg-config
 RUN apt-get install -y cmake
 RUN apt-get install -y build-essential
 RUN apt-get install -y tcpdump
+RUN apt-get install -y rake
 
 RUN useradd dev && echo 'dev:dev' | chpasswd && adduser dev sudo
 RUN mkdir /home/dev && chown -R dev: /home/dev
