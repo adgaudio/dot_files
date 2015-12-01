@@ -42,9 +42,6 @@ alias pry="bundle exec pry"
 
 #alias ipython="ipython --autoedit-syntax --deep-reload --no-confirm-exit"
 alias i="ipython"
-alias ic="ipythongui console --profile=empty --pylab"
-alias ie="ipythongui console --existing --profile=empty --pylab"
-alias nb="ipythongui notebook --pylab=inline --profile=empty"
 
 #####
 #Git aliases
@@ -92,6 +89,7 @@ alias hc='git rev-parse HEAD | pbcopy ; pbpaste'
 #####
 #Docker aliases
 #####
+alias drmi='docker rmi -f $(docker images -q -a -f dangling=true)'
 alias drit='docker run -it --rm '
 alias dcl='docker-compose logs '
 alias dcyml="cat docker-compose.yml|python -c 'import sys, yaml, json; print json.dumps(yaml.load(sys.stdin.read()))'|jq "

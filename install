@@ -2,6 +2,7 @@
 
 import os
 import sys
+from subprocess import check_call
 join = os.path.join
 
 # source dir
@@ -32,7 +33,7 @@ def symlink(x, y, s=s, d=d):
 
 def install_vim(s=s):
     # Install vim plugin dependencies
-    os.system('deactivate ; pip install jedi')
+    # os.system('deactivate ; pip install jedi')
     # Install janus
     os.system(join(s, 'vim/bootstrap_janus'))
 
@@ -40,34 +41,51 @@ def install_vim(s=s):
 #########################################
 
 if __name__ == '__main__':
-    vim = False
+    import argparse as ap
+    p = ap.ArgumentParser()
+    p.add_argument('--vim', action='store_true')
+    p.add_argument('--docker', action='store_true')
+    p.add_argument('--symlinks', action='store_true')
+    NS = p.parse_args()
 
-    symlink("ackrc", ".ackrc")
+    if NS.symlinks:
+        symlink("ackrc", ".ackrc")
+    
+        symlink("bash_aliases", ".bash_aliases")
+        symlink("bash_functions", ".bash_functions")
+        symlink("bash_extras", ".bash_extras")
+        symlink("profile", ".profile")
+        symlink("zshrc", ".zshrc")
+        symlink("zsh_tab_completion", ".zsh_tab_completion")
+        symlink("zshrc.zni", ".zshrc.zni")
+        symlink("z.sh", ".z.sh")
+    
+        symlink("gitconfig", ".gitconfig")
+        symlink("inputrc", ".inputrc")
+        symlink("python/pythonrc.py", ".pythonrc.py")
+        symlink("Rprofile", ".Rprofile")
+    
+        _ipy_dir = join(d, ".ipython/profile_default/startup")
+        if not os.path.exists(_ipy_dir):
+            os.makedirs(_ipy_dir)
+        symlink("ipython_startup.ipy", join(_ipy_dir, "ipython_startup.ipy"))
+    
+        symlink("tmux/tmux.conf", ".tmux.conf")
+        symlink("tmux/tmux_osx.conf", ".tmux_osx.conf")
+        if 'linux' in sys.platform.lower():
+            symlink("Xmodmap", ".Xmodmap")
 
-    symlink("bash_aliases", ".bash_aliases")
-    symlink("bash_functions", ".bash_functions")
-    symlink("bash_extras", ".bash_extras")
-    symlink("profile", ".profile")
-    symlink("zshrc", ".zshrc")
-    symlink("zsh_tab_completion", ".zsh_tab_completion")
-    symlink("zshrc.zni", ".zshrc.zni")
-    symlink("z.sh", ".z.sh")
-
-    symlink("gitconfig", ".gitconfig")
-    symlink("inputrc", ".inputrc")
-    symlink("python/pythonrc.py", ".pythonrc.py")
-    symlink("Rprofile", ".Rprofile")
-
-    _ipy_dir = join(d, ".ipython/profile_default/startup")
-    if not os.path.exists(_ipy_dir):
-        os.makedirs(_ipy_dir)
-    symlink("ipython_startup.ipy", join(_ipy_dir, "ipython_startup.ipy"))
-
-    symlink("tmux/tmux.conf", ".tmux.conf")
-    symlink("tmux/tmux_osx.conf", ".tmux_osx.conf")
-    if 'linux' in sys.platform.lower():
-        symlink("Xmodmap", ".Xmodmap")
-    if vim:
+    if NS.vim:
         install_vim()
     # Install realiaser (for cmd prompt)
     # os.system('gem install realiaser')  # gem update realiaser
+
+    if NS.docker:
+        if os.environ.get('BOX_NAME'):
+            print(
+                "NOT Building docker devbox image because it looks"
+                " like I'm inside a docker container already")
+        else:
+            check_call(
+                "docker build -t adgaudio/devbox -f Dockerfile.devbox .",
+                 shell=True)

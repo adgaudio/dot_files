@@ -2,8 +2,10 @@
 	name = Alex Gaudio
 	email = adgaudio@gmail.com
 [push]
-  default = upstream
+	default = simple
 [core]
 	editor = vim
 [color]
 	ui = true
+[rebase]
+	stat = true
