@@ -4,14 +4,19 @@
 # http://nathanleclaire.com/blog/2014/07/12/10-docker-tips-and-tricks-that-will-make-you-sing-a-whale-song-of-joy/
 
 function newbox () {
-    docker run --name $1 -v $HOME/.ssh:/home/dev/.ssh -v $HOME/dot_files:/home/dev/dot_files -it -v /var/run/docker.sock:/var/run/docker.sock -e BOX_NAME=$1 adgaudio/devbox  bash --login
+  docker run -it --name $1 \
+    -v $HOME/.ssh:/home/dev/.ssh:ro \
+    -v $HOME/dot_files:/home/dev/dot_files \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -e BOX_NAME=$1 \
+    adgaudio/devbox  bash --login
 }
 
 function da () { docker start $1 && docker attach $1; }
 
 function de(){ docker exec -it $1 bash --login; }
 
-function dr(){ docker rm $1; }
+function dr(){ docker rm $@; }
 
 function ds(){ docker commit $@; }
 
