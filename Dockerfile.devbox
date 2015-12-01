@@ -1,3 +1,5 @@
+# Dockerfile adapted from
+# http://nathanleclaire.com/blog/2014/07/12/10-docker-tips-and-tricks-that-will-make-you-sing-a-whale-song-of-joy/
 FROM ubuntu:14.04
 
 RUN apt-get update -y
@@ -13,7 +15,7 @@ RUN apt-get install -y cmake
 RUN apt-get install -y build-essential
 RUN apt-get install -y tcpdump
 
-RUN useradd dev -p pass 
+RUN useradd dev && echo 'dev:dev' | chpasswd && adduser dev sudo
 RUN mkdir /home/dev && chown -R dev: /home/dev
 RUN mkdir -p /home/dev/bin /home/dev/lib /home/dev/include
 ENV PATH /home/dev/bin:$PATH
