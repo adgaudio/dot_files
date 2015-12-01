@@ -13,6 +13,8 @@ function de(){ docker exec -it $1 bash --login; }
 
 function dr(){ docker rm $1; }
 
+function ds(){ docker commit $@; }
+
 ####
 # GIT
 ####
