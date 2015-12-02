@@ -50,7 +50,7 @@ if __name__ == '__main__':
 
     if NS.symlinks:
         symlink("ackrc", ".ackrc")
-    
+
         symlink("bash_aliases", ".bash_aliases")
         symlink("bash_functions", ".bash_functions")
         symlink("bash_extras", ".bash_extras")
@@ -59,17 +59,17 @@ if __name__ == '__main__':
         symlink("zsh_tab_completion", ".zsh_tab_completion")
         symlink("zshrc.zni", ".zshrc.zni")
         symlink("z.sh", ".z.sh")
-    
+
         symlink("gitconfig", ".gitconfig")
         symlink("inputrc", ".inputrc")
         symlink("python/pythonrc.py", ".pythonrc.py")
         symlink("Rprofile", ".Rprofile")
-    
+
         _ipy_dir = join(d, ".ipython/profile_default/startup")
         if not os.path.exists(_ipy_dir):
             os.makedirs(_ipy_dir)
         symlink("ipython_startup.ipy", join(_ipy_dir, "ipython_startup.ipy"))
-    
+
         symlink("tmux/tmux.conf", ".tmux.conf")
         symlink("tmux/tmux_osx.conf", ".tmux_osx.conf")
         if 'linux' in sys.platform.lower():
@@ -86,6 +86,6 @@ if __name__ == '__main__':
                 "NOT Building docker devbox image because it looks"
                 " like I'm inside a docker container already")
         else:
-            check_call(
-                "docker build -t adgaudio/devbox -f Dockerfile.devbox .",
-                 shell=True)
+            cmd = "docker build -t adgaudio/devbox "\
+                "-f dockerfiles/Dockerfile.devbox ."
+            check_call(cmd, shell=True)
