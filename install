@@ -5,12 +5,6 @@ import sys
 from subprocess import check_call
 join = os.path.join
 
-# source dir
-s = os.path.realpath(os.path.dirname(__file__))
-# dest dir
-d = os.environ['HOME']
-
-
 def maybe(f):
     def tryer(*args, **kwargs):
         try:
@@ -20,8 +14,14 @@ def maybe(f):
     return tryer
 
 
+# dest dir
+d = os.environ['HOME']
+
 @maybe
-def symlink(x, y, s=s, d=d):
+def symlink(x, y):
+    # source dir
+    s = os.path.realpath(os.path.dirname(__file__))
+
     src = join(s, x)
     dest = join(d, y)
     print(src + '......' + dest)
@@ -31,10 +31,11 @@ def symlink(x, y, s=s, d=d):
         print("    DOESN'T EXIST: %s" % src)
 
 
-def install_vim(s=s):
+def install_vim():
     # Install vim plugin dependencies
     # os.system('deactivate ; pip install jedi')
     # Install janus
+    s = os.path.realpath(os.path.dirname(__file__))
     os.system(join(s, 'vim/bootstrap_janus'))
 
 #########################################
@@ -46,7 +47,30 @@ if __name__ == '__main__':
     p.add_argument('--vim', action='store_true')
     p.add_argument('--docker', action='store_true')
     p.add_argument('--symlinks', action='store_true')
+    p.add_argument('--bootstrap_init_host', action='store_true')
     NS = p.parse_args()
+
+    if NS.bootstrap_init_host:
+        # you may not want to do this unless you are me!
+
+        check_call((
+            """echo '. .bash_aliases"' >> ~/.bashrc ;"""
+            """echo '. .bash_functions"' >> ~/.bashrc"""
+            """echo 'export PATH="$HOME/bin":"$PATH"' >> ~/.bashrc"""
+        ), shell=True)
+        check_call(
+            ('sudo mkdir -p /home/dev/s ;'
+             'sudo chown -R `id -un`:`id -gn` /home/dev ;'
+             'ln -bfs /home/dev/s ~/s ;'
+             'git clone git@github.com:adgaudio/dot_files.git ~/s/dot_files;'
+             ' ln -bfs ~/s/dot_files/bash_aliases ~/.bash_aliases ; '
+             ' ln -bfs ~/s/dot_files/bash_functions ~/.bash_functions ; '
+             ' ln -bfs ~/s/dot_files/gitconfig ~/.gitconfig ; '
+             ' ln -bfs ~/s/dot_files/tmux/tmux.conf ~/.tmux.conf ; '
+             ),
+            shell=True)
+        if NS.docker:
+            check_call(' cd ~/s/dot_files ; ./install --docker', shell=True)
 
     if NS.symlinks:
         symlink("ackrc", ".ackrc")
@@ -80,7 +104,7 @@ if __name__ == '__main__':
     # Install realiaser (for cmd prompt)
     # os.system('gem install realiaser')  # gem update realiaser
 
-    if NS.docker:
+    if NS.docker and not NS.bootstrap_init_host:
         if os.environ.get('BOX_NAME'):
             print(
                 "NOT Building docker devbox image because it looks"

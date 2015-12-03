@@ -25,5 +25,5 @@ RUN apt-get install -y freeglut3  # slic3r
 USER dev
 
 # Assume Github data mounted into a volume
-RUN ln -s /home/dev/s/printer/Slic3r_settings_config /home/dev/.Slic3r
+RUN ln -s $HOME/s/printer/Slic3r_settings_config $HOME/.Slic3r
 RUN echo 'export PATH="$HOME/s/printer/Slic3r/bin":"$HOME/s/printer/Printrun":"$HOME/s/printer/OpenSCAD-Tools":$PATH' >> ~/.bashrc

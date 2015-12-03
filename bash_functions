@@ -20,7 +20,7 @@ _d_ssh() {
 }
 
 function _d_mount_s(){
-  echo "-v $HOME/s:/home/dev/s -w /home/dev/s"
+  echo "-v ""$HOME""/s:/home/dev/s -w /home/dev"
 }
 
 function dev() {
@@ -64,7 +64,7 @@ function ipython(){
 }
 
 function drun(){
-  `_dbase tmp.$$` `_d_mount_s` $@
+  docker run -it --rm  `_d_mount_s` -v `pwd`:/home/dev/cwd -w /home/dev/cwd $@
 }
 
 function da () { docker start $1 && docker attach $1; }
