@@ -33,7 +33,7 @@ ENV PATH /home/dev/bin:$PATH
 ENV PKG_CONFIG_PATH /home/dev/lib/pkgconfig
 ENV LD_LIBRARY_PATH /home/dev/lib
 
-WORKDIR /home/dev
+WORKDIR /home/dev/s
 ENV HOME /home/dev
 
 RUN chown -R dev: /home/dev

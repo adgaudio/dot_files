@@ -4,52 +4,70 @@
 # http://nathanleclaire.com/blog/2014/07/12/10-docker-tips-and-tricks-that-will-make-you-sing-a-whale-song-of-joy/
 
 
-_dnew_docker() {
+_d_base() {
   echo ""\
-    "-v $HOME/.ssh:/home/dev/.ssh:ro "\
-    "-v $HOME/dot_files:/home/dev/dot_files "\
+    "docker run -it --rm "\
     "-v /var/run/docker.sock:/var/run/docker.sock "\
     "-h ""$1"\
-    "-e BOX_NAME=""$1"\
-    "-v ""$SSH_AUTH_SOCK:/tmp/ssh_auth_sock"\
-    " -e SSH_AUTH_SOCK=/tmp/ssh_auth_sock"
+    "-e BOX_NAME=""$1"
 }
 
-function dnewdev () {
-  local name="${1:-dev}"
-  docker run -it --name "$name" \
-    `_dnew_docker "$name"` \
-    adgaudio/devbox bash --login
+_d_ssh() {
+    echo ""\
+    "-v ""$SSH_AUTH_SOCK"":/tmp/ssh_auth_sock"\
+    " -e SSH_AUTH_SOCK=/tmp/ssh_auth_sock"\
+    "-v ""$HOME""/.ssh:/home/dev/.ssh:ro "
 }
 
-function dnewprinter() {
+function _d_mount_s(){
+  echo "-v $HOME/s:/home/dev/s -w /home/dev/s"
+}
+
+function dev() {
+  local name="dev.$$"
+  local cmd="${@:-bash --login}"
+  `_d_base "$name"` \
+    --name "$name" \
+    `_d_mount_s` \
+    adgaudio/devbox $cmd
+}
+
+function printer() {
   # init printer container
   local XSOCK=/tmp/.X11-unix
   local XAUTH=/tmp/.docker.xauth
   touch $XAUTH
   xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f $XAUTH nmerge -
 
-  local name="${1:-printer}"
+  local name="printer.$$"
+  local cmd="${@:-bash --login}"
 
-  docker run -it --name "$name" \
-    `_dnew_docker "$name"` \
+  `_d_base "$name"` \
+    --name "$name" \
+    -v $HOME/s/dot_files:/home/dev/s/dot_files \
+    -v $HOME/s/printer:/home/dev/s/printer \
+    -w /home/dev/s/printer \
     -v $XSOCK:$XSOCK:rw \
     -v $XAUTH:$XAUTH:rw \
     --env="DISPLAY" \
     --env="XAUTHORITY=${XAUTH}" \
-    --device="/dev/ttyACM0" \
-    --device="/dev/dri/card0" \
     --privileged \
-    adgaudio/printer bash --login
+    adgaudio/printer $cmd
 }
 
 function ipython(){
-docker run -it continuumio/anaconda3 ipython
+  `_d_base ipython.$$` \
+    `_d_mount_s` \
+    continuumio/anaconda3 ipython
+}
+
+function drun(){
+  `_dbase tmp.$$` `_d_mount_s` $@
 }
 
 function da () { docker start $1 && docker attach $1; }
 
-function de(){ 
+function de(){
   local name="$1"
   shift
   args="${@:-bash --login}"

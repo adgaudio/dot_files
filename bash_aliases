@@ -28,7 +28,7 @@ alias ll="ls -ltr"
 alias la="ls -a"
 alias lla="ls -latr"
 which xdg-open 1>/dev/null && alias open="xdg-open" # use open like in mac osx
-alias v=vim
+alias v="dev vim"
 alias vmod='vim -p $(git status -s|grep "^ *M"|cut -d" " -f3-|xargs) '
 alias screen="screen -xRR -e^Pp"
 alias screenn="/usr/bin/screen -e^Pp"
@@ -90,7 +90,6 @@ alias hc='git rev-parse HEAD | pbcopy ; pbpaste'
 #Docker aliases
 #####
 alias drmi='docker rmi -f $(docker images -q -a -f dangling=true)'
-alias drit='docker run -it --rm '
 alias dcl='docker-compose logs '
 alias dcyml="cat docker-compose.yml|python -c 'import sys, yaml, json; print json.dumps(yaml.load(sys.stdin.read()))'|jq "
 alias dcymlk='dcls keys'
