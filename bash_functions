@@ -3,18 +3,59 @@
 ####
 # http://nathanleclaire.com/blog/2014/07/12/10-docker-tips-and-tricks-that-will-make-you-sing-a-whale-song-of-joy/
 
-function newbox () {
-  docker run -it --name $1 \
-    -v $HOME/.ssh:/home/dev/.ssh:ro \
-    -v $HOME/dot_files:/home/dev/dot_files \
-    -v /var/run/docker.sock:/var/run/docker.sock \
-    -e BOX_NAME=$1 \
-    adgaudio/devbox  bash --login
+
+_dnew_docker() {
+  echo ""\
+    "-v $HOME/.ssh:/home/dev/.ssh:ro "\
+    "-v $HOME/dot_files:/home/dev/dot_files "\
+    "-v /var/run/docker.sock:/var/run/docker.sock "\
+    "-h ""$1"\
+    "-e BOX_NAME=""$1"\
+    "-v ""$SSH_AUTH_SOCK:/tmp/ssh_auth_sock"\
+    " -e SSH_AUTH_SOCK=/tmp/ssh_auth_sock"
+}
+
+function dnewdev () {
+  local name="${1:-dev}"
+  docker run -it --name "$name" \
+    `_dnew_docker "$name"` \
+    adgaudio/devbox bash --login
+}
+
+function dnewprinter() {
+  # init printer container
+  local XSOCK=/tmp/.X11-unix
+  local XAUTH=/tmp/.docker.xauth
+  touch $XAUTH
+  xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f $XAUTH nmerge -
+
+  local name="${1:-printer}"
+
+  docker run -it --name "$name" \
+    `_dnew_docker "$name"` \
+    -v $XSOCK:$XSOCK:rw \
+    -v $XAUTH:$XAUTH:rw \
+    --env="DISPLAY" \
+    --env="XAUTHORITY=${XAUTH}" \
+    --device="/dev/ttyACM0" \
+    --device="/dev/dri/card0" \
+    --privileged \
+    adgaudio/printer bash --login
+}
+
+function ipython(){
+docker run -it continuumio/anaconda3 ipython
 }
 
 function da () { docker start $1 && docker attach $1; }
 
-function de(){ docker exec -it $1 bash --login; }
+function de(){ 
+  local name="$1"
+  shift
+  args="${@:-bash --login}"
+  docker start $name
+  docker exec -it $name $args;
+}
 
 function dr(){ docker rm $@; }
 

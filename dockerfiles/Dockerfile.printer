@@ -1,25 +1,55 @@
 FROM adgaudio/devbox
 # 3d printer setup... everything in one big fat container for now.
 
-RUN sudo apt-get install arduino arduino-core
+USER root
 
-RUN sudo apt-get install python-serial python-wxgtk2.8 python-pyglet python-numpy cython python-libxml2 python-gobject python-dbus python-psutil git
-RUN git clone git@github.com:kliment/Printrun.git
+RUN adduser dev dialout
 
-RUN git clone git@github.com:adgaudio/3dPrinter.git
+RUN add-apt-repository -y ppa:openscad/releases
+RUN apt-get update
+RUN apt-get install -y openscad
 
-RUN git clone git@github.com:adgaudio/Slic3r_settings_config.git
+RUN apt-get install -y arduino arduino-core
+
+# Printrun dependencies
+RUN apt-get install -y python-serial python-wxgtk2.8 python-pyglet python-numpy cython python-libxml2 python-gobject python-dbus python-psutil git
+RUN apt-get install -y libcanberra-gtk3-module
+RUN apt-get install -y subversion \
+  && svn checkout svn://svn.code.sf.net/p/pyserial/code/trunk pyserial-code \
+  && cd pyserial-code/pyserial/ \
+  && python setup.py build && python setup.py install
+
+RUN apt-get install -y libcanberra-gtk-module  # slic3r and arduino
+RUN apt-get install -y freeglut3  # slic3r
+
+USER dev
+
+RUN repo="kliment/Printrun" \
+  && git clone https://github.com/$repo.git && cd ${repo#*/} \
+  && git remote remove origin && git remote add origin git@github.com:$repo.git
+
+RUN repo="adgaudio/3dPrinter" \
+  && git clone https://github.com/$repo.git && cd ${repo#*/} \
+  && git remote remove origin && git remote add origin git@github.com:$repo.git
+
+ENV _V 1
+RUN repo="adgaudio/Slic3r_settings_config" \
+  && git clone https://github.com/$repo.git && cd ${repo#*/} \
+  && git remote remove origin && git remote add origin git@github.com:$repo.git
 RUN ln -s Slic3r_settings_config/ .Slic3r
 
-RUN git clone git@github.com:adgaudio/dlp_printer.git
-RUN git clone git@github.com:adgaudio/Marlin.git
-RUN git clone git@github.com:adgaudio/OpenSCAD-Tools.git
+RUN repo="adgaudio/dlp_printer" \
+  && git clone https://github.com/$repo.git && cd ${repo#*/} \
+  && git remote remove origin && git remote add origin git@github.com:$repo.git
+RUN repo="adgaudio/Marlin" \
+  && git clone https://github.com/$repo.git && cd ${repo#*/} \
+  && git remote remove origin && git remote add origin git@github.com:$repo.git
+RUN cd Marlin/ \
+  && git remote add upstream git@github.com:MarlinFirmware/Marlin.git
 
-RUN cd Marlin/ && git remote add upstream git@github.com:MarlinFirmware/Marlin.git
-
-RUN sudo add-apt-repository ppa:openscad/releases
-RUN sudo apt-get update
-RUN sudo apt-get install openscad
+RUN repo="adgaudio/OpenSCAD-Tools" \
+  && git clone https://github.com/$repo.git && cd ${repo#*/} \
+  && git remote remove origin && git remote add origin git@github.com:$repo.git
 
 RUN wget http://dl.slic3r.org/linux/slic3r-linux-x86_64-1-2-9-stable.tar.gz
 RUN tar xvzf slic3r-linux-x86_64-1-2-9-stable.tar.gz

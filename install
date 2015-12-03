@@ -86,6 +86,13 @@ if __name__ == '__main__':
                 "NOT Building docker devbox image because it looks"
                 " like I'm inside a docker container already")
         else:
-            cmd = "docker build -t adgaudio/devbox "\
-                "-f dockerfiles/Dockerfile.devbox ."
-            check_call(cmd, shell=True)
+            files = sorted(os.listdir(join(
+                os.path.dirname(__file__), 'dockerfiles')))
+            # build devbox and printer and ...
+            for fn in files:
+                fn = fn.split('.', 1)[1]
+                cmd = (
+                    "docker build -t adgaudio/{0} "\
+                    "-f dockerfiles/Dockerfile.{0} .").format(fn)
+                print(cmd)
+                check_call(cmd, shell=True)
