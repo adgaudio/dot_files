@@ -27,6 +27,7 @@ function dev() {
   local name="dev.$$"
   local cmd="${@:-bash --login}"
   `_d_base "$name"` \
+  `_d_ssh` \
     --name "$name" \
     `_d_mount_s` \
     adgaudio/devbox $cmd
