@@ -1,7 +1,7 @@
 # Automatically create a new session with these windows
 
 #Register sessions that will be created by this script
-SESSIONS="hi daemons"
+SESSIONS="home work"
 #
 #Define logic
 #
@@ -23,7 +23,7 @@ tryattach()
     hassession $1
     rc="$?"
     attached="$( tmux list-clients -t $1 )"
-    
+
     if [ "$rc" -eq "0" ] && [ ! "$attached" ]; then
         (tmux attach -t $1)
     else
@@ -41,37 +41,30 @@ except()
 #
 # Session Configuration
 #
-sessionfwk()
+sessionhome()
 {
-    tmux newsession -d -s fwk
-    tmux neww -k -n sreports -t fwk:1
-    tmux neww -k -n prod -t fwk:2 
-    
-    tmux send-keys -t fwk:1 ''
-    tmux send-keys -t fwk:2 ''
+    tmux new-session -d -s home
+    tmux new-window -k -n printer_UI -t home:0
+    tmux split-window -t home:printer_UI
+    tmux send-keys -t home:printer_UI.0 "printer" Enter
+    tmux send-keys -t home:printer_UI.0 "slic3r"
+    tmux send-keys -t home:printer_UI.1 "printer" Enter
+    tmux send-keys -t home:printer_UI.1 "pronterface.py"
+
+    tmux new-window -k -n printer_scad -t home:1
+    tmux split-window -t home:printer_scad -h
+    tmux send-keys -t home:printer_scad.0 "printer" Enter
+    tmux send-keys -t home:printer_scad.0 "openscad"
+    tmux send-keys -t home:printer_scad.1 "printer" Enter
+    tmux send-keys -t home:printer_scad.1 "v "
+
+    tmux new-window -k -n dev -t home:2
+    tmux send-keys -t home:dev "dev" Enter
 }
 
-sessiondaemons()
+sessionwork()
 {
-    tmux new-session -d -s daemons
-    tmux neww -k -n managepy -t daemons:0 
-    tmux neww -k -t daemons:1
-    tmux split-window -t daemons:1.0
-    tmux split-window -t daemons:1.0
-    tmux split-window -t daemons:1.0
-    tmux split-window -t daemons:1.1
-    tmux split-window -t daemons:1.1
-    for x in $(seq 0 7) ; do
-      tmux send-keys -t daemons:1.$x "ds"$((${x} + 1))
-    done
-    tmux select-layout -t daemons:1 tiled
-    tmux setw -t daemons:1 synchronize-panes on
-}
-
-sessionhi()
-{
-    tmux new-session -d -s hi
-    tmux neww -k -t hi:1
+    tmux new-session -d -s work
 }
 
 #
@@ -83,8 +76,6 @@ do
     hassession $x
     except session$x
 done
-
-tmux link-window -dk -s daemons:manage -t hi:0
 
 # Attach to any existing session with no attached clients
 for x in $(listsessions) ; do
