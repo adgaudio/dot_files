@@ -57,6 +57,7 @@ if __name__ == '__main__':
             """echo '. .bash_aliases"' >> ~/.bashrc ;"""
             """echo '. .bash_functions"' >> ~/.bashrc"""
             """echo 'export PATH="$HOME/bin":"$PATH"' >> ~/.bashrc"""
+            """echo 'export GIT_EDITOR="vi"' >> ~/.bashrc"""
         ), shell=True)
         check_call(
             ('sudo mkdir -p /home/dev/s ;'
