@@ -33,38 +33,41 @@ function dev() {
     adgaudio/devbox $cmd
 }
 
-function printer() {
-  # init printer container
+function _d_x11() {
   local XSOCK=/tmp/.X11-unix
   local XAUTH=/tmp/.docker.xauth
   touch $XAUTH
   xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f $XAUTH nmerge -
+  echo ""\
+    "-v $XSOCK:$XSOCK:rw "\
+    "-v $XAUTH:$XAUTH:rw "\
+    "--env=\"DISPLAY\" "\
+    "--env=\"XAUTHORITY=${XAUTH}\" "\
+    "--privileged "
+}
+
+function printer() {
+  # init printer container
 
   local name="printer.$$"
   local cmd="${@:-bash --login}"
 
   `_d_base "$name"` \
   `_d_ssh` \
+  `_d_x11` \
     --name "$name" \
     -v $HOME/s/dot_files:/home/dev/s/dot_files \
     -v $HOME/s/printer:/home/dev/s/printer \
     -w /home/dev/s/printer \
-    -v $XSOCK:$XSOCK:rw \
-    -v $XAUTH:$XAUTH:rw \
-    --env="DISPLAY" \
-    --env="XAUTHORITY=${XAUTH}" \
-    --privileged \
     adgaudio/printer $cmd
 }
 
-function ipython(){
-  `_d_base ipython.$$` \
-    `_d_mount_s` \
-    continuumio/anaconda3 ipython
-}
-
 function drun(){
-  docker run -it --rm  `_d_mount_s` -v `pwd`:/home/dev/cwd -w /home/dev/cwd $@
+  `_d_base ${1:-tmp.$$}` \
+    `_d_mount_s` \
+    -v `pwd`:/home/dev/cwd \
+    -w /home/dev/cwd \
+    $@
 }
 
 function da () { docker start $1 && docker attach $1; }

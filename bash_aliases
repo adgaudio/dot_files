@@ -41,7 +41,8 @@ alias pry="bundle exec pry"
 #alias rake="bundle exec rake"
 
 #alias ipython="ipython --autoedit-syntax --deep-reload --no-confirm-exit"
-alias i="ipython"
+alias i=ipython
+alias inb="docker run -itd --name notebook \`_d_mount_s\` \`_d_x11\` --net=host continuumio/anaconda3 ipython notebook --matplotlib=notebook"
 
 #####
 #Git aliases
