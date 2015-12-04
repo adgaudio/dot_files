@@ -27,6 +27,7 @@ RUN apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 581
 
 
 RUN useradd dev && echo 'dev:dev' | chpasswd && adduser dev sudo
+RUN adduser dev docker
 RUN mkdir /home/dev && chown -R dev: /home/dev
 RUN mkdir -p /home/dev/bin /home/dev/lib /home/dev/include
 ENV PATH /home/dev/bin:$PATH
