@@ -46,17 +46,13 @@ sessionhome()
     tmux new-session -d -s home
     tmux new-window -k -n printer_UI -t home:0
     tmux split-window -t home:printer_UI
-    tmux send-keys -t home:printer_UI.0 "printer" Enter
-    tmux send-keys -t home:printer_UI.0 "slic3r"
-    tmux send-keys -t home:printer_UI.1 "printer" Enter
-    tmux send-keys -t home:printer_UI.1 "pronterface.py"
+    tmux send-keys -t home:printer_UI.0 "printer bash -lc slic3r"
+    tmux send-keys -t home:printer_UI.1 "printer bash -lc pronterface.py"
 
     tmux new-window -k -n printer_scad -t home:1
     tmux split-window -t home:printer_scad -h
-    tmux send-keys -t home:printer_scad.0 "printer" Enter
-    tmux send-keys -t home:printer_scad.0 "openscad"
-    tmux send-keys -t home:printer_scad.1 "printer" Enter
-    tmux send-keys -t home:printer_scad.1 "v "
+    tmux send-keys -t home:printer_scad.0 "printer bash -lc openscad"
+    tmux send-keys -t home:printer_scad.1 "printer"
 
     tmux new-window -k -n dev -t home:2
     tmux send-keys -t home:dev "dev" Enter
