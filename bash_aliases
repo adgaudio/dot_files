@@ -42,7 +42,11 @@ alias pry="bundle exec pry"
 
 #alias ipython="ipython --autoedit-syntax --deep-reload --no-confirm-exit"
 alias i=ipython
-alias inb="docker run -itd --name notebook \`_d_mount_s\` \`_d_x11\` --net=host continuumio/anaconda3 ipython notebook --matplotlib=notebook"
+alias inb="docker run -itd --name py \`_d_mount_s\` \`_d_x11\` -e QT_X11_NO_MITSHM=1 --net=host continuumio/anaconda3 ipython notebook --matplotlib=notebook"
+
+#R
+alias rstudio="docker run -itd --name rs \`_d_mount_s\` \`_d_x11\` --net=host rocker/hadleyverse"
+
 
 #####
 #Git aliases
@@ -94,7 +98,6 @@ alias drmi='docker rmi -f $(docker images -q -a -f dangling=true)'
 alias dcl='docker-compose logs '
 alias dcyml="cat docker-compose.yml|python -c 'import sys, yaml, json; print json.dumps(yaml.load(sys.stdin.read()))'|jq "
 alias dcymlk='dcls keys'
-
 
 # OS Specific
 if test "`uname`" = "Linux" ; then
