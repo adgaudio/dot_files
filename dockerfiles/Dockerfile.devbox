@@ -1,22 +1,24 @@
 # Dockerfile adapted from
 # http://nathanleclaire.com/blog/2014/07/12/10-docker-tips-and-tricks-that-will-make-you-sing-a-whale-song-of-joy/
-FROM ubuntu:14.04
+FROM debian:jessie
 
 RUN apt-get update -y
-RUN apt-get install -y mercurial
-RUN apt-get install -y git
-RUN apt-get install -y python
-RUN apt-get install -y curl
-RUN apt-get install -y vim
-RUN apt-get install -y strace
-RUN apt-get install -y diffstat
-RUN apt-get install -y pkg-config
-RUN apt-get install -y cmake
-RUN apt-get install -y build-essential
-RUN apt-get install -y tcpdump
-RUN apt-get install -y rake
-RUN apt-get install -y wget
-RUN apt-get install -y software-properties-common
+RUN apt-get install -y \
+  ack-grep \
+  build-essential \
+  cmake \
+  curl \
+  diffstat \
+  git \
+  mercurial \
+  pkg-config \
+  python \
+  rake \
+  software-properties-common \
+  strace \
+  tcpdump \
+  vim-gtk \
+  wget
 
 # install docker so we can spin and work with sibling containers
 RUN apt-get install -y apt-transport-https
@@ -42,6 +44,9 @@ ENV HOME /home/dev
 
 RUN chown -R dev: /home/dev
 USER dev
+
+# QT based gui apps should be able to work with this
+ENV QT_X11_NO_MITSHM 1
 
 ENV _DOT_FILES_DOCKERFILE_REBUILD_VER 3
 RUN git clone https://github.com/adgaudio/dot_files.git

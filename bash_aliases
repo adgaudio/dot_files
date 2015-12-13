@@ -48,7 +48,7 @@ alias inb="docker run -itd --name py \`_d_mount_s\` \`_d_x11\` -e QT_X11_NO_MITS
 alias rstudio="docker run -itd --name rs \`_d_mount_s\` \`_d_x11\` --net=host rocker/hadleyverse"
 
 #Scala
-alias intellij="docker run --rm -it \`_d_x11\` \`_d_mount_s\` -v $HOME/.ivy2:/home/intellij/.ivy2 -v $HOME/s/intellij/IdeaIC15:/home/intellij/.IdeaIC15 jamesnetherton/docker-intellij-community"
+alias intellij="docker run --rm -it \`_d_x11\` \`_d_mount_s\` -v $HOME/.ivy2:/home/intellij/.ivy2 -v $HOME/s/intellij/IdeaIC15:/home/intellij/.IdeaIC15 adgaudio/intellij"
 
 #####
 #Git aliases

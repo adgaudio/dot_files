@@ -5,25 +5,33 @@ USER root
 
 RUN adduser dev dialout
 
-RUN add-apt-repository -y ppa:openscad/releases
-RUN apt-get update
-RUN apt-get install -y openscad
-
-RUN apt-get install -y arduino arduino-core
+RUN apt-get update && apt-get install -y \
+  openscad \
+  arduino arduino-core \
+  libcanberra-gtk-module \
+  libcanberra-gtk3-module \
+  freeglut3
 
 # Printrun dependencies
-RUN apt-get install -y python-serial python-wxgtk2.8 python-pyglet python-numpy cython python-libxml2 python-gobject python-dbus python-psutil git
-RUN apt-get install -y libcanberra-gtk3-module
-RUN apt-get install -y subversion \
-  && svn checkout svn://svn.code.sf.net/p/pyserial/code/trunk pyserial-code \
+RUN apt-get install -y \
+  python-wxgtk3.0 \
+  python-dbus \
+  python-gobject \
+  python-pyglet \
+  python-libxml2 \
+  python-numpy \
+  python-psutil \
+  python-serial \
+  cython \
+  git \
+  subversion
+RUN svn checkout svn://svn.code.sf.net/p/pyserial/code/trunk pyserial-code \
   && cd pyserial-code/pyserial/ \
   && python setup.py build && python setup.py install
 
-RUN apt-get install -y libcanberra-gtk-module  # slic3r and arduino
-RUN apt-get install -y freeglut3  # slic3r
-
-# my usb programmer for attiny85
-RUN apt-get install -y dfu-programmer libusb-1.0.0 avrdude avrdude-doc
+# programmer stuff
+RUN apt-get update && apt-get install -y \
+  dfu-programmer libusb-1.0.0 avrdude avrdude-doc
 
 USER dev
 
