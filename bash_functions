@@ -29,9 +29,12 @@ function dev() {
   `_d_base "$name"` \
   `_d_ssh` \
   `_d_x11` \
-    --name "$name" \
-    `_d_mount_s` \
-    adgaudio/devbox $cmd
+  --name "$name" \
+  `_d_mount_s` \
+  -e TMUX -e TMUX_PANE -e DOCKER_GID \
+  -v ~/.viminfo:/home/dev/.viminfo \
+  -v ~/.vim:/home/dev/.vim \
+  adgaudio/devbox $cmd
 }
 
 function _d_x11() {

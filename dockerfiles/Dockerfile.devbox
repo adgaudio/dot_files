@@ -1,6 +1,6 @@
 # Dockerfile adapted from
 # http://nathanleclaire.com/blog/2014/07/12/10-docker-tips-and-tricks-that-will-make-you-sing-a-whale-song-of-joy/
-FROM debian:jessie
+FROM ubuntu:latest
 
 RUN apt-get update -y
 RUN apt-get install -y \
