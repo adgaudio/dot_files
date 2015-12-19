@@ -51,25 +51,11 @@ if __name__ == '__main__':
     NS = p.parse_args()
 
     if NS.bootstrap_init_host:
-        # you may not want to do this unless you are me!
-
-        check_call((
-            """echo '. .bash_aliases"' >> ~/.bashrc ;"""
-            """echo '. .bash_functions"' >> ~/.bashrc"""
-            """echo '. .bash_extras"' >> ~/.bashrc"""
-            """echo 'export PATH="$HOME/bin":"$PATH"' >> ~/.bashrc"""
-            """echo 'export GIT_EDITOR="vi"' >> ~/.bashrc"""
-        ), shell=True)
         check_call(
             ('sudo mkdir -p /home/dev/s ;'
              'sudo chown -R `id -un`:`id -gn` /home/dev ;'
              'ln -bfs /home/dev/s ~/s ;'
              'git clone git@github.com:adgaudio/dot_files.git ~/s/dot_files;'
-             ' ln -bfs ~/s/dot_files/bash_aliases ~/.bash_aliases ; '
-             ' ln -bfs ~/s/dot_files/bash_functions ~/.bash_functions ; '
-             ' ln -bfs ~/s/dot_files/bash_extras ~/.bash_extras ; '
-             ' ln -bfs ~/s/dot_files/gitconfig ~/.gitconfig ; '
-             ' ln -bfs ~/s/dot_files/tmux/tmux.conf ~/.tmux.conf ; '
              ),
             shell=True)
         if NS.docker:
