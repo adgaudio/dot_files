@@ -55,7 +55,7 @@ sessionhome()
     tmux send-keys -t home:printer_scad.1 "printer"
 
     tmux new-window -k -n dev -t home:2
-    tmux send-keys -t home:dev "dev" Enter
+    tmux send-keys -t home:dev "dev"
 }
 
 sessionwork()
