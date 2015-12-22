@@ -52,9 +52,8 @@ if __name__ == '__main__':
 
     if NS.bootstrap_init_host:
         check_call(
-            ('sudo mkdir -p /home/dev/s ;'
-             'sudo chown -R `id -un`:`id -gn` /home/dev ;'
-             'ln -bfs /home/dev/s ~/s ;'
+            (
+             'mkdir ~/s ; '
              'git clone git@github.com:adgaudio/dot_files.git ~/s/dot_files;'
              ),
             shell=True)
