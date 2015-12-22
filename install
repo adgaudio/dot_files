@@ -57,8 +57,9 @@ if __name__ == '__main__':
              'git clone git@github.com:adgaudio/dot_files.git ~/s/dot_files;'
              ),
             shell=True)
-        if NS.docker:
-            check_call(' cd ~/s/dot_files ; ./install --docker', shell=True)
+        print("bootstrap_init_host called.  All other args disabled while this one is enabled")
+        print("To install again, try: %s" % ' cd ~/s/dot_files ; ./install -h ')
+        sys.exit(0)
 
     if NS.symlinks:
         symlink("ackrc", ".ackrc")
@@ -92,7 +93,7 @@ if __name__ == '__main__':
     # Install realiaser (for cmd prompt)
     # os.system('gem install realiaser')  # gem update realiaser
 
-    if NS.docker and not NS.bootstrap_init_host:
+    if NS.docker:
         if os.environ.get('BOX_NAME'):
             print(
                 "NOT Building docker devbox image because it looks"
