@@ -193,7 +193,8 @@ fi
 # Shell acts like vim
 #set -o vi # check out inputrc for extra bindings and if necessary: #export INPUTRC=~/.inputrc
 #
-if test "$BASH" ; then
+if [[ "${0%bash}" != "$0" ]] ; then
+  echo "BASH SHELL LOADED"
   shopt -s autocd  #don't type cd to navigate directories
   shopt -s cdable_vars # set the bash option so that no '$' is required when using the above facility
   shopt -s cdspell #cd command will guess misspelled directories
