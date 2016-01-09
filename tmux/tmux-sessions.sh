@@ -61,6 +61,7 @@ sessionhome()
 sessionwork()
 {
     tmux new-session -d -s work
+    tmux send-keys -t work:1 "cd s/alluvium/" Enter
 }
 
 #
