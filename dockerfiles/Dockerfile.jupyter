@@ -1,0 +1,6 @@
+FROM jupyter/datascience-notebook
+
+
+# R packages
+RUN conda install -y -c r r r-essentials
+

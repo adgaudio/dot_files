@@ -42,8 +42,10 @@ alias pry="bundle exec pry"
 #alias rake="bundle exec rake"
 
 #alias ipython="ipython --autoedit-syntax --deep-reload --no-confirm-exit"
-alias i="drun -e QT_X11_NO_MITSHM=1 \`_d_x11\` continuumio/anaconda3 ipython"
-alias inb="docker run -itd --name py \`_d_mount_s\` \`_d_x11\` -e QT_X11_NO_MITSHM=1 --net=host continuumio/anaconda3 ipython notebook --matplotlib=notebook"
+alias i="drun -e QT_X11_NO_MITSHM=1 \`_d_x11\` adgaudio/jupyter ipython"
+alias inb="docker run -itd --name py \`_d_mount_s\` \`_d_x11\` -e QT_X11_NO_MITSHM=1 --net=host adgaudio/jupyter"
+alias inbRestart="docker restart py"
+alias inbExec="docker exec -it py bash"
 
 #R
 alias rstudio="docker run -itd --name rs \`_d_mount_s\` \`_d_x11\` --net=host rocker/hadleyverse"
