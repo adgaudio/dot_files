@@ -10,6 +10,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 alias ..="cd .."
 alias ...="cd ../.."
+alias ctag="ctags -R . --exclude=target --exclude=vendor"
 alias db="mysql -uroot -proot"
 alias e="emacs"
 alias fin="find . -iname"
@@ -43,7 +44,7 @@ alias pry="bundle exec pry"
 
 #alias ipython="ipython --autoedit-syntax --deep-reload --no-confirm-exit"
 alias i="drun -e QT_X11_NO_MITSHM=1 \`_d_x11\` adgaudio/jupyter ipython"
-alias inb="docker run -itd --name py \`_d_mount_s\` \`_d_x11\` -e QT_X11_NO_MITSHM=1 --net=host adgaudio/jupyter"
+alias inb="docker run -itd --name py \`_d_mount_s\` \`_d_x11\` -e QT_X11_NO_MITSHM=1 --net=host adgaudio/jupyter jupyter notebook --matplotlib=notebook --ip='0.0.0.0'"
 alias inbRestart="docker restart py"
 alias inbExec="docker exec -it py bash"
 
