@@ -10,7 +10,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 alias ..="cd .."
 alias ...="cd ../.."
-alias ctag="ctags -R . --exclude=target --exclude=vendor"
+alias ctag="ctags -R -f .tags . --exclude=target --exclude=vendor"
 alias db="mysql -uroot -proot"
 alias e="emacs"
 alias fin="find . -iname"

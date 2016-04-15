@@ -95,4 +95,4 @@ let g:VimuxUseNearestPane = 1
 let vimrplugin_assign_map = "__"  "don't not take my stinkin underscores away!
 
 " Ctags  ( the stuff that lets you jump to source function via Ctrl-] )
-set tags=tags;/
+set tags=.tags;/
