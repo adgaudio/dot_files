@@ -25,7 +25,7 @@ function _d_mount_s(){
 
 function dev() {
   local name="dev.$$"
-  local cmd="${@:-bash --login}"
+  local cmd="${@:-bash}"
   `_d_base "$name"` \
   `_d_ssh` \
   `_d_x11` \
@@ -54,16 +54,16 @@ function printer() {
   # init printer container
 
   local name="printer.$$"
-  local cmd="${@:-bash --login}"
+  local cmd="${@:-bash}"
 
   `_d_base "$name"` \
   `_d_ssh` \
   `_d_x11` \
   --name "$name" \
   -v $HOME/s/dot_files:/home/dev/s/dot_files \
-  -v $HOME/s/printer:/home/dev/s/printer \
+  -v $HOME/s/printer:/home/dev/s/printer:rw \
   -w /home/dev/s/printer \
-  adgaudio/printer $cmd
+  adgaudio/printer
 }
 
 function drun(){
@@ -79,7 +79,7 @@ function da () { docker start $1 && docker attach $1; }
 function de(){
   local name="$1"
   shift
-  args="${@:-bash --login}"
+  args="${@:-bash}"
   docker start $name
   docker exec -it $name $args;
 }

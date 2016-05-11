@@ -96,3 +96,13 @@ let vimrplugin_assign_map = "__"  "don't not take my stinkin underscores away!
 
 " Ctags  ( the stuff that lets you jump to source function via Ctrl-] )
 set tags=.tags;/
+
+" Ctags TagBar R support
+let g:tagbar_type_r = {
+    \ 'ctagstype' : 'r',
+    \ 'kinds'     : [
+        \ 'f:Functions',
+        \ 'g:GlobalVariables',
+        \ 'v:FunctionVariables',
+    \ ]
+\ }
