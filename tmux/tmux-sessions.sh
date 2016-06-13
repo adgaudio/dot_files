@@ -1,7 +1,7 @@
 # Automatically create a new session with these windows
 
 #Register sessions that will be created by this script
-SESSIONS="home work"
+SESSIONS="3print work"
 #
 #Define logic
 #
@@ -41,27 +41,27 @@ except()
 #
 # Session Configuration
 #
-sessionhome()
+session3print()
 {
-    tmux new-session -d -s home
-    tmux new-window -k -n printer_UI -t home:0
-    tmux split-window -t home:printer_UI
-    tmux send-keys -t home:printer_UI.0 "printer bash -lc slic3r"
-    tmux send-keys -t home:printer_UI.1 "printer bash -lc pronterface.py"
+    tmux new-session -d -s 3print
+    tmux new-window -k -n printer_UI -t 3print:0
+    tmux split-window -t 3print:printer_UI
+    tmux send-keys -t 3print:printer_UI.0 "printer bash -lc slic3r"
+    tmux send-keys -t 3print:printer_UI.1 "printer bash -lc pronterface.py"
 
-    tmux new-window -k -n printer_scad -t home:1
-    tmux split-window -t home:printer_scad -h
-    tmux send-keys -t home:printer_scad.0 "printer bash -lc openscad"
-    tmux send-keys -t home:printer_scad.1 "printer"
+    tmux new-window -k -n printer_scad -t 3print:1
+    tmux split-window -t 3print:printer_scad -h
+    tmux send-keys -t 3print:printer_scad.0 "printer bash -lc openscad"
+    tmux send-keys -t 3print:printer_scad.1 "printer"
 
-    tmux new-window -k -n dev -t home:2
-    tmux send-keys -t home:dev "dev"
+    # tmux new-window -k -n dev -t 3print:2
+    # tmux send-keys -t 3print:dev "dev"
 }
 
 sessionwork()
 {
     tmux new-session -d -s work
-    tmux send-keys -t work:1 "cd s/alluvium/" Enter
+    tmux send-keys -t work:1 "cd s/" Enter
 }
 
 #
