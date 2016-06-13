@@ -43,8 +43,8 @@ function _d_x11() {
   touch $XAUTH
   xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f $XAUTH nmerge -
   echo ""\
-    "-v $XSOCK:$XSOCK:rw "\
-    "-v $XAUTH:$XAUTH:rw "\
+    "-v ${XSOCK}:${XSOCK}:rw "\
+    "-v ${XAUTH}:${XAUTH}:rw "\
     "--env=\"DISPLAY\" "\
     "--env=\"XAUTHORITY=${XAUTH}\" "\
     "--privileged "

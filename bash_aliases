@@ -43,13 +43,19 @@ alias pry="bundle exec pry"
 #alias rake="bundle exec rake"
 
 #alias ipython="ipython --autoedit-syntax --deep-reload --no-confirm-exit"
-alias i="drun -e QT_X11_NO_MITSHM=1 \`_d_x11\` adgaudio/jupyter ipython"
+# alias py='docker run --rm -ti -w /py -v `pwd`:/py jfloff/alpine-python:3.4 python '
+alias py=python
+alias i=ipython
+# alias i="drun -e QT_X11_NO_MITSHM=1 \`_d_x11\` adgaudio/jupyter ipython"
 alias inb="docker run -itd --name py \`_d_mount_s\` \`_d_x11\` -e QT_X11_NO_MITSHM=1 --net=host adgaudio/jupyter jupyter notebook --matplotlib=notebook --ip='0.0.0.0'"
 alias inbRestart="docker restart py"
 alias inbExec="docker exec -it py bash"
 
 #R
 alias rstudio="docker run -itd --name rs \`_d_mount_s\` \`_d_x11\` --net=host rocker/hadleyverse"
+
+#Rust
+alias rust='docker run -it --rm -v `pwd`:/source jimmycuadra/rust'
 
 #Scala
 alias intellij="docker run --rm -it \`_d_x11\` \`_d_mount_s\` -v $HOME/.ivy2:/home/intellij/.ivy2 -v $HOME/s/intellij/IdeaIC15:/home/intellij/.IdeaIC15 adgaudio/intellij"
