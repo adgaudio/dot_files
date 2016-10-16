@@ -50,6 +50,7 @@ alias i=ipython
 alias inb="docker run -itd --name py \`_d_mount_s\` \`_d_x11\` -e QT_X11_NO_MITSHM=1 --net=host adgaudio/jupyter jupyter notebook --matplotlib=notebook --ip='0.0.0.0'"
 alias inbRestart="docker restart py"
 alias inbExec="docker exec -it py bash"
+alias opencv="drunv elenaalexandrovna/opencv-python3 "
 
 #R
 alias rstudio="docker run -itd --name rs \`_d_mount_s\` \`_d_x11\` --net=host rocker/hadleyverse"
@@ -107,6 +108,7 @@ alias hc='git rev-parse HEAD | pbcopy ; pbpaste'
 #Docker aliases
 #####
 alias drun='docker run -it --rm '
+alias drunv='docker run -it --rm -v `pwd`:/source -w /source '
 alias drmi='docker rmi -f $(docker images -q -a -f dangling=true)'
 alias dcl='docker-compose logs '
 alias dcyml="cat docker-compose.yml|python -c 'import sys, yaml, json; print json.dumps(yaml.load(sys.stdin.read()))'|jq "

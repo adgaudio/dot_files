@@ -52,18 +52,20 @@ function _d_x11() {
 
 function printer() {
   # init printer container
-
   local name="printer.$$"
   local cmd="${@:-bash}"
 
-  `_d_base "$name"` \
-  `_d_ssh` \
-  `_d_x11` \
-  --name "$name" \
-  -v $HOME/s/dot_files:/home/dev/s/dot_files \
-  -v $HOME/s/printer:/home/dev/s/printer:rw \
-  -w /home/dev/s/printer \
-  adgaudio/printer
+  docker run -it --rm \
+    --name "$name" \
+    -e DISPLAY=$DISPLAY \
+    -v $HOME/s/dot_files:/home/dev/s/dot_files \
+    -v $HOME/s/printer:/home/dev/s/printer:rw \
+    -w /home/dev/s/printer \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    --net=host \
+    --privileged \
+    -v $HOME/.Xauthority:/home/dev/.Xauthority \
+    adgaudio/printer $cmd
 }
 
 function drun(){
