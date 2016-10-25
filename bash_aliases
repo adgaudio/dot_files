@@ -112,6 +112,7 @@ alias drunv='docker run -it --rm -v `pwd`:/source -w /source '
 alias drmi='docker rmi -f $(docker images -q -a -f dangling=true)'
 alias dcl='docker-compose logs '
 alias dcyml="cat docker-compose.yml|python -c 'import sys, yaml, json; print json.dumps(yaml.load(sys.stdin.read()))'|jq "
+alias dcb='docker-compose build'
 alias dcymlk='dcls keys'
 
 # OS Specific

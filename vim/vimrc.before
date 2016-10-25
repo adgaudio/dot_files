@@ -12,6 +12,9 @@ set timeout timeoutlen=200 ttimeoutlen=-1
 vmap < <gv
 vmap > >gv
 
+" gq should indent multi-line bulleted lists properly
+set autoindent
+
 " Emacs-like beginning and end of line
 inoremap <C-a> <Esc>^i
 nnoremap <C-a> ^
