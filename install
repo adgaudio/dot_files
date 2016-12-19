@@ -104,9 +104,11 @@ if __name__ == '__main__':
                 os.path.dirname(__file__), 'dockerfiles')))
             # build devbox and printer and ...
             for fn in files:
-                fn = fn.split('.', 1)[1]
+                if not fn.endswith('.Dockerfile'):
+                    continue
+                tag = fn.split('.', 1)[0]
                 cmd = (
                     "docker build -t adgaudio/{0} "\
-                    "-f dockerfiles/Dockerfile.{0} .").format(fn)
+                    "-f dockerfiles/{1} .").format(tag, fn)
                 print(cmd)
                 check_call(cmd, shell=True)

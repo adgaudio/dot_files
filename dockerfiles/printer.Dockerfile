@@ -1,9 +1,7 @@
-FROM adgaudio/devbox
+FROM ubuntu:latest
 # 3d printer setup... everything in one big fat container for now.
 
 USER root
-
-RUN adduser dev dialout
 
 RUN apt-get update && apt-get install -y \
   openscad \
@@ -14,7 +12,7 @@ RUN apt-get update && apt-get install -y \
 
 # Printrun dependencies
 RUN apt-get install -y \
-  python-wxgtk2.8 \
+  python-wxgtk3.0 \
   python-dbus \
   python-gobject \
   python-pyglet \
@@ -32,6 +30,18 @@ RUN svn checkout svn://svn.code.sf.net/p/pyserial/code/trunk pyserial-code \
 # programmer stuff
 RUN apt-get update && apt-get install -y \
   dfu-programmer libusb-1.0.0 avrdude avrdude-doc
+
+RUN useradd dev && echo 'dev:dev' | chpasswd && adduser dev sudo \
+  ; adduser dev dialout \
+  ; mkdir /home/dev \
+  ; mkdir -p /home/dev/bin /home/dev/lib /home/dev/include \
+  ; chown -R dev: /home/dev
+ENV PATH /home/dev/bin:$PATH
+ENV PKG_CONFIG_PATH /home/dev/lib/pkgconfig
+ENV LD_LIBRARY_PATH /home/dev/lib
+ENV HOME /home/dev
+
+WORKDIR /home/dev/s
 
 USER dev
 

@@ -44,12 +44,19 @@ alias pry="bundle exec pry"
 
 #alias ipython="ipython --autoedit-syntax --deep-reload --no-confirm-exit"
 # alias py='docker run --rm -ti -w /py -v `pwd`:/py jfloff/alpine-python:3.4 python '
-alias py=python
-alias i=ipython
-# alias i="drun -e QT_X11_NO_MITSHM=1 \`_d_x11\` adgaudio/jupyter ipython"
-alias inb="docker run -itd --name py \`_d_mount_s\` \`_d_x11\` -e QT_X11_NO_MITSHM=1 --net=host adgaudio/jupyter jupyter notebook --matplotlib=notebook --ip='0.0.0.0'"
+alias py="docker exec -it py python"
+alias pybash="docker exec -it py bash"
+alias pybashtmp="docker run -it --rm adgaudio/jupyter bash"
+# alias i=ipython
+alias i="docker exec -it py ipython"
+alias inb="docker start py"  # some process owns creating the container
+alias inbInit="docker run --name py "\
+' -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix '\
+" -d -p 8888:8888 "\
+" -v ~/s/blk/ipynb:/home/jovyan/work/ipynb "\
+"	adgaudio/jupyter start-notebook.sh --no-browser"
+
 alias inbRestart="docker restart py"
-alias inbExec="docker exec -it py bash"
 alias opencv="drunv elenaalexandrovna/opencv-python3 "
 
 #R
