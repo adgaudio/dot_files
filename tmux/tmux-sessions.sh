@@ -63,8 +63,7 @@ sessionwork()
     tmux new-session -d -s work
     tmux new-window -k -n daemons -t work:0
     tmux split-window -t work:daemons
-    tmux send-keys -t work:daemons.0 "cd s/ ; jupyter notebook --no-browser" Enter
-    tmux send-keys -t work:daemons.1 "cd s/ ; skype"
+    tmux send-keys -t work:daemons.0 "cd s/ ; docker start py" Enter
     tmux send-keys -t work:1 "cd s/" Enter
     tmux select-window -t work:1
 }
