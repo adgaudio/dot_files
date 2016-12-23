@@ -64,7 +64,7 @@ sessionwork()
     tmux new-window -k -n daemons -t work:0
     tmux split-window -t work:daemons
     tmux send-keys -t work:daemons.0 "cd s/ ; docker start py" Enter
-    tmux send-keys -t work:1 "cd s/" Enter
+    tmux send-keys -t work:1 "cd s/ ; docker start blk_jupyter_server blkpydev" Enter
     tmux select-window -t work:1
 }
 
