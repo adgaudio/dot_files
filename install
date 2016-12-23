@@ -108,7 +108,7 @@ if __name__ == '__main__':
                     continue
                 tag = fn.split('.', 1)[0]
                 cmd = (
-                    "docker build -t adgaudio/{0} "\
-                    "-f dockerfiles/{1} .").format(tag, fn)
+                    "cd dockerfiles ; docker build -t adgaudio/{0} "\
+                    "-f {1} .").format(tag, fn)
                 print(cmd)
                 check_call(cmd, shell=True)

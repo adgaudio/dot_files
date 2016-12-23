@@ -46,14 +46,14 @@ alias pry="bundle exec pry"
 # alias py='docker run --rm -ti -w /py -v `pwd`:/py jfloff/alpine-python:3.4 python '
 alias py="docker exec -it py python"
 alias pybash="docker exec -it py bash"
-alias pybashtmp="docker run -it --rm adgaudio/jupyter bash"
+alias pybashtmp="docker run -it --rm -v `pwd`:/home/jovyan/work adgaudio/jupyter bash"
 # alias i=ipython
 alias i="docker exec -it py ipython"
 alias inb="docker start py"  # some process owns creating the container
 alias inbInit="docker run --name py "\
 ' -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix '\
 " -d -p 8888:8888 "\
-" -v ~/s/blk/ipynb:/home/jovyan/work/ipynb "\
+" -v ~/s:/home/jovyan/work "\
 "	adgaudio/jupyter start-notebook.sh --no-browser"
 
 alias inbRestart="docker restart py"

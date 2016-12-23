@@ -13,3 +13,8 @@ RUN conda install -y -c r r r-essentials
 
 RUN conda install ipython-qtconsole
 
+COPY jupyter_nbconfig /home/jovyan/.jupyter/nbconfig
+USER root
+RUN chown -R jovyan:users /home/jovyan/.jupyter
+USER jovyan
+

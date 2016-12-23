@@ -1,0 +1,37 @@
+{
+  "ruler_color": [
+    "#ff5f5f"
+  ],
+  "code_format_hotkey": "Ctrl-M",
+  "load_extensions": {
+    "codefolding/main": true,
+    "search-replace/main": true,
+    "collapsible_headings/main": true,
+    "code_prettify/code_prettify": true,
+    "scratchpad/main": true,
+    "hide_input_all/main": true,
+    "python-markdown/main": true,
+    "limit_output/main": true,
+    "init_cell/main": true,
+    "toc2/main": true,
+    "dragdrop/main": true,
+    "table_beautifier/main": true,
+    "notify/notify": true,
+    "gist_it/main": true,
+    "splitcell/splitcell": true,
+    "exercise2/main": false,
+    "runtools/main": true,
+    "chrome-clipboard/main": true,
+    "execute_time/ExecuteTime": true,
+    "printview/main": true,
+    "equation-numbering/main": true,
+    "code_font_size/code_font_size": true,
+    "hide_input/main": true,
+    "spellchecker/main": true,
+    "comment-uncomment/main": false,
+    "hinterland/hinterland": true,
+    "select_keymap/main": true,
+    "ruler/main": true,
+    "rubberband/main": true
+  }
+}
