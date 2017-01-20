@@ -6,7 +6,7 @@ let maplocalleader = ";;"
 noremap ; :
 
 " Key code delays should be shorter
-set timeout timeoutlen=200 ttimeoutlen=-1
+set timeout timeoutlen=200 ttimeoutlen=10
 
 " Enable repeated indenting in visual mode
 vmap < <gv
@@ -54,20 +54,10 @@ autocmd FileType python highlight OverLength ctermbg=red ctermfg=white guibg=#59
 autocmd FileType python match OverLength /\%80v.\+/
 set colorcolumn=80
 
-" Turn off annoying PyLint Quickfix window
-"let pymode_lint_hold=0
-"let pymode_lint_cwindow=0
-" Skip errors and warnings
-"let g:pymode_lint_ignore = "E501,W002" "...  or "E2,W"
-let g:pymode_lint_ignore = "C0110,W0511,W1201,W0703,E712"
-let g:pymode_rope_auto_project = 1
-let g:snipMateAllowMatchingDot = 0
-
 " Scala settings
 let g:scala_sort_across_groups=1
 
-" Vimux (commands to create a tmux pane underneath vim and run shell commands)
-" Run the current file
+" Vimux (commands to create a tmux pane underneath vim and run shell commands) " Run the current file
 map <Leader>vo :call VimuxRunCommand("")<CR>
 map <Leader>vr :call VimuxRunCommand("clear; echo Executing: " . bufname("%") . " ; " . bufname("%"))<CR>
 " Prompt for a command to run
@@ -89,9 +79,9 @@ endfunction
 " If text is selected, save it in the v buffer and send that buffer it to tmux
 vmap <Leader>vs "vy :call VimuxSlime()<CR>
 " Select current line and send it to tmux
-nmap <Leader>vs V,vs
+nmap <Leader>vs V<Leader>vs
 " Select current block (paragraph) and send it to tmux
-nmap <Leader>vb vip,vs<CR>
+nmap <Leader>vb vip<Leader>vs<CR>
 let g:VimuxUseNearestPane = 1
 
 " R-vim-plugin
@@ -109,3 +99,27 @@ let g:tagbar_type_r = {
         \ 'v:FunctionVariables',
     \ ]
 \ }
+
+" vim-autoformat whole file
+nmap <Leader>af :Autoformat<CR>
+" vim-autoformat line under cursor
+nmap <Leader>sf V:Autoformat<CR>
+vmap <Leader>af :Autoformat<CR>
+
+" Python-mode plugin should use python3 syntax checking
+let g:pymode_python = 'python3'
+let g:pymode_paths = ['.']
+let g:snipMateAllowMatchingDot = 0
+let g:pymode_rope = 1
+let g:pymode_rope_complete_on_dot = 0
+let g:pymode_rope_lookup_project = 0  " don't have rope look in parent dirs
+let g:pymode_breakpoint = 0  " disable breakpoint stuff with <Leader>b
+let g:pymode_virtualenv = 0  " disable virtualenv detection
+let g:pymode_doc = 0  " disable K to show documentation
+" Turn off annoying PyLint Quickfix window
+"let pymode_lint_hold=0
+" let g:pymode_lint_on_fly = 0
+"let pymode_lint_cwindow=0
+" Skip errors and warnings
+"let g:pymode_lint_ignore = "E501,W002" "...  or "E2,W"
+" let g:pymode_lint_ignore = "C0110,W0511,W1201,W0703,E712"

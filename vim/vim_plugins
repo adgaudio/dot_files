@@ -1,7 +1,7 @@
 git submodule add https://github.com/chrismetcalf/vim-yankring.git
 git submodule add https://github.com/ivanov/vim-ipython.git
 git submodule add https://github.com/greyblake/vim-preview.git
-# git submodule add git://github.com/klen/python-mode.git
+git submodule add git://github.com/klen/python-mode.git
 git submodule add git://github.com:vim-scripts/c.vim.git
 # git submodule add git@github.com:davidhalter/jedi-vim.git  # pip install jedi  # python
 git submodule add https://github.com/vim-scripts/DrawIt.git
@@ -14,3 +14,6 @@ git submodule add https://github.com/derekwyatt/vim-scala.git
 git submodule add https://github.com/benmills/vimux.git
 git submodule add https://github.com/JuliaLang/julia-vim.git
 git submodule add https://github.com/fatih/vim-go
+
+git submodule add https://github.com/tpope/vim-obsession
+git submodule add git@github.com:Chiel92/vim-autoformat.git
