@@ -44,7 +44,7 @@ alias pry="bundle exec pry"
 
 #alias ipython="ipython --autoedit-syntax --deep-reload --no-confirm-exit"
 # alias py='docker run --rm -ti -w /py -v `pwd`:/py jfloff/alpine-python:3.4 python '
-alias py="docker exec -it py python"
+alias py="docker run -it --rm -v `pwd`:/home/jovyan/work adgaudio/jupyter python"
 alias pybash="docker exec -it py bash"
 alias pybashtmp="docker run -it --rm -v `pwd`:/home/jovyan/work adgaudio/jupyter bash"
 # alias i=ipython
@@ -54,6 +54,7 @@ alias inbInit="docker run --name py "\
 ' -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix '\
 " -d -p 8888:8888 "\
 " -v ~/s:/home/jovyan/work "\
+' -e QT_X11_NO_MITSHM=1'\
 "	adgaudio/jupyter start-notebook.sh --no-browser"
 
 alias inbRestart="docker restart py"
