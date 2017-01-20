@@ -60,6 +60,11 @@ session3print()
 
 sessionwork()
 {
+    tmux new-session -d -s cmlab
+    tmux split-window -t cmlab:1
+    tmux send-keys -t cmlab:1.0 "cd s/priv/cmlab" Enter
+    tmux send-keys -t cmlab:1.1 "cd s/priv/cmlab" Enter
+
     tmux new-session -d -s work
     tmux new-window -k -n daemons -t work:0
     tmux split-window -t work:daemons
