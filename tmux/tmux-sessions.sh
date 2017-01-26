@@ -1,7 +1,7 @@
 # Automatically create a new session with these windows
 
 #Register sessions that will be created by this script
-SESSIONS="3print work"
+SESSIONS="cmlab work"
 #
 #Define logic
 #
