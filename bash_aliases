@@ -99,7 +99,6 @@ alias rec="re --continue"
 alias r="git remote -v"
 alias st="git stash"
 alias s="git status -sb"
-alias ss='git status|grep -E "untracked\ content|modified:"'
 
 alias reu="re upstream/master"
 alias red="re origin/development"
