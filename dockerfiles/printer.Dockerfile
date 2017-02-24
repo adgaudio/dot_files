@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
   freeglut3
 
 # Printrun dependencies
-RUN apt-get install -y \
+RUN apt-get update && apt-get install -y \
   python-wxgtk3.0 \
   python-dbus \
   python-gobject \
@@ -27,9 +27,21 @@ RUN svn checkout svn://svn.code.sf.net/p/pyserial/code/trunk pyserial-code \
   && cd pyserial-code/pyserial/ \
   && python setup.py build && python setup.py install
 
+
+# Slic3r dependencies (probably many more than what is necessary)
+RUN apt-get update && apt-get install -y \
+  build-essential cpanminus freeglut3-dev git libboost-filesystem-dev \
+  libboost-system-dev libboost-thread-dev libexpat1-dev libglu1-mesa-dev \
+  libgtk2.0-dev liblocal-lib-perl libmodule-build-perl libnet-dbus-perl \
+  libopengl-perl libwx-glcanvas-perl libwxgtk3.0-dev libwxgtk-media3.0-dev \
+  libwx-perl libxmu-dev mesa-common-dev wx-common
+
 # programmer stuff
 RUN apt-get update && apt-get install -y \
   dfu-programmer libusb-1.0.0 avrdude avrdude-doc
+
+RUN apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
 
 RUN useradd dev && echo 'dev:dev' | chpasswd && adduser dev sudo \
   ; adduser dev dialout \
