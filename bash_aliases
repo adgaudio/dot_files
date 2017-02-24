@@ -117,6 +117,8 @@ alias hc='git rev-parse HEAD | pbcopy ; pbpaste'
 alias drun='docker run -it --rm '
 alias drunv='docker run -it --rm -v `pwd`:/source -w /source '
 alias drmi='docker rmi -f $(docker images -q -a -f dangling=true)'
+alias dcr='docker-compose run --rm '
+alias dco='docker-compose '  # note: overrides `dc`, a reverse-polish Desk Calculator
 alias dcl='docker-compose logs '
 alias dcyml="cat docker-compose.yml|python -c 'import sys, yaml, json; print json.dumps(yaml.load(sys.stdin.read()))'|jq "
 alias dcb='docker-compose build'
