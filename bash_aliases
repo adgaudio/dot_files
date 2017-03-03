@@ -44,7 +44,7 @@ alias pry="bundle exec pry"
 
 #alias ipython="ipython --autoedit-syntax --deep-reload --no-confirm-exit"
 # alias py='docker run --rm -ti -w /py -v `pwd`:/py jfloff/alpine-python:3.4 python '
-alias py="docker run -it --rm -v `pwd`:/home/jovyan/work adgaudio/jupyter python"
+alias py='docker run -it --rm -v `pwd`:/home/jovyan/work adgaudio/jupyter python'
 alias pybash="docker exec -it py bash"
 alias pybashtmp="docker run -it --rm -v `pwd`:/home/jovyan/work adgaudio/jupyter bash"
 # alias i=ipython
@@ -116,11 +116,12 @@ alias hc='git rev-parse HEAD | pbcopy ; pbpaste'
 #####
 alias drun='docker run -it --rm '
 alias drunv='docker run -it --rm -v `pwd`:/source -w /source '
+alias drunvx='docker run -it --rm -v `pwd`:/source -w /source -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix '
 alias drmi='docker rmi -f $(docker images -q -a -f dangling=true)'
 alias dcr='docker-compose run --rm '
 alias dco='docker-compose '  # note: overrides `dc`, a reverse-polish Desk Calculator
 alias dcl='docker-compose logs '
-alias dcyml="cat docker-compose.yml|python -c 'import sys, yaml, json; print json.dumps(yaml.load(sys.stdin.read()))'|jq "
+alias dcyml="cat docker-compose.yml|python -c 'import sys, yaml, json; print(json.dumps(yaml.load(sys.stdin.read())))'|jq "
 alias dcb='docker-compose build'
 alias dcymlk='dcls keys'
 
