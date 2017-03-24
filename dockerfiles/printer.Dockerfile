@@ -45,6 +45,8 @@ RUN apt-get clean \
 
 RUN useradd dev && echo 'dev:dev' | chpasswd && adduser dev sudo \
   ; adduser dev dialout \
+  ; addgroup --gid 14 uucp2 \
+  ; adduser dev uucp2 \
   ; mkdir /home/dev \
   ; mkdir -p /home/dev/bin /home/dev/lib /home/dev/include \
   ; chown -R dev: /home/dev
@@ -56,6 +58,7 @@ ENV HOME /home/dev
 WORKDIR /home/dev/s
 
 USER dev
+RUN mkdir -p /home/dev/.local/share
 
 # Assume Github data mounted into a volume
 RUN ln -s $HOME/s/printer/Slic3r_settings_config $HOME/.Slic3r

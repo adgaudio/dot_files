@@ -54,8 +54,12 @@ function printer() {
   # init printer container
   local name="printer.$$"
   local cmd="${@:-bash}"
+  local devices=''
+  if [ -e "/dev/ttyACM0" ] ; then
+    devices=" --device /dev/ttyACM0 "
+  fi
 
-  docker run -it --rm \
+  $(echo docker run -it --rm \
     --name "$name" \
     -e DISPLAY=$DISPLAY \
     -v $HOME/s/dot_files:/home/dev/s/dot_files \
@@ -63,9 +67,9 @@ function printer() {
     -w /home/dev/s/printer \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     --net=host \
-    --privileged \
+    ${devices} \
     -v $HOME/.Xauthority:/home/dev/.Xauthority \
-    adgaudio/printer $cmd
+    adgaudio/printer $cmd)
 }
 
 function drun(){

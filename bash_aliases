@@ -116,7 +116,7 @@ alias hc='git rev-parse HEAD | pbcopy ; pbpaste'
 #####
 alias drun='docker run -it --rm '
 alias drunv='docker run -it --rm -v `pwd`:/source -w /source '
-alias drunvx='docker run -it --rm -v `pwd`:/source -w /source -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix '
+alias drunvx='docker run -it --rm -v `pwd`:/source -w /source -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -e QT_X11_NO_MITSHM=1 '
 alias drmi='docker rmi -f $(docker images -q -a -f dangling=true)'
 alias dcr='docker-compose run --rm '
 alias dco='docker-compose '  # note: overrides `dc`, a reverse-polish Desk Calculator
