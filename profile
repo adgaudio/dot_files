@@ -23,9 +23,6 @@ source_files() {
       . ~/.bash_aliases
       . ~/.bash_extras
       . ~/.bash_functions
-      if [ -f "$HOME/.bash_alluvium" ] ; then
-        . ~/.bash_alluvium
-      fi
   fi
 }
 source_files

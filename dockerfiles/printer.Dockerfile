@@ -40,6 +40,9 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get update && apt-get install -y \
   dfu-programmer libusb-1.0.0 avrdude avrdude-doc
 
+# add OpenCascade
+RUN apt-get update && apt-get install -y oce-draw
+
 RUN apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 

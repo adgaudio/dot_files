@@ -17,3 +17,5 @@ git submodule add https://github.com/fatih/vim-go
 
 git submodule add https://github.com/tpope/vim-obsession
 git submodule add git@github.com:Chiel92/vim-autoformat.git
+git submodule add https://github.com/artur-shaik/vim-javacomplete2.git
+git submodule add https://github.com/sbdchd/neoformat.git

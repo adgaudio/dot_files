@@ -59,7 +59,7 @@ let g:scala_sort_across_groups=1
 
 " Vimux (commands to create a tmux pane underneath vim and run shell commands) " Run the current file
 map <Leader>vo :call VimuxRunCommand("")<CR>
-map <Leader>vr :call VimuxRunCommand("clear; echo Executing: " . bufname("%") . " ; " . bufname("%"))<CR>
+map <Leader>vr :call VimuxRunCommand("clear; echo Executing: " . bufname("%") . " ; ./" . bufname("%"))<CR>
 " Prompt for a command to run
 map <Leader>vp :VimuxPromptCommand<CR>
 " Run last command executed by VimuxRunCommand
@@ -123,3 +123,6 @@ let g:pymode_doc = 0  " disable K to show documentation
 " Skip errors and warnings
 "let g:pymode_lint_ignore = "E501,W002" "...  or "E2,W"
 " let g:pymode_lint_ignore = "C0110,W0511,W1201,W0703,E712"
+
+" Vim javacomplete2
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
