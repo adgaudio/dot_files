@@ -19,3 +19,6 @@ git submodule add https://github.com/tpope/vim-obsession
 git submodule add git@github.com:Chiel92/vim-autoformat.git
 git submodule add https://github.com/artur-shaik/vim-javacomplete2.git
 git submodule add https://github.com/sbdchd/neoformat.git
+
+git submodule add https://github.com/Rip-Rip/clang_complete.git && cd clang_complete && make install
+git submodule add https://github.com/lervag/vimtex.git

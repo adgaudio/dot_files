@@ -81,7 +81,7 @@ vmap <Leader>vs "vy :call VimuxSlime()<CR>
 " Select current line and send it to tmux
 nmap <Leader>vs V<Leader>vs
 " Select current block (paragraph) and send it to tmux
-nmap <Leader>vb vip<Leader>vs<CR>
+nmap <Leader>vb vip<Leader>vs
 let g:VimuxUseNearestPane = 1
 
 " R-vim-plugin
@@ -126,3 +126,6 @@ let g:pymode_doc = 0  " disable K to show documentation
 
 " Vim javacomplete2
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
+
+" Spell check
+set spell
