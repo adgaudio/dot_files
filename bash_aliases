@@ -32,7 +32,7 @@ which xdg-open 1>/dev/null && alias open="xdg-open" # use open like in mac osx
 alias v="vim"
 # alias v="drun --name vim.`date +%s` adgaudio/devbox vim"
 alias vmod='v -p $(git status -s|grep "^ *M"|cut -d" " -f3-|xargs) '
-alias screen="screen -xRR -e^Pp"
+alias screen2="screen -xRR -e^Pp"
 alias screenn="/usr/bin/screen -e^Pp"
 alias tn="tail -n"
 
