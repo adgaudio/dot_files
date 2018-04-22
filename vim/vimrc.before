@@ -124,6 +124,12 @@ let g:pymode_doc = 0  " disable K to show documentation
 "let g:pymode_lint_ignore = "E501,W002" "...  or "E2,W"
 " let g:pymode_lint_ignore = "C0110,W0511,W1201,W0703,E712"
 
+" tab completion. choose between youcompleteme and deoplete
+" disable deoplete (formerly neocomplete)
+let g:deoplete#enable_at_startup = 0
+" tab completion via YouCompleteMe
+let g:ycm_extra_conf_globlist = ['~/s/*','!~/s/scratch/*']
+
 " Vim javacomplete2
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
