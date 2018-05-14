@@ -1,0 +1,20 @@
+# This goes in ~/.ssh/config
+#
+# This lets you re-use your first connection so you don't have to wait to
+# reconnect.  The downside is that the connection stays open and will need to
+# be explicitly closed.
+# ControlMaster auto
+# ControlPath ~/.ssh/reused_connections/%h_%p_%r
+# ControlPersist 5
+
+# make data transfer over the wire potentially much faster
+# Compression yes
+
+# Host localhost
+#   StrictHostKeyChecking no
+
+# Host myserver
+#   HostName 192.168.27.230
+#   User mylinuxuser
+
+
