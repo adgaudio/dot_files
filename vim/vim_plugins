@@ -17,7 +17,6 @@ git submodule add https://github.com/fatih/vim-go
 
 git submodule add https://github.com/tpope/vim-obsession
 git submodule add git@github.com:Chiel92/vim-autoformat.git
-# git submodule add https://github.com/artur-shaik/vim-javacomplete2.git
 git submodule add https://github.com/sbdchd/neoformat.git
 
 # git submodule add https://github.com/Rip-Rip/clang_complete.git && cd clang_complete && make install
@@ -25,3 +24,5 @@ git submodule add https://github.com/lervag/vimtex.git
 git submodule add https://github.com/Valloric/YouCompleteMe.git && cd YouCompleteMe && git submodule update --init --recursive && ./install.py --system-libclang --all
 git submodule add https://github.com/rdnetto/YCM-Generator.git
 git submodule add https://github.com/Shougo/deoplete.nvim.git
+
+git submodule add https://github.com/SirVer/ultisnips
