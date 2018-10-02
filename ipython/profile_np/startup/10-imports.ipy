@@ -1,0 +1,8 @@
+%matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
+import numpy
+import scipy as sp
+import scipy.stats
+import scipy.spatial
+import pandas as pd

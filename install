@@ -37,6 +37,8 @@ def install_vim():
     # Install janus
     s = os.path.realpath(os.path.dirname(__file__))
     os.system(join(s, 'vim/bootstrap_janus'))
+    check_call('ln -s ~/.vim ~/.config/nvim')
+    check_call('ln -s ~/.vimrc ~/.config/nvim/init.vim')
 
 #########################################
 #########################################
@@ -79,10 +81,11 @@ if __name__ == '__main__':
         symlink("python/pythonrc.py", ".pythonrc.py")
         symlink("Rprofile", ".Rprofile")
 
-        _ipy_dir = join(d, ".ipython/profile_default/startup")
+        _ipy_dir = join(d, ".ipython/profile_np/startup")
         if not os.path.exists(_ipy_dir):
             os.makedirs(_ipy_dir)
-        symlink("ipython_startup.ipy", join(_ipy_dir, "ipython_startup.ipy"))
+        symlink("ipython/profile_np/startup/10-imports.ipy",
+                join(_ipy_dir, "10-imports.ipy"))
 
         symlink("tmux/tmux.conf", ".tmux.conf")
         symlink("tmux/tmux_osx.conf", ".tmux_osx.conf")

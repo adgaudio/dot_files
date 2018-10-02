@@ -11,8 +11,8 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias ..="cd .."
 alias ...="cd ../.."
 alias ctag="ctags -R -f .tags . --exclude=target --exclude=vendor"
-alias db="mysql -uroot -proot"
-alias e="emacs"
+# alias db="mysql -uroot -proot"
+# alias e="emacs"
 alias fin="find . -iname"
 alias fn="find . -name"
 alias egrep='egrep --color=auto'
@@ -39,35 +39,35 @@ alias tn="tail -n"
 ####
 #Language specific
 ####
-alias pry="bundle exec pry"
+# alias pry="bundle exec pry"
 #alias rake="bundle exec rake"
 
+alias i=ipython
+alias inp="ipython --profile=np"
 #alias ipython="ipython --autoedit-syntax --deep-reload --no-confirm-exit"
 # alias py='docker run --rm -ti -w /py -v `pwd`:/py jfloff/alpine-python:3.4 python '
-alias py='docker run -it --rm -v `pwd`:/home/jovyan/work adgaudio/jupyter python'
-alias pybash="docker exec -it py bash"
-alias pybashtmp="docker run -it --rm -v `pwd`:/home/jovyan/work adgaudio/jupyter bash"
-# alias i=ipython
-alias i="docker exec -it py ipython"
-alias inb="docker start py"  # some process owns creating the container
-alias inbInit="docker run --name py "\
-' -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix '\
-" -d -p 8888:8888 "\
-" -v ~/s:/home/jovyan/work "\
-' -e QT_X11_NO_MITSHM=1'\
-"	adgaudio/jupyter start-notebook.sh --no-browser"
-
-alias inbRestart="docker restart py"
-alias opencv="drunv elenaalexandrovna/opencv-python3 "
+# alias py='docker run -it --rm -v `pwd`:/home/jovyan/work adgaudio/jupyter python'
+# alias pybash="docker exec -it py bash"
+# alias pybashtmp="docker run -it --rm -v `pwd`:/home/jovyan/work adgaudio/jupyter bash"
+# alias i="docker exec -it py ipython"
+# alias inb="docker start py"  # some process owns creating the container
+# alias inbInit="docker run --name py "\
+# ' -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix '\
+# " -d -p 8888:8888 "\
+# " -v ~/s:/home/jovyan/work "\
+# ' -e QT_X11_NO_MITSHM=1'\
+# "	adgaudio/jupyter start-notebook.sh --no-browser"
+# alias inbRestart="docker restart py"
+# alias opencv="drunv elenaalexandrovna/opencv-python3 "
 
 #R
-alias rstudio="docker run -itd --name rs \`_d_mount_s\` \`_d_x11\` --net=host rocker/hadleyverse"
+# alias rstudio="docker run -itd --name rs \`_d_mount_s\` \`_d_x11\` --net=host rocker/hadleyverse"
 
 #Rust
-alias rust='docker run -it --rm -v `pwd`:/source jimmycuadra/rust'
+# alias rust='docker run -it --rm -v `pwd`:/source jimmycuadra/rust'
 
 #Scala
-alias intellij="docker run --rm -it \`_d_x11\` \`_d_mount_s\` -v $HOME/.ivy2:/home/intellij/.ivy2 -v $HOME/s/intellij/IdeaIC15:/home/intellij/.IdeaIC15 adgaudio/intellij"
+# alias intellij="docker run --rm -it \`_d_x11\` \`_d_mount_s\` -v $HOME/.ivy2:/home/intellij/.ivy2 -v $HOME/s/intellij/IdeaIC15:/home/intellij/.IdeaIC15 adgaudio/intellij"
 
 #####
 #Git aliases
