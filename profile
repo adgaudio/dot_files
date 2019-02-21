@@ -20,8 +20,8 @@ source_files() {
   local sources
   [ -n "$BASH" -o -n "$ZSH_NAME" ]  && sources="1" || sources="0"
   if [ "$sources" = "1" ] ; then
-      . ~/.bash_aliases
       . ~/.bash_extras
+      . ~/.bash_aliases
       . ~/.bash_functions
   fi
 }

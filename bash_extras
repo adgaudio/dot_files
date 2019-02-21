@@ -184,6 +184,17 @@ if [[ "$ZSH_NAME" = "zsh" ]] ; then
 fi
 
 
+###
+# fasd - setup navigation, tab completion and general amazingness
+####
+if [[ "$ZSH_NAME" = "zsh" ]] ; then
+# if zsh...
+eval "$(fasd --init posix-alias posix-hook zsh-hook zsh-ccomp zsh-ccomp-install zsh-wcomp zsh-wcomp-install)"
+fi
+if [[ "${0%bash}" != "$0" ]] ; then
+# if bash...
+eval "$(fasd --init posix-alias posix-hook bash-hook bash-ccomp bash-ccomp-install)"
+fi
 
 
 ######
