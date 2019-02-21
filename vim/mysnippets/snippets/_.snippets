@@ -6,7 +6,6 @@ snippet ipyc
 	import IPython.parallel
 	client = IPython.parallel.Client()
 	client.${1}
-
 snippet exit
 	import sys ; sys.exit()
 snippet name
@@ -33,26 +32,20 @@ snippet dsinit
 snippet igm
 	import gevent.monkey ; gevent.monkey.patch_all()
 	${1}
-snippet iat
-	from ds_commons import argparse_tools as at
+snippet iplt
+	from matplotlib import pyplot as plt
 	${1}
-snippet idt
-	from ds_commons import data_tools
+snippet isns
+	import seaborn as sns
 	${1}
-snippet idbt
-	from ds_commons import db_tools
+snippet ipd
+	import pandas as pd
 	${1}
-snippet is3
-	from ds_commons import s3_tools
+snippet inp
+	import numpy as np
 	${1}
-snippet icb
-	from ds_commons import config_base
-	${1}
-snippet ilog
-	from ds_commons.log import log
-	${1}
-snippet iut
-	from ds_commons import util
+snippet isp
+	import scipy as sp
 	${1}
 snippet info
 	log.info(${1})
@@ -72,3 +65,9 @@ snippet err
 snippet exc
 	log.exception(${1})
 	${2}
+
+# latex
+snippet align
+	\begin{align}
+	  ${1}
+	\end{align}

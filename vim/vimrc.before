@@ -20,6 +20,14 @@ vmap > >gv
 " gq should indent multi-line bulleted lists properly
 set autoindent
 
+" Extended regex "very magic"
+nnoremap / /\v
+vnoremap / /\v
+cnoremap %s/ %smagic/
+cnoremap >s/ >smagic/ 
+nnoremap :g/ :g/\v
+nnoremap :g// :g//
+
 " Emacs-like beginning and end of line
 inoremap <C-a> <Esc>^i
 nnoremap <C-a> ^
