@@ -131,3 +131,23 @@ if test "`uname`" = "Linux" ; then
   alias pbcopy='xsel --clipboard --input'
   alias pbpaste='xsel --clipboard --output'
 fi
+
+# Networking
+# To copy files between a private server and client via a jump host.
+# Setup: assumed an ~/.ssh/config entry for "jump" server is setup
+# Execution: First, run "remotetunnel" on server you want to
+# Then,  run "rsyncsocks <user>@localhost:<SRC> <DEST>"
+alias remotetunnel="ssh -N -f -C -R 5555:localhost:22 -p 443 jump"
+alias rsyncsocks='rsync -ave "ssh -A -J jump -p 5555 "'
+
+#####
+# Fasd
+#####
+alias fa='fasd -a'        # any
+alias fs='fasd -si'       # show / search / select
+alias fd='fasd -d'        # directory
+alias ff='fasd -f'        # file
+alias fsd='fasd -sid'     # interactive directory selection
+alias fsf='fasd -sif'     # interactive file selection
+alias fz='fasd_cd -d'     # cd, same functionality as j in autojump
+alias zz='fasd_cd -d -i' # cd with interactive selection
