@@ -92,6 +92,11 @@ if __name__ == '__main__':
         if 'linux' in sys.platform.lower():
             symlink("Xmodmap", ".Xmodmap")
 
+        _bin = join(d, "bin")
+        if not os.path.exists(_bin):
+            os.makedirs(_bin)
+        symlink("bin/vnc.sh", join(_bin, "vnc.sh"))
+
     if NS.vim:
         install_vim()
     # Install realiaser (for cmd prompt)
