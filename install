@@ -96,6 +96,11 @@ if __name__ == '__main__':
         if not os.path.exists(_bin):
             os.makedirs(_bin)
         symlink("bin/vnc.sh", join(_bin, "vnc.sh"))
+        symlink("bin/backup", join(_bin, "backup"))
+
+        _unison = join(d, ".unison")
+        os.makedirs(_unison, exist_ok=True)
+        symlink("unison/default.prf", _unison)
 
     if NS.vim:
         install_vim()

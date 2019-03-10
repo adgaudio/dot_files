@@ -1,0 +1,4 @@
+
+# Unison preferences file
+ignore = Name {,.}*{.pyc}
+ignore = Regex .*/model_checkpoints/.*
