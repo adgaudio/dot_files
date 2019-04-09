@@ -1,5 +1,6 @@
 %matplotlib
 
+import abc
 from collections import Counter, namedtuple
 from mpl_toolkits.axes_grid1 import ImageGrid
 from mpl_toolkits.axes_grid1.axes_rgb import RGBAxes
