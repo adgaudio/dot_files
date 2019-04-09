@@ -55,7 +55,8 @@ set foldnestmax=3       "deepest fold is 10 levels
 set nofoldenable        "dont fold by default
 set foldlevel=1         "this is just what i use
 
-set mouse=a " Use mouse in all modes
+"set mouse=a " Use mouse in all modes
+set mouse=i " Use mouse in insert mode only
 
 " When opening a file in the command bar, tab completion behaves like bash
 " autocomplete

@@ -26,3 +26,4 @@ git submodule add https://github.com/rdnetto/YCM-Generator.git
 git submodule add https://github.com/Shougo/deoplete.nvim.git
 
 git submodule add https://github.com/SirVer/ultisnips
+git submodule add https://github.com/joom/latex-unicoder.vim
