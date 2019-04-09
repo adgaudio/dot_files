@@ -37,8 +37,9 @@ def install_vim():
     # Install janus
     s = os.path.realpath(os.path.dirname(__file__))
     os.system(join(s, 'vim/bootstrap_janus'))
-    check_call('ln -s ~/.vim ~/.config/nvim')
-    check_call('ln -s ~/.vimrc ~/.config/nvim/init.vim')
+    os.makedirs(os.path.expanduser('~/.config/nvim'), exist_ok=True)
+    check_call('ln -s ~/.vim ~/.config/nvim', shell=True)
+    check_call('ln -s ~/.vimrc ~/.config/nvim/init.vim', shell=True)
 
 #########################################
 #########################################
