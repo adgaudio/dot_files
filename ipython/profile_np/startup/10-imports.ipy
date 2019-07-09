@@ -20,6 +20,7 @@ import scipy.stats
 import seaborn as sns
 import skimage.feature
 import torch
+import torch.nn as nn
 import torch.optim
 import torch.utils.data as TD
 import torchvision as tv

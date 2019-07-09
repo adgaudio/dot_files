@@ -3,9 +3,11 @@
 ignore = Name {,.}*{.pyc}
 ignore = Regex .*/model_checkpoints/.*
 
-ignore = Path {r/data/oct-corneal}
-ignore = Path {r/data/oct-fundus-22patients}
-ignore = Path {r/data/oct-fundus-right-left-50healthy}
-ignore = Path {r/data/eyepacs}
-
-ignore = Path {r/data/messidor/.git}
+# ignore = Path {r/data/oct-corneal}
+# ignore = Path {r/data/oct-fundus-22patients}
+# ignore = Path {r/data/oct-fundus-right-left-50healthy}
+# ignore = Path {r/data/eyepacs}
+# ignore = Path {r/data/messidor/.git}
+ignore = Path {r/data}
+ignore = Regex r/ssdr/data/messidor.*
+ignore = Regex r/ssdr/data/eyepacs.*
