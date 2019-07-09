@@ -184,3 +184,38 @@ set spell
 " Window split shortcuts https://robots.thoughtbot.com/vim-splits-move-faster-and-more-naturally
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+" Wrapping and cursor movement:  When not wrapping long lines, use keys to move one display line at a time (rather than one physical line)
+noremap <silent> <Leader>wr :call ToggleWrap()<CR>
+function ToggleWrap()
+  if &wrap
+    echo "Wrap OFF"
+    setlocal nowrap
+    set virtualedit=all
+    silent! nunmap <buffer> j
+    silent! nunmap <buffer> k
+    silent! nunmap <buffer> 0
+    silent! nunmap <buffer> ^
+    silent! nunmap <buffer> $
+    silent! vunmap <buffer> j
+    silent! vunmap <buffer> k
+    silent! vunmap <buffer> 0
+    silent! vunmap <buffer> ^
+    silent! vunmap <buffer> $
+  else
+    echo "Wrap ON"
+    setlocal wrap linebreak nolist
+    set virtualedit=
+    setlocal display+=lastline
+    noremap  <buffer> <silent> j   gj
+    noremap  <buffer> <silent> k   gk
+    noremap  <buffer> <silent> 0   g0
+    noremap  <buffer> <silent> ^   g^
+    noremap  <buffer> <silent> $   g$
+    vnoremap  <buffer> <silent> j   gj
+    vnoremap  <buffer> <silent> k   gk
+    vnoremap  <buffer> <silent> 0   g0
+    vnoremap  <buffer> <silent> ^   g^
+    vnoremap  <buffer> <silent> $   g$
+  endif
+endfunction
