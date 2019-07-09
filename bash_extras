@@ -118,7 +118,7 @@ _my_ps1() {
     local red="%{$fg[red]%}"
     local white="%{$fg[white]%}"
     local yellow="%{$fg[yellow]%}"
-    local date_="%D{%m-%d %H:%m:%S}"
+    local date_="%D{%m-%d %H:%M:%S}"
     local host="%M"
     local pwd="%~"
   fi
