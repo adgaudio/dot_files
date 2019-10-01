@@ -13,22 +13,6 @@ snippet name
 	if __name__ == '__main__':
 	    NS = build_arg_parser().parse_args()
 	    main(NS)
-snippet dsinit
-	from ds_commons import argparse_tools as at${1}
-
-
-	def main(ns):
-	    ${3}
-
-
-	build_arg_parser = at.build_arg_parser([
-	    ${2}
-	])
-
-
-	if __name__ == '__main__':
-	    NS = build_arg_parser().parse_args()
-	    main(NS)
 snippet igm
 	import gevent.monkey ; gevent.monkey.patch_all()
 	${1}
@@ -50,6 +34,10 @@ snippet isp
 snippet ixr
 	import xarray as xr
 	${1}
+snippet ibasename
+	from os.path import basename
+snippet ijoin
+	from os.path import join
 snippet iImageGrid
 	from mpl_toolkits.axes_grid1.axes_grid import ImageGrid
 snippet ijoblib

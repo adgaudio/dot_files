@@ -6,7 +6,7 @@ set -u
 remote=${1:-ssh://ag}
 cd
 
-unison -auto ~/Documents $remote/Documents
 unison -auto ~/s $remote/s
-unison -auto ~/old_jobs_repos $remote/old_jobs_repos
+# unison -auto ~/Documents $remote/Documents
+# unison -auto ~/old_jobs_repos $remote/old_jobs_repos
 # unison -auto ~/.janus $remote/.janus

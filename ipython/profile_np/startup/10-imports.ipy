@@ -1,4 +1,4 @@
-%matplotlib
+#get_ipython().magic(u"%matplotlib gtk3")
 
 import abc
 from collections import Counter, namedtuple
@@ -10,8 +10,10 @@ import collections
 import matplotlib
 import matplotlib.patches as patches
 import matplotlib.pyplot as plt
+import mplcursors
 import numpy
 import numpy as np
+import os
 import pandas as pd
 import scipy as sp
 import scipy.ndimage as ndi

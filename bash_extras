@@ -9,6 +9,7 @@ export PATH=~/bbin:~/bin:$PATH
 export R_LIBS=~/.r_libs
 [ -d "$HOME/.r_libs" ] || mkdir ~/.r_libs
 export PYTHONSTARTUP=~/.pythonrc.py
+export MPLCURSORS='{"hover": 1}'  # for python matplotlib
 
 # export PYTHONPATH=.:$HOME/bin:$HOME:$PYTHONPATH
 

@@ -43,6 +43,7 @@ alias tn="tail -n"
 #alias rake="bundle exec rake"
 
 alias i=ipython
+alias ii='ipython -i'
 alias inp="ipython --profile=np"
 #alias ipython="ipython --autoedit-syntax --deep-reload --no-confirm-exit"
 # alias py='docker run --rm -ti -w /py -v `pwd`:/py jfloff/alpine-python:3.4 python '

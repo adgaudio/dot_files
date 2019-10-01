@@ -6,19 +6,42 @@
 set -e
 set -u
 
+function usage {
+cat <<EOF
+
+  usage:  $0  [-k] [-c] [-d x11_display] ssh_hostname"
+
+       -k This option does not kill the VNC server when finished using it.
+          If you pass '-k' you must remember to manually exit the vnc server
+       -c If passed, do not try to connect the client.  Useful in
+          combination with '-k', where '-ck' creates a vnc server
+          and then '-c' kills it.
+       -d Choose the X11 display.  By default, '-d 2' sets VNC server on
+          DISPLAY=:2 and also listens locally on port 590X, where X=2.
+EOF
+}
+
+
 function main {
-  local sshhost=$1
-  local display=2  # both port to forward and X display to listen on
-  # local sshhost="my_vnc_server"
-  # local display=":1"
-  # while getopts "h:d:" opt; do
-  #     case $opt in
-  #         h ) local sshhost="${OPTARG}";;
-  #         d ) local display="${OPTARG}";;
-  #         *) echo "usage:  $0  [-h ssh_hostname] [-d x11_display]"
-  #         exit 1;;
-  #     esac
-  # done
+  local display="2"  # this sets DISPLAY=:2 and port to listen on as 590X, where X=2
+  local autokill="-autokill"  # by default, quit after vnc client disconnects
+  local client=true  # by default, connect using VNC client
+  while getopts "hkd:c" opt; do
+      case $opt in
+          k) local autokill=""  ;;
+          d) local display="${OPTARG}";;
+          c) local client=false;;
+          h | *) usage ; exit 1;;
+      esac
+  done
+  shift $((OPTIND -1))
+  local sshhost=$1  # my_vnc_server
+  shift
+  if [ "$#" != 0 ] ; then
+    echo "ERROR: do not pass args after 'ssh_hostname'"
+    usage
+    exit 1
+  fi
 
   sshcmd="ssh -C \
     -o StrictHostKeyChecking=no \
@@ -26,11 +49,18 @@ function main {
     $sshhost"
 
   (
+  (set -x ; $sshcmd vncserver :$display $autokill -localhost) || true
   set -x
-  $sshcmd vncserver :$display -autokill -localhost
   $sshcmd -f -L 590$display:127.0.0.1:590$display sleep 10
-  vncviewer 127.0.0.1:590$display
-  $sshcmd vncserver -kill :$display
+  set +x
+  if [ "$client" = true ] ; then
+    vncviewer 127.0.0.1:590$display
+  fi
+  if [ "$autokill" != "" ] ; then
+    set -x
+    $sshcmd vncserver -kill :$display
+    set +x
+  fi
   ) &
   disown
 }
