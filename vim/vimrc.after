@@ -3,4 +3,7 @@ nnoremap Y y$
 
 source $HOME/.janus/vim-ipython/ftplugin/python/ipy.vim
 
-colorscheme jammy
+" colorscheme jammy
+colorscheme delek
+
+silent UpdateRemotePlugins

@@ -55,8 +55,8 @@ set foldnestmax=3       "deepest fold is 10 levels
 set nofoldenable        "dont fold by default
 set foldlevel=1         "this is just what i use
 
-"set mouse=a " Use mouse in all modes
-set mouse=i " Use mouse in insert mode only
+set mouse=a " Use mouse in all modes
+" set mouse=i " Use mouse in insert mode only
 
 " When opening a file in the command bar, tab completion behaves like bash
 " autocomplete
@@ -135,12 +135,16 @@ let g:pymode_doc = 0  " disable K to show documentation
 " let g:pymode_lint_on_fly = 0
 "let pymode_lint_cwindow=0
 " Skip errors and warnings
-"let g:pymode_lint_ignore = "E501,W002" "...  or "E2,W"
+" let g:pymode_lint_ignore = "E501,W002" "...  or "E2,W"
 " let g:pymode_lint_ignore = "C0110,W0511,W1201,W0703,E712"
 
-" tab completion. choose between youcompleteme and deoplete
-" disable deoplete (formerly neocomplete)
-let g:deoplete#enable_at_startup = 0
+" Python jedi plugin
+" Jedi-vim + YouCompleteMe compatible
+" https://github.com/davidhalter/jedi-vim/issues/119#issuecomment-37761586
+let g:jedi#usages_command = "<leader>u"
+let g:jedi#rename_command = "<leader>z"
+
+
 " tab completion via YouCompleteMe (YCM)
 let g:ycm_extra_conf_globlist = ['~/s/*','!~/s/scratch/*']
 
@@ -177,6 +181,7 @@ endif
 au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger     . " <C-R>=g:UltiSnips_Complete()<cr>"
 au InsertEnter * exec "inoremap <silent> " .     g:UltiSnipsJumpBackwardTrigger . " <C-R>=g:UltiSnips_Reverse()<cr>"
 
+"Semshi syntax highlighting 
 
 " Spell check
 set spell
