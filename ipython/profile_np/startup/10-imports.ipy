@@ -1,7 +1,10 @@
-#get_ipython().magic(u"%matplotlib gtk3")
+get_ipython().magic(u"%matplotlib auto")
 
 import abc
 from collections import Counter, namedtuple
+import cv2.ximgproc
+guidedFilter = cv2.ximgproc.guidedFilter
+import itertools
 from mpl_toolkits.axes_grid1 import ImageGrid
 from mpl_toolkits.axes_grid1.axes_rgb import RGBAxes
 from numpy.random import randn
@@ -11,8 +14,10 @@ import matplotlib
 import matplotlib.patches as patches
 import matplotlib.pyplot as plt
 import mplcursors
+import multiprocessing as mp
 import numpy
 import numpy as np
+import numpy.linalg as L
 import os
 import pandas as pd
 import scipy as sp
@@ -22,7 +27,8 @@ import scipy.stats
 import seaborn as sns
 import skimage.feature
 import torch
-import torch.nn as nn
+import torch as T
+import torch.nn as NN
 import torch.optim
 import torch.utils.data as TD
 import torchvision as tv
