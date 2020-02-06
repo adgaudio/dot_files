@@ -30,6 +30,10 @@ alias la="ls -a"
 alias lla="ls -latr"
 which xdg-open 1>/dev/null && alias open="xdg-open" # use open like in mac osx
 alias v="nvim"
+alias vf="v \$(fzf)"
+alias ef="eval \$(fzf)"
+alias efp="eval \$(fzf)"
+function eff() { local arg="$*" ; $* $(fzf) }
 # alias v="drun --name vim.`date +%s` adgaudio/devbox vim"
 alias vmod='v -p $(git status -s|grep "^ *M"|cut -d" " -f3-|xargs) '
 alias screen2="screen -xRR -e^Pp"
@@ -43,8 +47,8 @@ alias tn="tail -n"
 #alias rake="bundle exec rake"
 
 alias i=ipython
-alias ii='ipython -i'
-alias inp="ipython --profile=np"
+alias ii='ipython -i --no-banner'
+alias inp="ipython --profile=np --no-banner"
 #alias ipython="ipython --autoedit-syntax --deep-reload --no-confirm-exit"
 # alias py='docker run --rm -ti -w /py -v `pwd`:/py jfloff/alpine-python:3.4 python '
 # alias py='docker run -it --rm -v `pwd`:/home/jovyan/work adgaudio/jupyter python'
