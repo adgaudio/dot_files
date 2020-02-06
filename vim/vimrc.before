@@ -142,12 +142,12 @@ let g:pymode_doc = 0  " disable K to show documentation
 " Jedi-vim + YouCompleteMe compatible
 " https://github.com/davidhalter/jedi-vim/issues/119#issuecomment-37761586
 let g:jedi#usages_command = "<leader>u"
-let g:jedi#rename_command = "<leader>z"
-
+let g:jedi#rename_command = "<leader>r"
 
 " tab completion via YouCompleteMe (YCM)
 let g:ycm_extra_conf_globlist = ['~/s/*','!~/s/scratch/*']
-
+" let g:ycm_autoclose_preview_window_after_completion = 1
+" let g:ycm_autoclose_preview_window_after_insertion = 1
 
 " YouCompleteMe and UltiSnips compatibility:
 " https://github.com/Valloric/YouCompleteMe/issues/36#issuecomment-171966710
@@ -181,7 +181,15 @@ endif
 au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger     . " <C-R>=g:UltiSnips_Complete()<cr>"
 au InsertEnter * exec "inoremap <silent> " .     g:UltiSnipsJumpBackwardTrigger . " <C-R>=g:UltiSnips_Reverse()<cr>"
 
-"Semshi syntax highlighting 
+" Syntastic Syntax checking
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
 
 " Spell check
 set spell

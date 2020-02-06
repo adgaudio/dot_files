@@ -28,7 +28,8 @@ git submodule add -f https://github.com/Valloric/YouCompleteMe.git && cd YouComp
 # git submodule add -f https://github.com/rdnetto/YCM-Generator.git  && cd YCM-Generator
 # git submodule add -f https://github.com/Shougo/deoplete.nvim.git && pip3 install --user --upgrade pynvim
 # git submodule add -f https://github.com/deoplete-plugins/deoplete-jedi && git submodule update --init --recursive
-git submodule add -f git@github.com:numirias/semshi.git && pip install -U --user pynvim
+# git submodule add -f git@github.com:numirias/semshi.git && pip install -U --user pynvim && cd semshi && python setup.py develop --user && cd -
+
 
 git submodule add -f https://github.com/SirVer/ultisnips
 git submodule add -f https://github.com/joom/latex-unicoder.vim

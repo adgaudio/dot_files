@@ -9,9 +9,11 @@ ignore = Regex .*/model_checkpoints/.*
 # ignore = Path {r/data/eyepacs}
 # ignore = Path {r/data/messidor/.git}
 ignore = Path {r/data}
-ignore = Regex r/ssdr/data/messidor.*
-ignore = Regex r/ssdr/data/eyepacs.*
-ignore = Regex r/ssdr/data/results/old.*
+ignore = Regex r/screendr/data/messidor.*
+ignore = Regex r/screendr/data/eyepacs.*
+ignore = Regex r/screendr/data/results/old.*
+ignore = Regex r/ietk-ret/data/preprocessed
+ignore = Regex r/ietk-ret/third_party/.*
 
-ignore = Path {r/ssdr/data/cifar10}
-ignore = Path {r/ssdr/data/cifar100}
+ignore = Path {r/screendr/data/cifar10}
+ignore = Path {r/screendr/data/cifar100}
