@@ -71,6 +71,7 @@ if __name__ == '__main__':
         symlink("bash_functions", ".bash_functions")
         symlink("bash_extras", ".bash_extras")
         symlink("ctags", ".ctags")
+        symlink("flake8", ".config/flake8")
         symlink("profile", ".profile")
         symlink("zshrc", ".zshrc")
         symlink("zsh_tab_completion", ".zsh_tab_completion")
@@ -101,7 +102,7 @@ if __name__ == '__main__':
 
         _unison = join(d, ".unison")
         os.makedirs(_unison, exist_ok=True)
-        symlink("unison/default.prf", _unison)
+        symlink("unison/default.prf", join(_unison, "default.prf"))
 
     if NS.vim:
         install_vim()

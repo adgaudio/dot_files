@@ -1,6 +1,7 @@
 get_ipython().magic(u"%matplotlib auto")
 
 import abc
+import argparse as ap
 from collections import Counter, namedtuple
 import cv2.ximgproc
 guidedFilter = cv2.ximgproc.guidedFilter

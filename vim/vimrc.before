@@ -63,40 +63,16 @@ set mouse=a " Use mouse in all modes
 set wildmode=longest,list,full
 set wildmenu
 
-" Freak out when lines are more than 80 chars long
-autocmd FileType python highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-autocmd FileType python match OverLength /\%80v.\+/
-set colorcolumn=80
+" hilight everything past 80 chars
+" highlight ColorColumn guibg=#2d2d2d ctermbg=246
+" highlight ColorColumn ctermbg=235 guibg=#2c2d27
+let &colorcolumn=join(range(81,999),",")
+
+" True colors (not just 256 color)
+set termguicolors
 
 " Scala settings
 let g:scala_sort_across_groups=1
-
-" Vimux (commands to create a tmux pane underneath vim and run shell commands) " Run the current file
-map <Leader>vo :call VimuxRunCommand("")<CR>
-map <Leader>vr :call VimuxRunCommand("clear; echo Executing: " . bufname("%") . " ; ./" . bufname("%"))<CR>
-" Prompt for a command to run
-map <Leader>vp :VimuxPromptCommand<CR>
-" Run last command executed by VimuxRunCommand
-map <Leader>vl :VimuxRunLastCommand<CR>
-" Inspect runner pane
-map <Leader>vi :VimuxInspectRunner<CR>
-" Close vim tmux runner opened by VimuxRunCommand
-map <Leader>vq :VimuxCloseRunner<CR>
-" Interrupt any command running in the runner pane
-map <Leader>vx :VimuxInterruptRunner<CR>
-" Zoom the runner pane (use <bind-key> z to restore runner pane)
-map <Leader>vz :call VimuxZoomRunner()<CR>
-function! VimuxSlime()
-  call VimuxSendText(@v)
-  call VimuxSendKeys("Enter")
-endfunction
-" If text is selected, save it in the v buffer and send that buffer it to tmux
-vmap <Leader>vs "vy :call VimuxSlime()<CR>
-" Select current line and send it to tmux
-nmap <Leader>vs V<Leader>vs
-" Select current block (paragraph) and send it to tmux
-nmap <Leader>vb vip<Leader>vs
-let g:VimuxUseNearestPane = 1
 
 " R-vim-plugin
 let vimrplugin_assign_map = "__"  "don't not take my stinkin underscores away!
@@ -144,6 +120,9 @@ let g:pymode_doc = 0  " disable K to show documentation
 let g:jedi#usages_command = "<leader>u"
 let g:jedi#rename_command = "<leader>r"
 
+" return to previous buffer (useful in combo with jedi 'leader g' to go to a definition...
+nnoremap <Leader>gg :e #
+
 " tab completion via YouCompleteMe (YCM)
 let g:ycm_extra_conf_globlist = ['~/s/*','!~/s/scratch/*']
 " let g:ycm_autoclose_preview_window_after_completion = 1
@@ -189,6 +168,10 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:syntastic_mode_map = { "mode": "active" }
+let g:syntastic_auto_jump = 1  " move cursor to first issue detected on check
+let g:syntastic_python_checkers = ["flake8"]
+nnoremap <Leader>c :SyntasticCheck<CR>
 
 
 " Spell check
@@ -232,3 +215,11 @@ function ToggleWrap()
     vnoremap  <buffer> <silent> $   g$
   endif
 endfunction
+
+" Vim-slime config
+let g:slime_target = "tmux"
+let g:slime_paste_file = tempname()
+let g:slime_default_config = {"socket_name": get(split($TMUX, ","), 0), "target_pane": "{right-of}"}
+let g:slime_dont_ask_default = 1
+let g:slime_python_ipython = 1
+nnoremap <Leader>vs :SlimeSend<CR>

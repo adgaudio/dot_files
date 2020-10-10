@@ -16,8 +16,21 @@ snippet name
 snippet igm
 	import gevent.monkey ; gevent.monkey.patch_all()
 	${1}
+snippet idc
+	import dataclasses as dc
+	${1}
+snippet iapdc
+	from dataclasses import dataclass
+	from argparse_dataclass import ArgumentParser
+	${1}
+snippet dkls
+	@dataclass
+	class 
 snippet iplt
 	from matplotlib import pyplot as plt
+	${1}
+snippet bbox_inches
+	bbox_inches='tight')
 	${1}
 snippet isns
 	import seaborn as sns

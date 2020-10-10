@@ -32,7 +32,7 @@ $cwd/$vim_plugins
 cd ~/.janus
 git submodule foreach git submodule init
 git submodule sync --recursive
-git submodule foreach git submodule update -f --recursive
+git submodule foreach git submodule update --init -f --recursive
 )
 
 (
@@ -45,7 +45,7 @@ cd ~/.vim
 rake
 )
 
-# ln -s "$cwd/mysnippets" ~/.janus/
+if test -L ~/.janus/mysnippets ; then true ; else ln -sr "$cwd/mysnippets" ~/.janus/ ; fi
 
 #(
 #echo -e "\n##############"
