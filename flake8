@@ -1,0 +1,33 @@
+[flake8]
+ignore = 
+    E114,
+    E116,
+    E117,
+    E123,
+    E126,
+    E131,
+    E201,
+    E202,
+    E203,
+    E225,
+    E226,
+    E228,
+    E231,
+    E261,
+    E262,
+    E266,
+    E302,
+    E303,
+    E501,
+    E701,
+    E702,
+    E703
+max-line-length = 160
+exclude = 
+    .git,
+    __pycache__,
+    .ropeproject,
+    build,
+    dist,
+    old
+max_complexity 10
