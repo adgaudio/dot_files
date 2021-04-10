@@ -9,13 +9,12 @@ set -u
 function usage {
 cat <<EOF
 
-  usage:  $0  [-k] [-c] [-d x11_display] ssh_hostname"
+  usage:  $0  [-s] [-k] [-c] [-d x11_display] ssh_hostname"
 
-       -k This option does not kill the VNC server when finished using it.
-          If you pass '-k' you must remember to manually exit the vnc server
-       -c If passed, do not try to connect the client.  Useful in
-          combination with '-k', where '-ck' creates a vnc server
-          and then '-c' kills it.
+       -s This option starts a TigerVNC VNC server
+       -k This option kills the VNC server when finished using it.
+       -c If passed, do not try to connect the client.  Useful in  combination
+          with -s.
        -d Choose the X11 display.  By default, '-d 2' sets VNC server on
           DISPLAY=:2 and also listens locally on port 590X, where X=2.
 EOF
@@ -24,11 +23,13 @@ EOF
 
 function main {
   local display="2"  # this sets DISPLAY=:2 and port to listen on as 590X, where X=2
-  local autokill="-autokill"  # by default, quit after vnc client disconnects
+  local autokill=false  # by default, quit VNC server after VNC client disconnects
   local client=true  # by default, connect using VNC client
+  local start=false  # do not try to start a new vnc server
   while getopts "hkd:c" opt; do
       case $opt in
-          k) local autokill=""  ;;
+          s) local start=true ;;
+          k) local autokill=true  ;;
           d) local display="${OPTARG}";;
           c) local client=false;;
           h | *) usage ; exit 1;;
@@ -49,16 +50,19 @@ function main {
     $sshhost"
 
   (
-  (set -x ; $sshcmd vncserver :$display $autokill -localhost) || true
-  set -x
-  $sshcmd -f -L 590$display:127.0.0.1:590$display sleep 10
-  set +x
+  if [ "$start" = true ] ; then
+    (set -x ; $sshcmd vncserver :$display ) || true
+  fi
   if [ "$client" = true ] ; then
+    set -x
+    $sshcmd -f -L 590$display:127.0.0.1:590$display sleep 10
+    set +x
     vncviewer 127.0.0.1:590$display
   fi
-  if [ "$autokill" != "" ] ; then
+  if [ $autokill ] ; then
     set -x
-    $sshcmd vncserver -kill :$display
+    # $sshcmd rkill vncserver :$display
+    echo "WARNING: vnc server not killed"
     set +x
   fi
   ) &

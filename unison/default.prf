@@ -2,6 +2,9 @@
 # Unison preferences file
 ignore = Name {,.}*{.pyc}
 ignore = Regex .*/model_checkpoints/.*
+ignore = Regex .*/checkpoints/.*
+# ignore = Regex .*.pth
+ignore = Regex .*.pt
 
 ignore = Path {r/data}
 
