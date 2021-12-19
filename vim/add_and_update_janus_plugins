@@ -12,7 +12,7 @@ for dir in `ls .` ; do
   echo "updating $dir"
   cd ~/.janus
   cd $dir
-  git checkout master
+  # git checkout master
   git pull || (git reset --hard origin && git pull)
 done
 )
@@ -55,6 +55,6 @@ if test -L ~/.janus/mysnippets ; then true ; else ln -sr "$cwd/mysnippets" ~/.ja
 #cd ~/.janus
 #git submodule init
 #git submodule update
-#git submodule foreach git pull origin master
+#git submodule foreach git pull
 #)
 

@@ -3,10 +3,12 @@
 ignore = Name {,.}*{.pyc}
 ignore = Regex .*/model_checkpoints/.*
 ignore = Regex .*/checkpoints/.*
-# ignore = Regex .*.pth
+ignore = Regex .*.pth
 ignore = Regex .*.pt
+ignore = Path {scratch/unoffical-sonos-controller-for-linux}
 
 ignore = Path {r/data}
+ignore = Path {r/data2}
 
 ignore = Regex r/screendr/data/messidor.*
 ignore = Regex r/screendr/data/eyepacs.*
@@ -19,3 +21,7 @@ ignore = Path {r/sophie/data}
 ignore = Regex r/ietk-ret/data/preprocessed
 ignore = Path {r/ietk-ret/data/old}
 ignore = Regex r/ietk-ret/third_party/.*
+
+ignore = Path {r/yuhao/data}
+ignore = Path {r/shreshta/.git/index}
+ignore = Path {r/francesco/data}

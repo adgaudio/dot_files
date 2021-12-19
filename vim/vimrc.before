@@ -11,7 +11,7 @@ let maplocalleader = ";;"
 noremap ; :
 
 " Key code delays should be shorter
-set timeout timeoutlen=200 ttimeoutlen=10
+set timeout timeoutlen=200 ttimeoutlen=20
 
 " Enable repeated indenting in visual mode
 vmap < <gv

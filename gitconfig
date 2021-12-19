@@ -16,3 +16,5 @@
 	process = git-lfs filter-process
 [pull]
 	ff = only
+[init]
+	defaultBranch = main

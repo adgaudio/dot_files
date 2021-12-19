@@ -49,6 +49,9 @@ alias tn="tail -n"
 alias i=ipython
 alias ii='ipython -i --no-banner'
 alias inp="ipython --profile=np --no-banner"
+alias cci="conda install -c conda-forge"
+alias ccs="conda search -c conda-forge"
+alias ba=". ./bin/activate"
 #alias ipython="ipython --autoedit-syntax --deep-reload --no-confirm-exit"
 # alias py='docker run --rm -ti -w /py -v `pwd`:/py jfloff/alpine-python:3.4 python '
 # alias py='docker run -it --rm -v `pwd`:/home/jovyan/work adgaudio/jupyter python'
@@ -85,8 +88,8 @@ alias gcl="git clean . -n && echo 'hit key to remove' && read x && git clean . -
 alias d="git diff --color=auto"
 alias dw="git diff --color=auto --word-diff"
 alias dc="git diff --cached --color=auto"
-alias dum="d upstream/master"
-alias newu='d upstream/master $(git merge-base upstream/master HEAD) --stat'
+alias dum="d upstream/main"
+alias newu='d upstream/main $(git merge-base upstream/main HEAD) --stat'
 alias gg="git grep --color=auto"
 alias l="git log --color=auto --decorate --stat --graph --all"
 alias lg="git log --color=auto --decorate --stat --graph"
@@ -106,9 +109,9 @@ alias r="git remote -v"
 alias st="git stash"
 alias s="git status -sb"
 
-alias reu="re upstream/master"
+alias reu="re upstream/main"
 alias red="re origin/development"
-alias rem="re origin/master"
+alias rem="re origin/main"
 
 alias freu='st |grep -E "^No local changes to save$" && a=0 || a=1 ; fu ; reu ; [ "$a" -eq "1" ] && pop'
 alias fred='st |grep -E "^No local changes to save$" && a=0 || a=1 ; f ; red ; [ "$a" -eq "1" ] && pop'

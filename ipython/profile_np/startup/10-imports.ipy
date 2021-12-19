@@ -2,9 +2,10 @@ get_ipython().magic(u"%matplotlib auto")
 
 import abc
 import argparse as ap
+from typing import List, Tuple, Dict
 from collections import Counter, namedtuple
-import cv2.ximgproc
-guidedFilter = cv2.ximgproc.guidedFilter
+# import cv2.ximgproc
+# guidedFilter = cv2.ximgproc.guidedFilter
 import itertools
 from mpl_toolkits.axes_grid1 import ImageGrid
 from mpl_toolkits.axes_grid1.axes_rgb import RGBAxes
@@ -35,4 +36,3 @@ import torch.optim
 import torch.utils.data as TD
 import torchvision as tv
 import torchvision.transforms as tvt
-from typing import List, Tuple, Dict

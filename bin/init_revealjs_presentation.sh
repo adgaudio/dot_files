@@ -2,7 +2,7 @@
 set -e
 set -u
 
-echo "Initialize a new revealjs presentation?  Press any key to continue..."
+echo "Initialize a new revealjs presentation in current directory?  Press any key to continue..."
 read x
 
 [ -e reveal.js ] || (git clone https://github.com/hakimel/reveal.js.git && cd reveal.js && git checkout dev && npm install)
@@ -23,38 +23,22 @@ read x
   <link rel="stylesheet" href="reveal.js/dist/theme/white.css">
   <meta charset="utf-8"/>
   <style type="text/css">
-    .reveal .slides div.pdf-page section{
-      margin-top: 50px !important;
-      height:720px !important;
-      width:1230px !important;
-    }
-    div.slides div.pdf-page {
-      margin-top: 20px !important;
-      margin-bottom: 20px !important;
-      height:780px !important;
-      width:1280px !important;
-    }
-    .print-pdf .reveal .slide-menu-button {
-      display: none;
-    }
-    .reveal .slides section, .reveal .slides section{
-      height:100% !important;
-      width:100% !important;
-    }
     .reveal .slides section div.cite {
-      float:left;
-      position:absolute;
-      bottom:0;
-      left:0;
-      padding:0;
-      margin:0;
-      width:100%;
+      display: flex;
+      flex-direction: column;
       text-align:left;
       font-size:.5em;
     }
     .reveal .slides section div.cite p {
-      margin-top: 10px;
-      margin-bottom:0px;
+      float: right;
+      height: 100%;
+      display: flex;
+      margin-left:0;
+      margin-right:0;
+      margin-top:0;
+      margin-bottom:5px;
+      align-items: flex-end;
+      shape-outside: inset(calc(100% - 100px) 0 0);
     }
     .slide-menu-wrapper .slide-menu-overlay.active {
       opacity: 0 !important;
