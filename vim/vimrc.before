@@ -100,7 +100,7 @@ vmap <Leader>af :Autoformat<CR>
 let g:pymode_python = 'python3'
 let g:pymode_paths = ['.']
 let g:snipMateAllowMatchingDot = 0
-let g:pymode_rope = 1
+let g:pymode_rope = 0
 let g:pymode_rope_complete_on_dot = 0
 let g:pymode_rope_lookup_project = 0  " don't have rope look in parent dirs
 let g:pymode_breakpoint = 0  " disable breakpoint stuff with <Leader>b
@@ -119,12 +119,17 @@ let g:pymode_doc = 0  " disable K to show documentation
 " https://github.com/davidhalter/jedi-vim/issues/119#issuecomment-37761586
 let g:jedi#usages_command = "<leader>u"
 let g:jedi#rename_command = "<leader>r"
+let g:jedi#popup_on_dot = 0
+" autocmd FileType python call jedi#configure_call_signatures()
+let g:jedi#show_call_signatures = 0
+let g:jedi#completions_enabled = 0
+
 
 " return to previous buffer (useful in combo with jedi 'leader g' to go to a definition...
 nnoremap <Leader>gg :e #
 
 " tab completion via YouCompleteMe (YCM)
-let g:ycm_extra_conf_globlist = ['~/s/*','!~/s/scratch/*']
+" let g:ycm_extra_conf_globlist = ['~/s/*','!~/s/scratch/*']
 " let g:ycm_autoclose_preview_window_after_completion = 1
 " let g:ycm_autoclose_preview_window_after_insertion = 1
 
@@ -168,10 +173,11 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-let g:syntastic_mode_map = { "mode": "active" }
+let g:syntastic_mode_map = { "mode": "passive" }
 let g:syntastic_auto_jump = 1  " move cursor to first issue detected on check
-let g:syntastic_python_checkers = ["flake8"]
-nnoremap <Leader>c :SyntasticCheck<CR>
+let g:syntastic_python_checkers = ["python", "flake8"]
+let g:syntastic_python_flake8_args = "--config ~/.config/flake8"
+nnoremap <Leader>c :SyntasticCheck <CR>
 
 
 " Spell check
