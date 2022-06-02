@@ -4,11 +4,13 @@ ignore = Name {,.}*{.pyc}
 ignore = Regex .*/model_checkpoints/.*
 ignore = Regex .*/checkpoints/.*
 ignore = Regex .*.pth
+ignore = Regex .*.pth.tmp
 ignore = Regex .*.pt
 ignore = Path {scratch/unoffical-sonos-controller-for-linux}
 
 ignore = Path {r/data}
 ignore = Path {r/data2}
+ignore = Path {r/data3}
 
 ignore = Regex r/screendr/data/messidor.*
 ignore = Regex r/screendr/data/eyepacs.*
@@ -25,3 +27,12 @@ ignore = Regex r/ietk-ret/third_party/.*
 ignore = Path {r/yuhao/data}
 ignore = Path {r/shreshta/.git/index}
 ignore = Path {r/francesco/data}
+
+# ignore = Path {r/deepfix/.git/index}
+ignore = Regex r/deepfix/data/.*
+
+# ignore tensorboard log data.
+ignore = Regex r/deepfix/results/.*/_ray_train_.*
+
+ignore = Path {r/deepfix/.git/modules/third_party/d-li14/efficientnetv2/index}
+ignore = Path {r/deepfix/.git/modules/third_party/pytorch-colors/index}
