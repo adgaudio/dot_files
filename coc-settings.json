@@ -1,0 +1,7 @@
+{
+    "texlab.build.onSave": true,
+    "texlab.chktex.onOpenAndSave": true,
+    "texlab.forwardSearch.executable": "/usr/bin/evince",
+    "texlab.forwardSearch.args": ["%p"],
+    "texlab.build.forwardSearchAfter": true
+}
