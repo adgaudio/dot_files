@@ -1,4 +1,4 @@
-get_ipython().magic(u"%matplotlib auto")
+get_ipython().run_line_magic("matplotlib", "auto")
 
 import abc
 import argparse as ap

@@ -17,10 +17,20 @@ call plug#begin()
     Plug 'christoomey/vim-tmux-navigator'
     " Send lines from Vim to tmux using C-c
     Plug 'jpalardy/vim-slime'
+    " Camel case
+    Plug 'chaoren/vim-wordmotion'
+    " Plug 'christoomey/vim-titlecase'
+    Plug 'iggredible/totitle-vim'
 call plug#end()
 
+" totitle plugin: some extra (default) keyboard mappings
+" give selections title case using "gt$" or "gt." where . is a movement.
+nnoremap <expr> gz ToTitle()
+xnoremap <expr> gz ToTitle()
+nnoremap <expr> gzz ToTitle() .. '_'
+
 " Coc tab completion extensions.  Load them with :CocInstall
-let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-calc', 'coc-clangd', 'coc-cmake', 'coc-css', 'coc-docker', 'coc-fzf-preview', 'coc-html', 'coc-texlab', 'coc-sh', 'coc-pyright', 'coc-snippets']
+let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-calc', 'coc-clangd', 'coc-cmake', 'coc-css', 'coc-docker', 'coc-fzf-preview', 'coc-html', 'coc-texlab', 'coc-sh', 'coc-pyright', 'coc-snippets', 'coc-ltex']
 
 
 " Use the ; key to get command line
@@ -84,12 +94,18 @@ let &colorcolumn=join(range(81,999),",")
 "set cc=80
 
 " The gq command to wrap long lines at 80 chars
+" set textwidth=80  " this forces newlines every time its longer than 80 chars and is very annoying.
+set formatoptions=tlcqn
 set textwidth=80
 " The gq command should also indent multi-line bulleted lists properly
 " set autoindent
 
 " Spell check
 set spell
+set spellfile=~/.vim_runtime/spell/en.utf-8.add
+" grammar checking for latex and maybe markdown
+let g:coc_filetype_map = {'tex': 'latex'}
+nmap <leader>s :CocCommand ltex.checkCurrentDocument<CR>
 
 " Wrapping and cursor movement:  When not wrapping long lines, use keys to move one display line at a time (rather than one physical line)
 noremap <silent> <Leader>wr :call ToggleWrap()<CR>
@@ -164,41 +180,39 @@ set updatetime=200
 "
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
-"
+ 
 " Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-if has("nvim-0.5.0") || has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
-"
-" Use tab for trigger completion with characters ahead and navigate.
+" diagnostics appear/become resolved
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate
+" NOTE: There's always complete item selected by default, you may want to enable
+" no select by `"suggest.noselect": true` in your configuration file
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
+" other plugin before putting this into your config
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ CheckBackspace() ? "\<TAB>" :
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-"
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
 function! CheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-"
-" Use <c-space> to trigger completion.
+
+" Use <c-space> to trigger completion
 if has('nvim')
   inoremap <silent><expr> <c-space> coc#refresh()
 else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
-"
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
 "
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -245,9 +259,11 @@ augroup end
 xmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>a  <Plug>(coc-codeaction-selected)
 "
-" Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
+" Remap keys for applying code actions at the cursor position
+nmap <leader>ac  <Plug>(coc-codeaction-cursor)
+" Remap keys for apply code actions affect whole buffer
+nmap <leader>as  <Plug>(coc-codeaction-source)
+" Apply the most preferred quickfix action to fix diagnostic on the current line
 nmap <leader>qf  <Plug>(coc-fix-current)
 "
 " Run the Code Lens action on the current line.
@@ -325,3 +341,8 @@ let g:slime_default_config = {"socket_name": "default", "target_pane": "{last}"}
 " let g:slime_default_config = {"socket_name": get(split($TMUX, ","), 0), "target_pane": "{right-of}"}
 let g:slime_dont_ask_default = 1
 let g:slime_python_ipython = 1
+
+" Disable the AutoPairs plugin that completes quotes.  It's annoying.
+" It's added by ultimate vim.
+let g:AutoPairs={}
+

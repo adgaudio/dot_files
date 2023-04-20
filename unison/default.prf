@@ -6,6 +6,7 @@ ignore = Regex .*/checkpoints/.*
 ignore = Regex .*.pth
 ignore = Regex .*.pth.tmp
 ignore = Regex .*.pt
+ignore = Regex .*/lightning_logs/.*
 ignore = Path {scratch/unoffical-sonos-controller-for-linux}
 
 ignore = Path {r/data}
@@ -18,21 +19,24 @@ ignore = Regex r/screendr/data/results/old.*
 ignore = Path {r/screendr/data/cifar10}
 ignore = Path {r/screendr/data/cifar100}
 
+ignore = Path {r/pooja_oxidation_proj/data}
+
 ignore = Path {r/sophie/data}
 
-ignore = Regex r/ietk-ret/data/preprocessed
-ignore = Path {r/ietk-ret/data/old}
-ignore = Regex r/ietk-ret/third_party/.*
+ignore = Regex r/archive/ietk-ret/data/.*
+ignore = Regex r/archive/ietk-ret/third_party/.*
 
 ignore = Path {r/yuhao/data}
 ignore = Path {r/shreshta/.git/index}
 ignore = Path {r/francesco/data}
 
-# ignore = Path {r/deepfix/.git/index}
-ignore = Regex r/deepfix/data/.*
+# ignore = Path {r/archive/DeepFixCX/.git/index}
+ignore = Regex r/archive/DeepFixCX/data/.*
 
 # ignore tensorboard log data.
-ignore = Regex r/deepfix/results/.*/_ray_train_.*
+ignore = Regex r/archive/DeepFixCX/results/.*/_ray_train_.*
 
-ignore = Path {r/deepfix/.git/modules/third_party/d-li14/efficientnetv2/index}
-ignore = Path {r/deepfix/.git/modules/third_party/pytorch-colors/index}
+ignore = Path {r/archive/DeepFixCX/.git/modules/third_party/d-li14/efficientnetv2/index}
+ignore = Path {r/archive/DeepFixCX/.git/modules/third_party/pytorch-colors/index}
+
+ignore = Path {r/HeartSoundPAP/.git/index}

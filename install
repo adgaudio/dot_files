@@ -42,7 +42,9 @@ def install_vim():
     symlink('vimrc', join(d, '.vim_runtime/my_configs.vim'))
     symlink('vimrc', join(d, '.config/nvim/init.vim'))
     check_call('sh ~/.vim_runtime/install_awesome_vimrc.sh', shell=True)
-    symlink('coc-settings.json', join(d, '.config/nvim/coc-settings.json'))
+    symlink('coc-settings.json', '.config/nvim/coc-settings.json')
+    check_call('mkdir ~/.vim_runtime/spell', shell=True)
+    symlink("en.utf-8.add", ".vim_runtime/spell/en.utf-8.add")
     print("After installing dependencies, start vim and run: ")
     print(":PlugInstall")
     print(":CocInstall")
@@ -82,7 +84,6 @@ if __name__ == '__main__':
 
     if NS.symlinks:
         symlink("ackrc", ".ackrc")
-
         symlink("bash_aliases", ".bash_aliases")
         symlink("bash_functions", ".bash_functions")
         symlink("bash_extras", ".bash_extras")

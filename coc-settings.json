@@ -3,5 +3,7 @@
     "texlab.chktex.onOpenAndSave": true,
     "texlab.forwardSearch.executable": "/usr/bin/evince",
     "texlab.forwardSearch.args": ["%p"],
-    "texlab.build.forwardSearchAfter": true
+    "texlab.build.forwardSearchAfter": true,
+    "snippets.ultisnips.pythonPrompt": false
+    "ltex.dictionary": { "en-US": [ ":${userHome}/.vim_runtime/spell/en.utf-8.add" ] }
 }

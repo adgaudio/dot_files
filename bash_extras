@@ -2,14 +2,15 @@
 # ENV VARS
 #####
 export CDPATH="~:$CDPATH"
-export EDITOR=vim
+export EDITOR=nvim
+export GIT_SEQUENCE_EDITOR=nvim
 export HISTFILESIZE=10000
 export HISTSIZE=5000
 export PATH=~/bbin:~/bin:~/.local/bin:$PATH
 export R_LIBS=~/.r_libs
 [ -d "$HOME/.r_libs" ] || mkdir ~/.r_libs
 export PYTHONSTARTUP=~/.pythonrc.py
-# export MPLCURSORS='{"hover": 1}'  # for python matplotlib
+export MPLCURSORS='{"hover": 1}'  # for python matplotlib
 
 export PYTHONPATH=.:$PYTHONPATH
 # export PYTHONPATH=.:$HOME/bin:$HOME:$PYTHONPATH
