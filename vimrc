@@ -93,10 +93,9 @@ highlight ColorColumn ctermbg=235 guibg=#2c2d27
 let &colorcolumn=join(range(81,999),",")
 "set cc=80
 
-" The gq command to wrap long lines at 80 chars
-" set textwidth=80  " this forces newlines every time its longer than 80 chars and is very annoying.
+" The gq command to wrap long lines at 79 chars
 set formatoptions=tlcqn
-set textwidth=80
+set textwidth=79  " this forces newlines every time its longer than 79 chars
 " The gq command should also indent multi-line bulleted lists properly
 " set autoindent
 
@@ -149,7 +148,7 @@ let g:polyglot_disabled = ['latex']
 " LaTeX: enable snippets by setting latex filetype
 let g:tex_flavor = "latex"
 " Build the latex file on save.
-"CocCommand latex.Build
+CocCommand latex.Build
 
 
 "
@@ -185,26 +184,19 @@ set shortmess+=c
 " diagnostics appear/become resolved
 set signcolumn=yes
 
-" Use tab for trigger completion with characters ahead and navigate
-" NOTE: There's always complete item selected by default, you may want to enable
-" no select by `"suggest.noselect": true` in your configuration file
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config
+" Tab completion and expanding snippets  (from coc-snippets docs)
 inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1) :
-      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#pum#visible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ CheckBackspace() ? "\<TAB>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-
-" Make <CR> to accept selected completion item or notify coc.nvim to format
-" <C-g>u breaks current undo, please make your own choice
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 function! CheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+
+let g:coc_snippet_next = '<tab>'
 
 " Use <c-space> to trigger completion
 if has('nvim')
@@ -265,6 +257,11 @@ nmap <leader>ac  <Plug>(coc-codeaction-cursor)
 nmap <leader>as  <Plug>(coc-codeaction-source)
 " Apply the most preferred quickfix action to fix diagnostic on the current line
 nmap <leader>qf  <Plug>(coc-fix-current)
+"
+" Remap keys for applying refactor code actions
+nmap <silent> <leader>re <Plug>(coc-codeaction-refactor)
+xmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+nmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
 "
 " Run the Code Lens action on the current line.
 nmap <leader>cl  <Plug>(coc-codelens-action)
@@ -329,14 +326,14 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 "
 
 " commentary extra bindings  (existing ones are gcc and gc<motion> and gcap)
-nnoremap <C-c> :Commentary<CR>
-vnoremap <C-c> :Commentary<CR>
+nnoremap <leader>/ :Commentary<CR>
+vnoremap <leader>/ :Commentary<CR>
 inoremap <C-c> <Esc>:Commentary<CR>==gi
 nnoremap <leader>/ <Esc>:Commentary<CR>
 
 " Vim Slime   https://github.com/jpalardy/vim-slime
 let g:slime_target = "tmux"
-let g:slime_paste_file = "/tmp/${USER}.slime_paste"
+let g:slime_paste_file = expand("$HOME/.slime_paste")
 let g:slime_default_config = {"socket_name": "default", "target_pane": "{last}"}
 " let g:slime_default_config = {"socket_name": get(split($TMUX, ","), 0), "target_pane": "{right-of}"}
 let g:slime_dont_ask_default = 1
@@ -346,3 +343,4 @@ let g:slime_python_ipython = 1
 " It's added by ultimate vim.
 let g:AutoPairs={}
 
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"

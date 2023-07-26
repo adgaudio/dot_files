@@ -7,6 +7,7 @@ from collections import Counter, namedtuple
 # import cv2.ximgproc
 # guidedFilter = cv2.ximgproc.guidedFilter
 import itertools
+import json
 from mpl_toolkits.axes_grid1 import ImageGrid
 from mpl_toolkits.axes_grid1.axes_rgb import RGBAxes
 from numpy.random import randn
@@ -28,7 +29,8 @@ import scipy.ndimage as ndi
 import scipy.spatial
 import scipy.stats
 import seaborn as sns
-import skimage.feature
+# import skimage.feature
+import sklearn.metrics
 import torch
 import torch as T
 import torch.nn as NN
