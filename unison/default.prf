@@ -30,6 +30,9 @@ ignore = Path {r/yuhao/data}
 ignore = Path {r/shreshta/.git/index}
 ignore = Path {r/francesco/data}
 
+ignore = Path {r/jhu_sensor/signal_tests/pyenv}
+ignore = Path {r/jhu_sensor/signal_tests/data}
+
 # ignore = Path {r/archive/DeepFixCX/.git/index}
 ignore = Regex r/archive/DeepFixCX/data/.*
 

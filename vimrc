@@ -21,6 +21,10 @@ call plug#begin()
     Plug 'chaoren/vim-wordmotion'
     " Plug 'christoomey/vim-titlecase'
     Plug 'iggredible/totitle-vim'
+    " Openscad
+    Plug 'sirtaj/vim-openscad'
+    " Draw in ASCII
+    Plug 'vim-scripts/DrawIt'
 call plug#end()
 
 " totitle plugin: some extra (default) keyboard mappings
@@ -147,8 +151,8 @@ endfunction
 let g:polyglot_disabled = ['latex']
 " LaTeX: enable snippets by setting latex filetype
 let g:tex_flavor = "latex"
-" Build the latex file on save.
-CocCommand latex.Build
+" Build the latex file on save. (TODO)
+" CocCommand latex.Build
 
 
 "
@@ -190,13 +194,18 @@ inoremap <silent><expr> <TAB>
       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
       \ CheckBackspace() ? "\<TAB>" :
       \ coc#refresh()
-
 function! CheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-
 let g:coc_snippet_next = '<tab>'
+
+" Snippets: Use <leader>x for convert visual selected code to snippet
+xmap <leader>x  <Plug>(coc-convert-snippet)
+" Snippets: Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+" Snippets: Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
 
 " Use <c-space> to trigger completion
 if has('nvim')
@@ -330,6 +339,7 @@ nnoremap <leader>/ :Commentary<CR>
 vnoremap <leader>/ :Commentary<CR>
 inoremap <C-c> <Esc>:Commentary<CR>==gi
 nnoremap <leader>/ <Esc>:Commentary<CR>
+autocmd FileType openscad setlocal commentstring=//\ %s
 
 " Vim Slime   https://github.com/jpalardy/vim-slime
 let g:slime_target = "tmux"

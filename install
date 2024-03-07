@@ -18,12 +18,14 @@ def maybe(f):
 d = os.environ['HOME']
 
 @maybe
-def symlink(x, y):
+def symlink(x, y, makedir=False):
     # source dir
     s = os.path.realpath(os.path.dirname(__file__))
 
     src = join(s, x)
     dest = join(d, y)
+    if makedir:
+        os.makedirs(os.path.dirname(dest), exist_ok=True)
     print(src + '......' + dest)
     if os.path.exists(src):
         os.symlink(src, dest)
@@ -44,7 +46,7 @@ def install_vim():
     check_call('sh ~/.vim_runtime/install_awesome_vimrc.sh', shell=True)
     symlink('coc-settings.json', '.config/nvim/coc-settings.json')
     check_call('mkdir ~/.vim_runtime/spell', shell=True)
-    symlink("en.utf-8.add", ".vim_runtime/spell/en.utf-8.add")
+    symlink("en.utf-8.add", "~/.vim_runtime/spell/en.utf-8.add")
     print("After installing dependencies, start vim and run: ")
     print(":PlugInstall")
     print(":CocInstall")
@@ -88,8 +90,12 @@ if __name__ == '__main__':
         symlink("bash_functions", ".bash_functions")
         symlink("bash_extras", ".bash_extras")
         symlink("ctags", ".ctags")
-        symlink("flake8", ".config/flake8")
+        symlink("flake8", ".config/flake8", makedir=True)
+        symlink("foot.ini", ".config/foot/foot.ini", makedir=True)
         symlink("profile", ".profile")
+        symlink("sway_config", ".config/sway/config", makedir=True)
+        symlink("waybar_config", ".config/waybar/config", makedir=True)
+        symlink("waybar_style.css", ".config/waybar/style.css", makedir=True)
         symlink("zshrc", ".zshrc")
         symlink("zsh_tab_completion", ".zsh_tab_completion")
         symlink("zshrc.zni", ".zshrc.zni")

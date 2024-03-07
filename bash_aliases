@@ -138,8 +138,8 @@ alias dcymlk='dcls keys'
 
 # OS Specific
 if test "`uname`" = "Linux" ; then
-  alias pbcopy='xsel --clipboard --input'
-  alias pbpaste='xsel --clipboard --output'
+  alias pbcopy='wl-copy'
+  alias pbpaste='wl-paste'
 fi
 
 # Networking
