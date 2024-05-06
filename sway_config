@@ -47,10 +47,15 @@ output eDP-1 {
 #
 # Example configuration:
 #
+         # timeout 595 'swaylock -f -c 000000' \
+         # timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
 exec swayidle -w \
-         timeout 595 'swaylock -f -c 000000' \
-         timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-         before-sleep 'swaylock -f -c 000000'
+         timeout 610 'systemctl suspend' \
+         before-sleep 'playerctl pause'
+         # after-resume 'playerctl play'
+
+set $lidclose 'systemctl suspend'
+bindswitch --reload --locked lid:on exec $lidclose
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -139,10 +144,10 @@ input $display1-pen map_to_output eDP-1
     bindsym $mod+$up focus up
     bindsym $mod+$right focus right
     # Or use $mod+[up|down|left|right]
-    bindsym $mod+Left focus left
+    bindsym $mod+Left workspace prev
     bindsym $mod+Down focus down
     bindsym $mod+Up focus up
-    bindsym $mod+Right focus right
+    bindsym $mod+Right workspace next
 
     # Move the focused window with the same, but add Shift
     bindsym $mod+Shift+$left move left
@@ -257,13 +262,19 @@ bar {
     swaybar_command waybar
 }
 
+# Start a Polkit agent to allow programs to request root access
+exec "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
+# Start ssh-agent
+exec "ssh-agent"
+
+
 include /etc/sway/config.d/*
 
 #
 # Setup At Startup
 #
     workspace 1
-    exec evolution
+    exec firefox
     workspace 2
     exec $term
     workspace 3
@@ -283,4 +294,4 @@ for_window [app_id="Zoom" title="Settings"] floating enable, floating_minimum_si
 # # ...Open Zoom Meeting windows on a new workspace (a bit hacky)
 #for_window [app_id="Zoom" title="Zoom Meeting(.*)?"] workspace next_on_output --create, move container to workspace current, floating disable, inhibit_idle open
 # Evolution Mail
-for_window [app_id="evolution" title="Calendar"] floating enable
+# for_window [app_id="evolution" title="Calendar"] floating enable

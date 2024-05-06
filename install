@@ -44,9 +44,8 @@ def install_vim():
     symlink('vimrc', join(d, '.vim_runtime/my_configs.vim'))
     symlink('vimrc', join(d, '.config/nvim/init.vim'))
     check_call('sh ~/.vim_runtime/install_awesome_vimrc.sh', shell=True)
-    symlink('coc-settings.json', '.config/nvim/coc-settings.json')
     check_call('mkdir ~/.vim_runtime/spell', shell=True)
-    symlink("en.utf-8.add", "~/.vim_runtime/spell/en.utf-8.add")
+    # symlink("en.utf-8.add", "~/.vim_runtime/spell/en.utf-8.add")
     print("After installing dependencies, start vim and run: ")
     print(":PlugInstall")
     print(":CocInstall")
@@ -127,6 +126,9 @@ if __name__ == '__main__':
         _unison = join(d, ".unison")
         os.makedirs(_unison, exist_ok=True)
         symlink("unison/default.prf", join(_unison, "default.prf"))
+
+        symlink('python.snippets', '.config/coc/ultisnips/python.snippets', makedir=True)
+        symlink('coc-settings.json', '.config/nvim/coc-settings.json')
 
     if NS.vim:
         install_vim()

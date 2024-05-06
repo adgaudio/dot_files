@@ -340,6 +340,7 @@ vnoremap <leader>/ :Commentary<CR>
 inoremap <C-c> <Esc>:Commentary<CR>==gi
 nnoremap <leader>/ <Esc>:Commentary<CR>
 autocmd FileType openscad setlocal commentstring=//\ %s
+autocmd FileType arduino setlocal commentstring=//\ %s
 
 " Vim Slime   https://github.com/jpalardy/vim-slime
 let g:slime_target = "tmux"

@@ -8,6 +8,7 @@ ignore = Regex .*.pth.tmp
 ignore = Regex .*.pt
 ignore = Regex .*/lightning_logs/.*
 ignore = Path {scratch/unoffical-sonos-controller-for-linux}
+ignore = Path {scratch}
 
 ignore = Path {r/data}
 ignore = Path {r/data2}
@@ -32,6 +33,8 @@ ignore = Path {r/francesco/data}
 
 ignore = Path {r/jhu_sensor/signal_tests/pyenv}
 ignore = Path {r/jhu_sensor/signal_tests/data}
+ignore = Path {r/jhu_sensor/signal_tests/results}
+ignore = Path {r/jhu_sensor/signal_tests/.dvc/cache}
 
 # ignore = Path {r/archive/DeepFixCX/.git/index}
 ignore = Regex r/archive/DeepFixCX/data/.*

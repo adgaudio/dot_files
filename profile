@@ -8,10 +8,12 @@
 if [ -z "${WAYLAND_DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ] && [ "$TTY" = "/dev/tty1" ]; then
 
     # val=$(udevadm info -a -n /dev/dri/card1 | grep boot_vga | rev | cut -c 2)
-    # WLR_DRM_DEVICES="/dev/dri/card$val" sway
-    WLR_DRM_DEVICES=/dev/dri/card1 exec sway --unsupported-gpu
+    # WLR_DRM_DEVICES="/dev/dri/card$val" ssh-agent sway
+    # WLR_DRM_DEVICES=/dev/dri/card1 exec ssh-agent sway  --unsupported-gpu
+    WLR_DRM_DEVICES=/dev/dri/card1 exec ssh-agent sway  --unsupported-gpu
+    # exec ssh-agent sway
     
-  # exec sway --unsupported-gpu
+  # exec ssh-agent sway --unsupported-gpu
   # exec Hyprland
 fi
 
