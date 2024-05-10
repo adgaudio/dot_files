@@ -19,28 +19,22 @@ set $term foot tmux new-session -t 0 -f active-pane -f ignore-size
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu dmenu_path | wmenu | xargs swaymsg exec --
+set $menu dmenu_path | fuzzel | xargs swaymsg exec --
 
+# Laptop specific configuration (for inputs and outputs):
+include ~/.config/sway/laptop_specific_output.conf
 
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+# output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #
 # Example configuration:
 #
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
-output DP-1 {
-    pos 0 0
-    res 1920x1080
-}
-output eDP-1 {
-    scale 1.50
-    pos 0 1080 
-    res 1920x1080
-}
+
 
 
 ### Idle configuration
@@ -49,10 +43,14 @@ output eDP-1 {
 #
          # timeout 595 'swaylock -f -c 000000' \
          # timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+
 exec swayidle -w \
-         timeout 610 'systemctl suspend' \
-         before-sleep 'playerctl pause'
-         # after-resume 'playerctl play'
+    timeout 320 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+    timeout 330 'systemctl suspend' \
+    before-sleep 'playerctl pause'
+
+
+# after-resume 'playerctl play'
 
 set $lidclose 'systemctl suspend'
 bindswitch --reload --locked lid:on exec $lidclose
@@ -67,24 +65,11 @@ bindswitch --reload --locked lid:on exec $lidclose
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
 
-input "1739:52542:MSFT0001:00_06CB:CD3E_Touchpad" {
-    dwt enabled
-    tap enabled
-    natural_scroll enabled
-    middle_emulation enabled
-    pointer_accel 0.6
-}
 
-input 1:1:AT_Translated_Set_2_keyboard  {
-    repeat_delay 180
-    repeat_rate 120
-    xkb_options caps:swapescape
-}
+# exec wlsunset
+# wlsunset -l 39.299236 -L -76.609383
 
-set $display1-touch 1386:20992:Wacom_HID_5200_Finger
-set $display1-pen   1386:20992:Wacom_HID_5200_Pen
-input $display1-touch map_to_output eDP-1
-input $display1-pen map_to_output eDP-1
+
 
 
 
@@ -112,7 +97,7 @@ input $display1-pen map_to_output eDP-1
     bindsym $mod+Shift+c reload
 
     # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+    bindsym $mod+Shift+e exec swaynag -t warning -m 'Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 
     # Screenshot
     bindsym $mod+p exec /usr/share/sway-contrib/grimshot copy anything
@@ -274,7 +259,7 @@ include /etc/sway/config.d/*
 # Setup At Startup
 #
     workspace 1
-    exec firefox
+    exec firefox --new-window  https://outlook.office.com/owa/jh.edu
     workspace 2
     exec $term
     workspace 3
