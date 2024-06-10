@@ -100,7 +100,7 @@ bindswitch --reload --locked lid:on exec $lidclose
     bindsym $mod+Shift+e exec swaynag -t warning -m 'Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 
     # Screenshot
-    bindsym $mod+p exec /usr/share/sway-contrib/grimshot copy anything
+    bindsym $mod+p exec wl-copy <( /usr/share/sway-contrib/grimshot copy anything )
 
 
 
@@ -259,11 +259,9 @@ include /etc/sway/config.d/*
 # Setup At Startup
 #
     workspace 1
-    exec firefox --new-window  https://outlook.office.com/owa/jh.edu
+    exec firefox
     workspace 2
     exec $term
-    workspace 3
-    exec firefox
 
  bindsym $mod+Tab workspace back_and_forth
 #

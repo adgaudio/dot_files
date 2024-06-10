@@ -10,7 +10,25 @@ if [ -z "${WAYLAND_DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ] && [ "$TTY" = "/dev/tt
     # val=$(udevadm info -a -n /dev/dri/card1 | grep boot_vga | rev | cut -c 2)
     # WLR_DRM_DEVICES="/dev/dri/card$val" ssh-agent sway
     # WLR_DRM_DEVICES=/dev/dri/card1 exec ssh-agent sway  --unsupported-gpu
-    WLR_DRM_DEVICES=/dev/dri/card1 exec ssh-agent sway  --unsupported-gpu
+    #export WLR_DRM_DEVICES=/dev/dri/card1
+    export LIBVA_DRIVER_NAME=nvidia
+    # export WLR_RENDERER=vulkan
+    export GBM_BACKEND=nvidia-drm
+    export __GLX_VENDOR_LIBRARY_NAME=nvidia
+    export XDG_SESSION_TYPE=wayland
+    # export __GL_GSYNC_ALLOWED=1
+    # export WLR_NO_HARDWARE_CURSORS=1
+    # export __GL_VRR_ALLOWED=0
+    export WLR_DRM_NO_ATOMIC=1
+    export NVD_BACKEND=direct
+
+    export XWAYLAND_NO_GLAMOR=1
+    export __NV_PRIME_RENDER_OFFLOAD=1 
+
+    export ELECTRON_OZONE_PLATFORM_HINT=auto  # for hyprland - maybe works for sway too. to fix flickering
+    # WLR_DRM_DEVICES=/dev/dri/card1:/dev/dri/card0 
+    # exec ssh-agent sway -d --unsupported-gpu &> sway.log
+    exec Hyprland
     # exec ssh-agent sway
     
   # exec ssh-agent sway --unsupported-gpu

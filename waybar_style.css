@@ -24,11 +24,16 @@ window#waybar {
 #workspaces button {
     padding: 0 5px;
     background: transparent;
-    color: white;
+    color: gray;
     border-top: 2px solid transparent;
 }
 
-#workspaces button.focused {
+#workspaces button.visible {
+    color: white;
+    border-top: 2px solid gray;
+}
+
+#workspaces button.active {
     /* color: #c9545d; */
     color: #ff9933;
     border-top: 2px solid #ff9933;
@@ -101,3 +106,17 @@ window#waybar {
 }
 
 
+
+/* hyprland specific config */
+/* #workspaces button.active { */
+	/* background-color: @mantle; */
+	/* box-shadow: inset 0 -3px @lavender; */
+/* } */
+/* "hyprland/window": { */
+/*     "on-click": "activate"; */
+/* } */
+/* "hyprland/workspaces": { */
+/*      "format": "{icon}", */
+/*      "on-scroll-up": "hyprctl dispatch workspace e+1", */
+/*      "on-scroll-down": "hyprctl dispatch workspace e-1" */
+/* } */

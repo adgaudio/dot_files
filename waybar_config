@@ -7,12 +7,12 @@
     "spacing": 4, // Gaps between modules (4px)
     // Choose the order of the modules
     "modules-left": [
-        "sway/workspaces",
-        "sway/mode",
-        "sway/scratchpad",
+        "hyprland/workspaces",
+        "hyprland/mode",
+        "hyprland/scratchpad",
         "custom/media",
         "wlr/taskbar",
-        "sway/window"
+        "hyprland/window"
     ],
     "modules-center": [
     ],
@@ -32,7 +32,7 @@
         "tray"
     ],
     // Modules configuration
-    // "sway/workspaces": {
+    // "hyprland/workspaces": {
     //     "disable-scroll": true,
     //     "all-outputs": true,
     //     "warp-on-scroll": false,
@@ -57,10 +57,10 @@
             "unlocked": ""
         }
     },
-    "sway/mode": {
+    "hyprland/mode": {
         "format": "<span style=\"italic\">{}</span>"
     },
-    "sway/scratchpad": {
+    "hyprland/scratchpad": {
         "format": "{icon} {count}",
         "show-empty": false,
         "format-icons": ["", ""],
@@ -74,6 +74,7 @@
     "icon-theme": "Numix-Circle",
     "tooltip-format": "{title}",
     "on-click": "activate",
+    "on-click-right": "activate",
     "on-click-middle": "close",
     "ignore-list": [
        "Alacritty"
@@ -204,5 +205,19 @@
             "default": ["", "", ""]
         },
         "on-click": "pavucontrol"
+    },
+    "hyprland/window": {
+        "max-length": 200,
+        "separate-outputs": true,
+        "on-click": "activate"
+    },
+   "hyprland/workspaces": {
+        "format": "{icon}",
+        "on-scroll-up": "hyprctl dispatch workspace e+1",
+        "on-scroll-down": "hyprctl dispatch workspace e-1",
+        "disable-scroll": true,
+        "all-outputs": true,
+        "active-only": false,
+        "on-click": "activate",
     }
 }
