@@ -25,6 +25,9 @@ call plug#begin()
     Plug 'sirtaj/vim-openscad'
     " Draw in ASCII
     Plug 'vim-scripts/DrawIt'
+    " Auto-save the document
+    " Plug 'chrisbra/vim-autosave'
+    " Plug 'Pocco81/auto-save.nvim'
 call plug#end()
 
 " totitle plugin: some extra (default) keyboard mappings
@@ -169,8 +172,19 @@ set encoding=utf-8
 set hidden
 "
 " Some servers have issues with backup files, see #649.
-set nobackup
-set nowritebackup
+set directory^=$HOME/.vim_runtime/temp_dirs/swap//
+set swapfile
+if !isdirectory($HOME."/.vim_runtime/temp_dirs/swap")
+    silent! execute "!mkdir ~/.vim_runtime/temp_dirs/swap"
+endif
+" set nobackup
+" set backup
+" set writebackup
+" if !isdirectory($HOME."/.vim_runtime/temp_dirs/backup")
+"     silent! execute "!mkdir ~/.vim_runtime/temp_dirs/backup"
+" endif
+" set backupdir=~/.vim_runtime/temp_dirs/backup
+
 "
 " Give more space for displaying messages.
 "set cmdheight=2
@@ -355,3 +369,7 @@ let g:slime_python_ipython = 1
 let g:AutoPairs={}
 
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Colors of the type hints (such as with Coc-Pyright)
+hi default CocInlayHint guifg=grey40 ctermfg=grey40  " guibg=grey3 ctermbg=175
+

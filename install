@@ -94,6 +94,7 @@ if __name__ == '__main__':
         symlink("profile", ".profile")
         # symlink("sway_config", ".config/sway/config", makedir=True)
         symlink("hyprland.conf", ".config/hypr/hyprland.conf", makedir=True)
+        symlink("hypridle.conf", ".config/hypr/hypridle.conf", makedir=True)
         symlink("waybar_config", ".config/waybar/config", makedir=True)
         symlink("waybar_style.css", ".config/waybar/style.css", makedir=True)
         symlink("zshrc", ".zshrc")

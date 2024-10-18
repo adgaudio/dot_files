@@ -10,6 +10,9 @@ if [ -z "${WAYLAND_DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ] && [ "$TTY" = "/dev/tt
     # val=$(udevadm info -a -n /dev/dri/card1 | grep boot_vga | rev | cut -c 2)
     # WLR_DRM_DEVICES="/dev/dri/card$val" ssh-agent sway
     # WLR_DRM_DEVICES=/dev/dri/card1 exec ssh-agent sway  --unsupported-gpu
+    #
+ 
+
     #export WLR_DRM_DEVICES=/dev/dri/card1
     export LIBVA_DRIVER_NAME=nvidia
     # export WLR_RENDERER=vulkan
@@ -29,10 +32,9 @@ if [ -z "${WAYLAND_DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ] && [ "$TTY" = "/dev/tt
     # WLR_DRM_DEVICES=/dev/dri/card1:/dev/dri/card0 
     # exec ssh-agent sway -d --unsupported-gpu &> sway.log
     exec Hyprland
-    # exec ssh-agent sway
-    
-  # exec ssh-agent sway --unsupported-gpu
-  # exec Hyprland
+    # ## exec ssh-agent sway
+
+
 fi
 
 # if running bash

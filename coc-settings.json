@@ -4,6 +4,7 @@
     "texlab.forwardSearch.executable": "/usr/bin/evince",
     "texlab.forwardSearch.args": ["%p"],
     "texlab.build.forwardSearchAfter": true,
-    "snippets.ultisnips.pythonPrompt": false
+    "snippets.ultisnips.pythonPrompt": false,
+    "inlayHint.enable": false,
     "ltex.dictionary": { "en-US": [ ":${userHome}/.vim_runtime/spell/en.utf-8.add" ] }
 }
