@@ -33,30 +33,11 @@ def symlink(x, y, makedir=False):
         print("    DOESN'T EXIST: %s" % src)
 
 
-def install_vim():
+def install_nvim():
     # new version:
-    print("Please install packages:  the_silver_searcher neovim ")
-    check_call('git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime', shell=True)
-    check_call('curl -fLo ~/.vim_runtime/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim', shell=True)
-    print("For Coc autocomplete to work, please install:  yarn nodejs")
-    print("The Coc autocomplete vim library is installed from vim plug line in the vimrc.")
-    print("The vimrc is located at ~/.vim_runtime/my_configs.vim and accessable in vim via <leader>e  (the leader is comma)")
-    symlink('vimrc', join(d, '.vim_runtime/my_configs.vim'))
-    symlink('vimrc', join(d, '.config/nvim/init.vim'))
-    check_call('sh ~/.vim_runtime/install_awesome_vimrc.sh', shell=True)
-    check_call('mkdir ~/.vim_runtime/spell', shell=True)
+    print("Please install packages:  neovim ")
+    symlink("nvim", join(d, ".config/nvim"))
     # symlink("en.utf-8.add", "~/.vim_runtime/spell/en.utf-8.add")
-    print("After installing dependencies, start vim and run: ")
-    print(":PlugInstall")
-    print(":CocInstall")
-
-def update_vim():
-    print("Running updates, but but may not give error messages.")
-    check_call('nvim +PlugUpgrade +qa', shell=True)
-    check_call('nvim +PlugUpdate +qa', shell=True)
-    check_call('nvim +CocUpdateSync +qa', shell=True)
-    print("... I just ran these in vim commandline, one at a time:")
-    print("  :PlugUpgrade :PlugUpdate :CocUpdate")
 
 #########################################
 #########################################
@@ -65,8 +46,7 @@ def update_vim():
 if __name__ == '__main__':
     import argparse as ap
     p = ap.ArgumentParser()
-    p.add_argument('--vim', action='store_true')
-    p.add_argument('--update-vim', action='store_true')
+    p.add_argument('--nvim', action='store_true')
     p.add_argument('--docker', action='store_true')
     p.add_argument('--symlinks', action='store_true')
     p.add_argument('--bootstrap_init_host', action='store_true')
@@ -129,15 +109,11 @@ if __name__ == '__main__':
         os.makedirs(_unison, exist_ok=True)
         symlink("unison/default.prf", join(_unison, "default.prf"))
 
-        symlink('python.snippets', '.config/coc/ultisnips/python.snippets', makedir=True)
-        symlink('coc-settings.json', '.config/nvim/coc-settings.json')
 
-    if NS.vim:
-        install_vim()
+    if NS.nvim:
+        install_nvim()
     # Install realiaser (for cmd prompt)
     # os.system('gem install realiaser')  # gem update realiaser
-    if NS.update_vim:
-        update_vim()
 
     if NS.docker:
         if os.environ.get('BOX_NAME'):
