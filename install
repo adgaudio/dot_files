@@ -68,7 +68,6 @@ if __name__ == '__main__':
         symlink("bash_aliases", ".bash_aliases")
         symlink("bash_functions", ".bash_functions")
         symlink("bash_extras", ".bash_extras")
-        symlink("ctags", ".ctags")
         symlink("flake8", ".config/flake8", makedir=True)
         symlink("foot.ini", ".config/foot/foot.ini", makedir=True)
         symlink("profile", ".profile")
