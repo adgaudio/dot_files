@@ -30,10 +30,10 @@ ignore = Path {r/yuhao/data}
 ignore = Path {r/shreshta/.git/index}
 ignore = Path {r/francesco/data}
 
-ignore = Path {r/jhu_sensor/signal_tests/pyenv}
-ignore = Path {r/jhu_sensor/signal_tests/data}
-ignore = Path {r/jhu_sensor/signal_tests/results}
-ignore = Path {r/jhu_sensor/signal_tests/.dvc/cache}
+ignore = Path {r/lungsound3d_octopusv1_tentacle/2024_ieee_sensors_code/pyenv}
+ignore = Path {r/lungsound3d_octopusv1_tentacle/2024_ieee_sensors_code/data}
+ignore = Path {r/lungsound3d_octopusv1_tentacle/2024_ieee_sensors_code/results}
+ignore = Path {r/lungsound3d_octopusv1_tentacle/2024_ieee_sensors_code/.dvc/cache}
 
 # ignore = Path {r/archive/DeepFixCX/.git/index}
 ignore = Regex r/archive/DeepFixCX/data/.*

@@ -28,6 +28,8 @@ call plug#begin()
     " Auto-save the document
     " Plug 'chrisbra/vim-autosave'
     " Plug 'Pocco81/auto-save.nvim'
+    " Load images
+    Plug '3rd/image.nvim'
 call plug#end()
 
 " totitle plugin: some extra (default) keyboard mappings
@@ -372,4 +374,3 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Colors of the type hints (such as with Coc-Pyright)
 hi default CocInlayHint guifg=grey40 ctermfg=grey40  " guibg=grey3 ctermbg=175
-
