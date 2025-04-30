@@ -5,7 +5,26 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 -- Restore cursor position to last time file was closed
-vim.api.nvim_create_autocmd("BufEnter", { command = "'\" :normal zz" })
+-- vim.api.nvim_create_autocmd("BufEnter", { command = "'' :normal zz" })
+--
+-- When editing a file, always jump to the last known cursor position.
+-- Don't do it when the position is invalid, when inside an event handler
+-- (happens when dropping a file on gvim) and for a commit message (it's
+-- likely a different one than last time).
+vim.api.nvim_create_autocmd("BufReadPost", {
+	callback = function(args)
+		local valid_line = vim.fn.line([['"]]) >= 1 and vim.fn.line([['"]]) < vim.fn.line("$")
+		local not_commit = vim.b[args.buf].filetype ~= "commit"
+
+		if valid_line and not_commit then
+			vim.cmd([[normal! g`"]])
+		end
+	end,
+})
+
+-- Reload the buffer if the file changes on disk
+vim.opt.autoread = true
+
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
@@ -14,11 +33,16 @@ vim.g.have_nerd_font = true
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
 
+-- Tab to spaces
+vim.opt.expandtab = true -- Enable spaces instead of tabs
+vim.opt.tabstop = 4 -- Set tab width to 4 spaces
+vim.opt.shiftwidth = 4 -- Set indentation width to 4 spaces
+
 -- Make line numbers default
 vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
--- vim.opt.relativenumber = true
+vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = "a"
@@ -80,12 +104,24 @@ vim.opt.confirm = true
 -- Change the current working directory to that of the currently active buffer
 vim.opt.autochdir = true
 
+-- Spell checking
+vim.opt.spell = true
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
 -- Easy to save or exit
 vim.keymap.set("n", ";q", ":q<CR>")
+vim.keymap.set("n", ";qa", ":qa<CR>")
+vim.keymap.set("n", ";wa", ":wa<CR>")
 vim.keymap.set("n", ";w", ":w<CR>")
+vim.keymap.set("n", ";x", ":x<CR>")
+
+-- Indenting: don't lose the highlight
+vim.keymap.set("v", "<", "<gv")
+vim.keymap.set("v", ">", ">gv")
+
+vim.keymap.set("n", "<leader>wr", ":set wrap!<CR>")
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
@@ -116,6 +152,19 @@ vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left wind
 vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+
+-- Move between tabs
+vim.keymap.set("n", "L", "gt", { desc = "Switch active tab to right" })
+vim.keymap.set("n", "H", "gT", { desc = "Switch active tab to left" })
+
+-- Create new tab
+vim.keymap.set(
+	"n",
+	"te",
+	":tabe " .. vim.fn.expand("%:p:h/") .. "/",
+	{ desc = "Open a specified file from current directory of active buffer" }
+)
+vim.keymap.set("n", "tn", ":tabnew <CR>", { desc = "Open new tab" })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -365,6 +414,7 @@ require("lazy").setup({
 			-- See `:help telescope.builtin`
 			local builtin = require("telescope.builtin")
 			vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
+			vim.keymap.set("n", "<leader>sb", builtin.buffers, { desc = "[S]earch [B]uffer" })
 			vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
 			vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
 			vim.keymap.set("n", "<leader>ss", builtin.builtin, { desc = "[S]earch [S]elect Telescope" })
@@ -397,6 +447,38 @@ require("lazy").setup({
 			vim.keymap.set("n", "<leader>sn", function()
 				builtin.find_files({ cwd = vim.fn.stdpath("config") })
 			end, { desc = "[S]earch [N]eovim files" })
+		end,
+	},
+	{
+		"debugloop/telescope-undo.nvim",
+		dependencies = { -- note how they're inverted to above example
+			{
+				"nvim-telescope/telescope.nvim",
+				dependencies = { "nvim-lua/plenary.nvim" },
+			},
+		},
+		keys = {
+			{ -- lazy style key map
+				"<leader>u",
+				"<cmd>Telescope undo<cr>",
+				desc = "undo history",
+			},
+		},
+		opts = {
+			-- don't use `defaults = { }` here, do this in the main telescope spec
+			extensions = {
+				undo = {
+					-- telescope-undo.nvim config, see below
+				},
+				-- no other extensions here, they can have their own spec too
+			},
+		},
+		config = function(_, opts)
+			-- Calling telescope's setup from multiple specs does not hurt, it will happily merge the
+			-- configs for us. We won't use data, as everything is in it's own namespace (telescope
+			-- defaults, as well as each extension).
+			require("telescope").setup(opts)
+			require("telescope").load_extension("undo")
 		end,
 	},
 
@@ -625,6 +707,7 @@ require("lazy").setup({
 			--  - settings (table): Override the default settings passed when initializing the server.
 			--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 			local servers = {
+				arduino_language_server = {},
 				bashls = {},
 				biome = {},
 				clangd = {},
@@ -633,6 +716,7 @@ require("lazy").setup({
 				openscad_lsp = {},
 				pyright = {},
 				texlab = {},
+				ts_ls = {},
 				-- rust_analyzer = {},
 				-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
 				--
@@ -708,6 +792,20 @@ require("lazy").setup({
 				mode = "",
 				desc = "[F]ormat buffer",
 			},
+			{
+				"<leader>F",
+				function()
+					if vim.b.disable_autoformat or vim.g.disable_autoformat then
+						print("Formatting enabled.  cmd is :FormatEnable  ")
+						vim.cmd("FormatEnable")
+					else
+						print("Formatting disabled.  cmd is :FormatDisable  ")
+						vim.cmd("FormatDisable")
+					end
+				end,
+				mode = "n",
+				desc = "Toggle [F]ormatting",
+			},
 		},
 		opts = {
 			notify_on_error = false,
@@ -715,25 +813,29 @@ require("lazy").setup({
 				-- Disable "format_on_save lsp_fallback" for languages that don't
 				-- have a well standardized coding style. You can add additional
 				-- languages here or re-enable it for the disabled ones.
-				local disable_filetypes = { c = true, cpp = true }
-				local lsp_format_opt
+				local disable_filetypes = { c = true, cpp = true, python = true }
 				if disable_filetypes[vim.bo[bufnr].filetype] then
-					lsp_format_opt = "never"
-				else
-					lsp_format_opt = "fallback"
+					vim.b.disable_autoformat = true
+				end
+				-- lsp_format_opt = "never"
+				if vim.g.disable_autoformat then
+					return
+				elseif vim.b.disable_autoformat then
+					return
 				end
 				return {
 					timeout_ms = 500,
-					lsp_format = lsp_format_opt,
+					lsp_format = "fallback",
 				}
 			end,
 			formatters_by_ft = {
 				lua = { "stylua" },
 				-- Conform can also run multiple formatters sequentially
 				-- python = { "isort", "black" },
+				python = { "black" },
 				--
 				-- You can use 'stop_after_first' to run the first available formatter from the list
-				-- javascript = { "prettierd", "prettier", stop_after_first = true },
+				javascript = { "prettierd", "prettier", stop_after_first = true },
 			},
 		},
 	},
@@ -879,12 +981,204 @@ require("lazy").setup({
 		end,
 	},
 
+	-- Surround - auto quote things or parenthesis around things, etc
+	{
+		"kylechui/nvim-surround",
+		version = "^3.0.0", -- Use for stability; omit to use `main` branch for the latest features
+		event = "VeryLazy",
+		config = function()
+			require("nvim-surround").setup({
+				-- Configuration here, or leave empty to use defaults
+			})
+		end,
+	},
+
+	-- Send highlighted text to a neighboring tmux pane
+	{
+		"EvWilson/slimux.nvim",
+		config = function()
+			local slimux = require("slimux")
+			slimux.setup({
+				target_socket = slimux.get_tmux_socket(),
+				target_pane = "{last}", -- string.format("%s.2", slimux.get_tmux_window()),
+			})
+			vim.keymap.set(
+				"v",
+				"<leader>t",
+				slimux.send_highlighted_text,
+				{ desc = "Send currently highlighted text to configured tmux pane" }
+			)
+			vim.keymap.set(
+				"n",
+				"<leader>t",
+				slimux.send_paragraph_text,
+				{ desc = "Send paragraph under cursor to configured tmux pane" }
+			)
+		end,
+	},
+	--
+	-- | -" Vim Slime   https://github.com/jpalardy/vim-slime
+	-- | -let g:slime_target = "tmux"
+	-- | -let g:slime_paste_file = expand("$HOME/.slime_paste")
+	-- | -let g:slime_default_config = {"socket_name": "default", "target_pane": "{last}"}
+	-- | -" let g:slime_default_config = {"socket_name": get(split($TMUX, ","), 0), "target_pane": "{right-of}"}
+	-- | -let g:slime_dont_ask_default = 1
+	-- | -let g:slime_python_ipython = 1
+
 	-- Highlight todo, notes, etc in comments
 	{
 		"folke/todo-comments.nvim",
 		event = "VimEnter",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		opts = { signs = false },
+	},
+
+	-- Commenting, basically same as neovim commenting but little extra
+	{
+		"numToStr/Comment.nvim",
+		opts = {
+			-- add any options here
+			toggler = {
+				line = ",/",
+			},
+			opleader = {
+				---Line-comment keymap
+				line = ",/",
+				---Block-comment keymap
+				block = "gb",
+			},
+			mappings = {
+				---Operator-pending mapping; `gcc` `gbc` `gc[count]{motion}` `gb[count]{motion}`
+				basic = true,
+				---Extra mapping; `gco`, `gcO`, `gcA`
+				extra = true,
+			},
+		},
+	},
+	-- -- Commenting, the old way
+	-- vim.keymap.set("n", "g/", ":normal gcc<CR><DOWN>", { desc = "[/] Toggle comment line" })
+	-- vim.keymap.set("v", "g/", "<Esc>:normal gvgc<CR>", { desc = "[/] Toggle comment block" })
+
+	-- VimTex
+	{
+		"lervag/vimtex",
+		lazy = false, -- we don't want to lazy load VimTeX
+		-- tag = "v2.15", -- uncomment to pin to a specific release
+		init = function()
+			-- VimTeX configuration goes here, e.g.
+			vim.g.vimtex_view_method = "zathura"
+		end,
+	},
+
+	-- Renders markdown
+	-- {
+	-- 	"MeanderingProgrammer/render-markdown.nvim",
+	-- 	dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.nvim", "latex-lsp/tree-sitter-latex" }, -- if you use the mini.nvim suite
+	-- 	-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
+	-- 	-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+	-- 	config = function()
+	-- 		require("render-markdown").setup({
+	-- 			log_level = "debug",
+	-- 			latex = {
+	-- 				enabled = true,
+	-- 				render_modes = false,
+	-- 				converter = "latex2text",
+	-- 				highlight = "RenderMarkdownMath",
+	-- 				position = "above",
+	-- 				top_pad = 0,
+	-- 		})
+	-- 	end,
+	-- 	---@module 'render-markdown'
+	-- 	---@type render.md.UserConfig
+	-- 	opts = {},
+	-- },
+	{
+		"folke/snacks.nvim",
+		-- -@type snacks.Config
+		opts = {
+			math = {},
+			-- image = {
+			-- your image configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+			-- },
+		},
+	},
+	{
+		"jake-stewart/multicursor.nvim",
+		branch = "1.0",
+		config = function()
+			local mc = require("multicursor-nvim")
+			mc.setup()
+
+			local set = vim.keymap.set
+
+			-- Add or skip cursor above/below the main cursor.
+			set({ "n", "x" }, "<up>", function()
+				mc.lineAddCursor(-1)
+			end)
+			set({ "n", "x" }, "<down>", function()
+				mc.lineAddCursor(1)
+			end)
+			set({ "n", "x" }, "<leader><up>", function()
+				mc.lineSkipCursor(-1)
+			end)
+			set({ "n", "x" }, "<leader><down>", function()
+				mc.lineSkipCursor(1)
+			end)
+
+			-- Add or skip adding a new cursor by matching word/selection
+			set({ "n", "x" }, "<leader>n", function()
+				mc.matchAddCursor(1)
+			end)
+			set({ "n", "x" }, "<leader>s", function()
+				mc.matchSkipCursor(1)
+			end)
+			set({ "n", "x" }, "<leader>N", function()
+				mc.matchAddCursor(-1)
+			end)
+			set({ "n", "x" }, "<leader>S", function()
+				mc.matchSkipCursor(-1)
+			end)
+
+			-- Add and remove cursors with control + left click.
+			set("n", "<c-leftmouse>", mc.handleMouse)
+			set("n", "<c-leftdrag>", mc.handleMouseDrag)
+			set("n", "<c-leftrelease>", mc.handleMouseRelease)
+
+			-- Disable and enable cursors.
+			set({ "n", "x" }, "<c-q>", mc.toggleCursor)
+
+			-- Mappings defined in a keymap layer only apply when there are
+			-- multiple cursors. This lets you have overlapping mappings.
+			mc.addKeymapLayer(function(layerSet)
+				-- Select a different cursor as the main one.
+				layerSet({ "n", "x" }, "<left>", mc.prevCursor)
+				layerSet({ "n", "x" }, "<right>", mc.nextCursor)
+
+				-- Delete the main cursor.
+				layerSet({ "n", "x" }, "<leader>x", mc.deleteCursor)
+
+				-- Enable and clear cursors using escape.
+				layerSet("n", "<esc>", function()
+					if not mc.cursorsEnabled() then
+						mc.enableCursors()
+					else
+						mc.clearCursors()
+					end
+				end)
+			end)
+
+			-- Customize how cursors look.
+			local hl = vim.api.nvim_set_hl
+			hl(0, "MultiCursorCursor", { reverse = true })
+			hl(0, "MultiCursorVisual", { link = "Visual" })
+			hl(0, "MultiCursorSign", { link = "SignColumn" })
+			hl(0, "MultiCursorMatchPreview", { link = "Search" })
+			hl(0, "MultiCursorDisabledCursor", { reverse = true })
+			hl(0, "MultiCursorDisabledVisual", { link = "Visual" })
+			hl(0, "MultiCursorDisabledSign", { link = "SignColumn" })
+		end,
 	},
 
 	{ -- Collection of various small independent plugins/modules
@@ -995,7 +1289,7 @@ require("lazy").setup({
 		build = "uv tool install . --force --reinstall",
 		keys = {
 			{
-				"<M-CR>",
+				"<space>I",
 				function()
 					require("python_import.api").add_import_current_word_and_notify()
 				end,
@@ -1005,7 +1299,7 @@ require("lazy").setup({
 				ft = "python",
 			},
 			{
-				"<M-CR>",
+				"<space>I",
 				function()
 					require("python_import.api").add_import_current_selection_and_notify()
 				end,
@@ -1071,6 +1365,7 @@ require("lazy").setup({
 					sps = "scipy.signal",
 					ndi = "scipy.ndimage",
 					sd = "sounddevice",
+					sf = "soundfile",
 					ap = "argparse",
 				},
 
@@ -1104,11 +1399,12 @@ require("lazy").setup({
 			rocks = { "magick" },
 		},
 	},
-	{
-		"3rd/image.nvim",
-		dependencies = { "luarocks.nvim" },
-		opts = {},
-	},
+	-- {
+	-- 	"3rd/image.nvim",
+	-- 	dependencies = { "luarocks.nvim" },
+	-- 	opts = {},
+	-- },
+	--
 }, {
 	ui = {
 		-- If you are using a Nerd Font: set icons to an empty table which will use the
@@ -1131,44 +1427,62 @@ require("lazy").setup({
 	},
 })
 
-require("image").setup({
-	backend = "kitty",
-	processor = "magick_rock", -- or "magick_cli"
-	integrations = {
-		markdown = {
-			enabled = true,
-			clear_in_insert_mode = false,
-			download_remote_images = true,
-			only_render_image_at_cursor = false,
-			floating_windows = true, -- if true, images will be rendered in floating markdown windows
-			filetypes = { "markdown", "vimwiki" }, -- markdown extensions (ie. quarto) can go here
-		},
-		neorg = {
-			enabled = true,
-			filetypes = { "norg" },
-		},
-		typst = {
-			enabled = true,
-			filetypes = { "typst" },
-		},
-		html = {
-			enabled = false,
-		},
-		css = {
-			enabled = false,
-		},
-	},
-	max_width = nil,
-	max_height = nil,
-	max_width_window_percentage = nil,
-	max_height_window_percentage = 75,
-	window_overlap_clear_enabled = true, -- toggles images when windows are overlapped
-	window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "snacks_notif", "scrollview", "scrollview_sign" },
-	editor_only_render_when_focused = false, -- auto show/hide images when the editor gains/looses focus
-	tmux_show_only_in_active_window = true, -- auto show/hide images in the correct Tmux window (needs visual-activity off)
-	hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.avif" }, -- render image files as images when opened
-	scale_factor = 3,
+vim.api.nvim_create_user_command("FormatDisable", function(args)
+	if args.bang then
+		-- FormatDisable! will disable formatting just for this buffer
+		vim.b.disable_autoformat = true
+	else
+		vim.g.disable_autoformat = true
+	end
+end, {
+	desc = "Disable autoformat-on-save",
+	bang = true,
 })
+vim.api.nvim_create_user_command("FormatEnable", function()
+	vim.b.disable_autoformat = false
+	vim.g.disable_autoformat = false
+end, {
+	desc = "Re-enable autoformat-on-save",
+})
+
+-- require("image").setup({
+-- 	backend = "kitty",
+-- 	processor = "magick_rock", -- or "magick_cli"
+-- 	integrations = {
+-- 		markdown = {
+-- 			enabled = true,
+-- 			clear_in_insert_mode = false,
+-- 			download_remote_images = true,
+-- 			only_render_image_at_cursor = false,
+-- 			floating_windows = true, -- if true, images will be rendered in floating markdown windows
+-- 			filetypes = { "markdown", "vimwiki" }, -- markdown extensions (ie. quarto) can go here
+-- 		},
+-- 		neorg = {
+-- 			enabled = true,
+-- 			filetypes = { "norg" },
+-- 		},
+-- 		typst = {
+-- 			enabled = true,
+-- 			filetypes = { "typst" },
+-- 		},
+-- 		html = {
+-- 			enabled = false,
+-- 		},
+-- 		css = {
+-- 			enabled = false,
+-- 		},
+-- 	},
+-- 	max_width = nil,
+-- 	max_height = nil,
+-- 	max_width_window_percentage = nil,
+-- 	max_height_window_percentage = 75,
+-- 	window_overlap_clear_enabled = true, -- toggles images when windows are overlapped
+-- 	window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "snacks_notif", "scrollview", "scrollview_sign" },
+-- 	editor_only_render_when_focused = false, -- auto show/hide images when the editor gains/looses focus
+-- 	tmux_show_only_in_active_window = true, -- auto show/hide images in the correct Tmux window (needs visual-activity off)
+-- 	hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.avif" }, -- render image files as images when opened
+-- 	scale_factor = 3,
+-- })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
