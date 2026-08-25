@@ -34,11 +34,10 @@ if [ -z "${WAYLAND_DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ] && [ "$TTY" = "/dev/tt
 
     # WLR_DRM_DEVICES=/dev/dri/card1:/dev/dri/card0 
     # exec ssh-agent sway -d --unsupported-gpu &> sway.log
-    exec Hyprland
+    start-hyprland    
+    # exec Hyprland
     # ## exec ssh-agent sway
     BROWSER=firefox
-
-
 fi
 
 # if running bash
@@ -60,7 +59,6 @@ source_files() {
   if [ "$sources" = "1" ] ; then
       . ~/.bash_extras
       . ~/.bash_aliases
-      . ~/.bash_functions
   fi
 }
 source_files

@@ -83,7 +83,6 @@ if __name__ == '__main__':
 
         symlink("gitconfig", ".gitconfig")
         symlink("inputrc", ".inputrc")
-        symlink("python/pythonrc.py", ".pythonrc.py")
         symlink("Rprofile", ".Rprofile")
 
         _ipy_dir = join(d, ".ipython/profile_np/startup")

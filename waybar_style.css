@@ -1,8 +1,9 @@
+@import "/usr/lib/hyprwhspr/config/waybar/hyprwhspr-style.css";
 * {
     border: none;
-    border-radius: 0;
+    border-radius: 1;
     font-family: "Ubuntu Nerd Font";
-    font-size: 13px;
+    font-size: 15px;
     min-height: 0;
 }
 
@@ -15,16 +16,10 @@ window#waybar {
     font-weight: bold;
     font-family: "Ubuntu";
 }
-/*
-#workspaces {
-    padding: 0 5px;
-}
-*/
 
 #workspaces button {
     padding: 0 5px;
     background: transparent;
-    color: gray;
     border-top: 2px solid transparent;
 }
 
@@ -38,6 +33,33 @@ window#waybar {
     color: #ff9933;
     border-top: 2px solid #ff9933;
 }
+
+#taskbar {
+}
+
+#taskbar button {
+    min-width: 20px;
+    border-bottom: 3px solid rgba(255, 255, 255, 0.3);
+    margin-left: 2px;
+    margin-right: 2px;
+    padding-left: 8px;
+    padding-right: 8px;
+    color: white;
+    transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+#taskbar button.active {
+    border-bottom: 3px solid #ff9933;
+    background: rgba(100, 100, 100, 0.5);
+}
+
+#taskbar button:hover {
+    border-bottom: 3px solid white;
+    background: rgba(200, 200, 200, 0.3);
+    color: white;
+}
+
+
 
 #mode {
     background: #64727D;

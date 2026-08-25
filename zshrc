@@ -101,3 +101,6 @@ bindkey -M viins '\e/' vi-search-fix
 . ~/.z.sh
 
 . ~/.profile
+
+# opencode
+export PATH=/home/alex/.opencode/bin:$PATH

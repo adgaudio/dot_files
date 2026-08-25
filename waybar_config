@@ -10,9 +10,7 @@
         "hyprland/workspaces",
         "hyprland/mode",
         "hyprland/scratchpad",
-        "custom/media",
         "wlr/taskbar",
-        "hyprland/window"
     ],
     "modules-center": [
     ],
@@ -31,6 +29,7 @@
         "clock",
         "tray"
     ],
+
     // Modules configuration
     // "hyprland/workspaces": {
     //     "disable-scroll": true,
@@ -49,8 +48,8 @@
     //     }
     // },
     "keyboard-state": {
-        "numlock": true,
-        "capslock": true,
+        "numlock": false,
+        "capslock": false,
         "format": "{name} {icon}",
         "format-icons": {
             "locked": "",
@@ -67,26 +66,6 @@
         "tooltip": true,
         "tooltip-format": "{app}: {title}"
     },
-
-"wlr/taskbar": {
-    "format": "{icon}",
-    "icon-size": 14,
-    "icon-theme": "Numix-Circle",
-    "tooltip-format": "{title}",
-    "on-click": "activate",
-    "on-click-right": "activate",
-    "on-click-middle": "close",
-    "ignore-list": [
-       "Alacritty"
-    ],
-    "app_ids-mapping": {
-      "firefoxdeveloperedition": "firefox-developer-edition"
-    },
-    "rewrite": {
-        "Firefox Web Browser": "Firefox",
-        "Foot Server": "Terminal"
-    }
-},
 
     "mpd": {
         "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
@@ -206,9 +185,15 @@
         },
         "on-click": "pavucontrol"
     },
-    "hyprland/window": {
-        "max-length": 200,
-        "separate-outputs": true,
+   "wlr/taskbar": {
+        "format": "{icon} {title:.8}",
+        "icon-size": 28,
+        "spacing": 2,
+        "on-click-middle": "close",
+        "tooltip-format": "{title}",
+        "ignore-list": [
+            "kitty"
+        ],
         "on-click": "activate"
     },
    "hyprland/workspaces": {
@@ -219,5 +204,7 @@
         "all-outputs": false,
         "active-only": false,
         "on-click": "activate",
+        "show-special": true,
+        "special-visible-only": true,
     }
 }
