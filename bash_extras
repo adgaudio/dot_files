@@ -87,7 +87,7 @@ __my_ps1() {
   # if [[ "$VIRTUAL_ENV" != "" ]] ; then
     # echo -n "\n${cyan_bold}(${VIRTUAL_ENV##*/})"
   # fi
-  echo -n "\n${imposter}${cyan}${date_} | ${gray}${pwd} | ${git_status_color}${git_branch} | ${gray}`hostname`"
+  echo -n "\n${imposter}${cyan}${date_} | ${gray}${pwd} | ${git_status_color}${git_branch} | ${gray}`hostname` | ${CONTAINER_ID:-    }"
   #echo -n "${white} | $(history |tail -n 1 | cut -d ' ' -f 3-20 | realiaser)"
   echo -n "\n${stoplight_color} \$ ${white}"
 }

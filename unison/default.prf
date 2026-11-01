@@ -37,6 +37,11 @@ ignore = Path {r/lungsound3d_octopusv1_tentacle/2024_ieee_sensors_code/.dvc/cach
 
 ignore = Path {r/generative_localization_lung/pyenv}
 ignore = Path {r/generative_localization_lung/data/PERCH}
+ignore = Path {r/generative_localization_lung/data/ICBHI}
+ignore = Path {r/generative_localization_lung/try2/data/PERCH}
+ignore = Path {r/generative_localization_lung/try2/data/ICBHI}
+ignore = Path {r/generative_localization_lung/try2/.venv}
+ignore = Path {r/generative_localization_lung/try2/outputs}
 ignore = Path {r/generative_localization_lung/results.old}
 
 # ignore = Path {r/archive/DeepFixCX/.git/index}
